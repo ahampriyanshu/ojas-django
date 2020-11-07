@@ -7,6 +7,14 @@ from taggit.models import Tag
 from .models import Post, Comment
 from .forms import CommentForm
 
+def error_404(request, exception):
+        data = {}
+        return render(request,'error_404.html', data)
+
+def error_500(request):
+        data = {}
+        return render(request,'error_500.html', data)
+
 
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()
