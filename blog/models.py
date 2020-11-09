@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from embed_video.fields import EmbedVideoField
-from djrichtextfield.models import RichTextField
+from ckeditor.fields import RichTextField
 
 
 class PublishedManager(models.Manager):
@@ -18,7 +18,7 @@ class Post(models.Model):
         ('published', 'Published'),
     )
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=50, unique_for_date='publish')
+    slug = models.SlugField(max_length=100, unique_for_date='publish')
     author = models.ForeignKey(User, related_name='blog_posts',on_delete=models.CASCADE,)
     body = RichTextField(max_length=1500)
     cover = models.ImageField(upload_to='blog', blank = True, null = True)

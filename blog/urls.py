@@ -11,5 +11,4 @@ urlpatterns = [
         views.post_detail,
         name='post_detail'),
     url(r'^feed/$', LatestPostsFeed(), name='post_feed'),
-    path('djrichtextfield/', include('djrichtextfield.urls'))
 ]
