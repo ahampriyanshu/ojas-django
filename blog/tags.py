@@ -7,8 +7,8 @@ from .models import Post
 register = template.Library()
 
 @register.simple_tag
-def total_posts():
-    return Post.published.count()
+def total_posts(author):
+    return Post.author.published.count()
 
 
 @register.inclusion_tag('blog/post/latest_posts.html')

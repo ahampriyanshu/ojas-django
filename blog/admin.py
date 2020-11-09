@@ -1,9 +1,16 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Post, Comment, Author
 
 admin.site.site_header = "OJAS Adminstration"
 admin.site.site_title = "OJAS"
 admin.site.index_title = "Home"
+
+
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ('user', 'joined')
+    date_hierarchy = 'joined'
+    ordering = ['joined']
+admin.site.register(Author, AuthorAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -11,7 +18,6 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
     prepopulated_fields = {'slug': ('title',)}
-    raw_id_fields = ('author',)
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
 admin.site.register(Post, PostAdmin)

@@ -29,10 +29,8 @@ def post_list(request, tag_slug=None):
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
-       
         posts = paginator.page(1)
     except EmptyPage:
-      
         posts = paginator.page(paginator.num_pages)
     return render(request, 'index.html', {'page': page, 'posts': posts, 'tag': tag})
 
