@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load custom_tags %}
 {% block content %}
 
 
@@ -10,31 +10,70 @@
     <!--Title-->
     <div class="font-sans">
       <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
-        Welcome to Ojas
+        {{ post.title }}
       </h1>
-      <p class="text-sm md:text-base font-normal text-gray-600">
-        Published 7 November 2020
+      <p class="text-sm ml-2 md:text-base font-normal text-gray-600">
+        Published {{ post.publish|date:"d M, Y" }}
       </p>
     </div>
 
     <!--Post Content-->
 
     <!--Lead Para-->
-    <p class="py-6">
-      👋 Welcome fellow mate
+    <p class="py-6" style="font-family: Georgia, serif">
+      {{ post.body|markdown|linebreaks }}
   </div>
 
   <!--Tags -->
   <div class="text-base md:text-sm text-gray-500 px-4 py-6">
     Tags:
-    <a href="#" class="text-base md:text-sm text-teal-500 no-underline hover:underline">
-      Link
-    </a>
-    .
-    <a href="#" class="text-base md:text-sm text-teal-500 no-underline hover:underline">
-      Link
+            {% for tag in post.tags.all %}
+                <a href='{% url "blog:post_list_by_tag" tag.slug %}' 
+                 class="text-base md:text-sm text-teal-500 no-underline hover:underline">{{ tag.name }}</a>
+                {% if not forloop.last %}, {% endif %}
+            {% endfor %}
     </a>
   </div>
+
+  <h2>Similar posts</h2>
+    {% for post in similar_posts %}
+        
+<div class="mx-auto px-4 py-8 max-w-xl my-20">
+  <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
+    <div class="md:flex-shrink-0">
+      <img src="https://ik.imagekit.io/q5edmtudmz/post1_fOFO9VDzENE.jpg" alt="mountains"
+        class="w-full h-64 rounded-lg rounded-b-none">
+    </div>
+    <div class="px-4 py-2 mt-2">
+      <h2 class="font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
+      <p class="text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
+      <div class="flex items-center justify-between mt-2 mx-6">
+        <a href="#" class="text-blue-500 text-xs -ml-3 ">Show More</a>
+        <a href="#" class="flex text-gray-700">
+          <svg fill="none" viewBox="0 0 24 24" class="w-6 h-6 text-blue-500" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          5
+        </a>
+      </div>
+      <div class="author flex items-center -ml-3 my-3">
+        <div class="user-logo">
+          <img class="w-12 h-12 object-cover rounded-full mx-4  shadow"
+            src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80"
+            alt="avatar">
+        </div>
+        <h2 class="text-sm tracking-tighter text-gray-900">
+          <a href="#">{{ post.author }}</a>
+          <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+    {% empty %}
+        There are no similar posts yet.
+    {% endfor %}
 
   <!--Divider-->
   <hr class="border-b-2 border-gray-400 mb-8 mx-4" />

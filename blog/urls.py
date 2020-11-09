@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.urls import path,include
 from . import views
 from .feeds import LatestPostsFeed
 
@@ -10,4 +11,5 @@ urlpatterns = [
         views.post_detail,
         name='post_detail'),
     url(r'^feed/$', LatestPostsFeed(), name='post_feed'),
+    path('djrichtextfield/', include('djrichtextfield.urls'))
 ]

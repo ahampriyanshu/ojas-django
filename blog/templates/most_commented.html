@@ -1,4 +1,5 @@
 {% for post in commented_posts %}
+{% load custom_tags %}
 
 <div class="mx-auto px-4 py-8 max-w-xl my-20">
   <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
@@ -7,11 +8,8 @@
         class="w-full h-64 rounded-lg rounded-b-none">
     </div>
     <div class="px-4 py-2 mt-2">
-      <h2 class="font-bold text-2xl text-gray-800 tracking-normal">My Amaizing Journey to the Mountains.</h2>
-      <p class="text-sm text-gray-700 px-2 mr-1">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora reiciendis ad architecto at aut placeat quia,
-        minus dolor praesentium officia maxime deserunt porro amet ab debitis deleniti modi soluta similique...
-      </p>
+      <h2 class="font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
+      <p class="text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
       <div class="flex items-center justify-between mt-2 mx-6">
         <a href="#" class="text-blue-500 text-xs -ml-3 ">Show More</a>
         <a href="#" class="flex text-gray-700">
@@ -29,8 +27,8 @@
             alt="avatar">
         </div>
         <h2 class="text-sm tracking-tighter text-gray-900">
-          <a href="#"> Mohammed Ibrahim</a>
-          <p class="text-gray-600">21 SEP 2015.</p>
+          <a href="#">{{ post.author }}</a>
+          <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
         </h2>
       </div>
     </div>

@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from embed_video.fields import EmbedVideoField
+from djrichtextfield.models import RichTextField
 
 
 class PublishedManager(models.Manager):
@@ -18,8 +20,8 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=50, unique_for_date='publish')
     author = models.ForeignKey(User, related_name='blog_posts',on_delete=models.CASCADE,)
-    body = models.TextField()
-    cover = models.ImageField(upload_to='blog', default='default.jpg')
+    body = RichTextField(max_length=1500)
+    cover = models.ImageField(upload_to='blog', blank = True, null = True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -27,6 +29,7 @@ class Post(models.Model):
     objects = models.Manager() 
     published = PublishedManager()
     tags = TaggableManager()
+    video = EmbedVideoField(blank = True, null = True)
 
     class Meta:
         ordering = ('-publish',)
