@@ -20,6 +20,7 @@ class Author(models.Model):
     bio = RichTextField(max_length=100, blank = True, null = True)
     email = models.EmailField(blank = True, null = True)
 
+
     def __str__(self):
         return self.user.username
 
@@ -61,7 +62,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE,)
     name = models.CharField(max_length=80)
     email = models.EmailField(blank = True, null = True)
-    body = models.TextField(max_length=500)
+    body = RichTextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
