@@ -15,6 +15,10 @@ def error_500(request):
         data = {}
         return render(request,'error_500.html', data)
 
+def setup_tour(request):
+        data = {}
+        return render(request,'setup/step_1.html', data)
+
 
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()

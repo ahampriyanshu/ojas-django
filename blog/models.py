@@ -32,7 +32,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique_for_date='publish')
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     body = RichTextField(max_length=1500,blank = True, null = True)
     cover = models.ImageField(upload_to='blog', blank = True, null = True)
     publish = models.DateTimeField(default=timezone.now)

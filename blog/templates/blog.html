@@ -34,7 +34,6 @@
             {% endfor %}
     </a>
   </div>
-
   
   <!--Author-->
   <div class="flex w-full items-center font-sans px-4 py-12">
@@ -44,7 +43,7 @@
       {{ post.author.user.username }}
       </p>
       <p class="text-gray-600 text-xs md:text-base">
-      The author has published {% total_posts post.author %} since {{ post.author.joined|date:"M, Y" }}
+      The author has published {% total_posts post.author %} articles since {{ post.author.joined|date:"M, Y" }}
       </p>
     </div>
     <div class="justify-end">
@@ -184,14 +183,14 @@
 </div>
 
     {% empty %}
-    <h2>No recommendations for now</h2>
+    <h2 class="leading-none mt-10 mb-20 text-center">No recommendations for now</h2>
     {% endfor %}
 
   <!--Newsletter starts-->
-  <div class="container px-4 mb-10">
-    <div class="font-sans bg-white rounded-lg shadow-md p-4 text-center">
+  <div class="container px-4 pb-8">
+    <div class="font-sans p-4 text-center">
       <h2 class="font-bold break-normal text-xl md:text-3xl">
-        Subscribe to Newsletter
+        Subscribe to the Newsletter
       </h2>
       <h3 class="font-bold break-normal font-normal text-gray-600 text-sm md:text-base">
         Get the latest posts delivered right to your inbox
@@ -213,5 +212,5 @@
 <!--Newsletter ends-->
 
 </div>
-
+<hr class="border-b-2 border-gray-400 mb-8 mx-8" />
 {% endblock content %}

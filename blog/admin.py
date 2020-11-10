@@ -22,7 +22,21 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': (slugify('title'),)}
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
+
+
+    def save_model(self, request, obj, form, change):
+        obj.author = request.user
+        super().save_model(request, obj, form, change)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(author=request.user)
+
+
 admin.site.register(Post, PostAdmin)
+
 
 
 class CommentAdmin(admin.ModelAdmin):
