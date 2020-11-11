@@ -6,6 +6,7 @@ from django.db.models import Count
 from taggit.models import Tag
 from .models import Post, Comment
 from .forms import CommentForm
+import time
 
 
 def error_404(request, exception):
@@ -55,17 +56,24 @@ def post_detail(request, year, month, day, post):
     post.views=post.views+1
     post.save()
     
+    
+    # def get_ip(request):
+    #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    #     if x_forwarded_for:
+    #         ip = x_forwarded_for.split(',')[0]
+    #     else:
+    #         ip = request.META.get('REMOTE_ADDR')
+    #     return ip
+
+    
     comments = post.comments.filter(active=True)
     if request.method == 'POST':
        
         comment_form = CommentForm(data=request.POST)
 
         if comment_form.is_valid():
-           
             new_comment = comment_form.save(commit=False)
-           
             new_comment.post = post
-           
             new_comment.save()
     else:
         comment_form = CommentForm()

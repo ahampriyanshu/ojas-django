@@ -24,7 +24,7 @@
       {{ post.body|markdown|linebreaks }}
   </div>
 
-  <!--Tags -->
+  <!-- Tags -->
   <div class="text-base md:text-sm text-gray-500 px-4 py-6">
     Tags:
             {% for tag in post.tags.all %}
@@ -34,26 +34,26 @@
             {% endfor %}
     </a>
   </div>
-  
-  <!--Author-->
-  <div class="flex w-full items-center font-sans px-4 py-12">
-    <img class="w-12 h-12 rounded-full mr-4" src="{{ post.author.avatar.url }}" alt="Avatar of Author" />
-    <div class="flex-1 px-2">
-      <p class="text-base font-bold text-base md:text-xl leading-none mb-2">
-      {{ post.author.user.username }}
-      </p>
-      <p class="text-gray-600 text-xs md:text-base">
-      The author has published {% total_posts post.author %} articles since {{ post.author.joined|date:"M, Y" }}
-      </p>
+
+
+   <!-- Author -->
+   <!-- src="{{ post.author.avatar.url }}" -->
+  <div class="bg-white p-6 shadow-lg rounded-lg mb-10 flex justify-between items-center">
+    <div class="flex">
+      <div class="mr-4">
+         <img class="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full" src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg" alt="Avatar" />
+      </div>
+      <div>
+        <h1 class="text-xl font-medium text-gray-700"> {{ post.author.username }}</h1>
+        <p class="text-gray-600"> The author has published {% total_posts post.author %} articles since {{ post.author.date_joined|date:"M, Y" }}
+        </p>
+      </div>
     </div>
-    <div class="justify-end">
-      <button
-        class="bg-transparent border border-gray-500 hover:border-teal-500 text-xs text-gray-500 hover:text-teal-500 font-bold py-2 px-4 rounded-full">
-        Read More
-      </button>
-    </div>
+    <a class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2">
+      Read More
+    </a>
   </div>
-  <!--/Author-->
+  
   <!--Next & Prev Links-->
   <div class="font-sans flex justify-between content-center px-4 pb-12">
     <div class="text-left">
@@ -116,14 +116,15 @@
 {% endfor %}
   </div>
 
+<!--Comment Section Starts-->
   
 {% if new_comment %}
 <h2>Your comment has been added.</h2>
 {% else %}
-<div class="flex shadow-lg mt-56 mx-8 mb-4 max-w-lg">
-  <form class="w-full max-w-xl bg-white rounded-lg px-4 pt-2" action="." method="post">
+<div class="flex mt-56 mx-8 mb-4 max-w-lg">
+  <form class="w-full max-w-xl px-4 pt-2" action="." method="post">
      <div class="flex flex-wrap -mx-3 mb-6">
-        <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Add a new comment</h2>
+      
         {{ comment_form }}
         {% csrf_token %}
         <div class="w-full md:w-full flex items-start md:w-full px-3">
@@ -141,6 +142,8 @@
   </div>
 </div>
 {%  endif %}
+
+<!--Comment Section Ends-->
 
 
 <p class="font-sans font-bold  text-2xl leading-none mt-20 text-center text-teal-400">Recommended For You</p>
@@ -186,7 +189,7 @@
     <h2 class="leading-none mt-10 mb-20 text-center">No recommendations for now</h2>
     {% endfor %}
 
-  <!--Newsletter starts-->
+  <!--Newsletter Starts-->
   <div class="container px-4 pb-8">
     <div class="font-sans p-4 text-center">
       <h2 class="font-bold break-normal text-xl md:text-3xl">
@@ -209,7 +212,7 @@
       </div>
     </div>
   </div>
-<!--Newsletter ends-->
+<!--Newsletter Ends-->
 
 </div>
 <hr class="border-b-2 border-gray-400 mb-8 mx-8" />

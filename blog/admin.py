@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, Author
+from .models import Post, Comment, Author, Visitor
 import string 
 from django.utils.text import slugify 
 
@@ -15,16 +15,9 @@ class AuthorAdmin(admin.ModelAdmin):
 admin.site.register(Author, AuthorAdmin)
 
 
-# class UrlHitAdmin(admin.ModelAdmin):
-#     list_display = ('url', 'hits')
-# admin.site.register(UrlHit, UrlHitAdmin)
-
-
-# class HitCountAdmin(admin.ModelAdmin):
-#     list_display = ('url_hit', 'ip', 'session', 'date')
-#     date_hierarchy = 'date'
-#     ordering = ['date']
-# admin.site.register(HitCount, HitCountAdmin)
+class VisitorAdmin(admin.ModelAdmin):
+    list_display = ('visitor',)
+admin.site.register(Visitor, VisitorAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):
