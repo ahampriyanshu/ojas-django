@@ -44,10 +44,23 @@ def post_list(request, tag_slug=None):
     return render(request, 'index.html', {'page': page, 'posts': posts, 'tag': tag})
 
 
+def post_author(request, author=None):
+    object_list = Post.published.filter(author = author)
+    paginator = Paginator(object_list, 9)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request, 'author.html', {'page': page, 'posts': posts})
+
+
 class PostListView(ListView):
     queryset = Post.published.all()
     context_object_name = 'posts'
-    paginate_by = 3
+    paginate_by = 9
     template_name = 'index.html'
     
 
@@ -55,7 +68,7 @@ def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month, publish__day=day)
     post.views=post.views+1
     post.save()
-    
+
     
     # def get_ip(request):
     #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

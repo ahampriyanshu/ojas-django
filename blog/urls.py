@@ -11,4 +11,5 @@ urlpatterns = [
         views.post_detail,
         name='post_detail'),
     url(r'^feed/$', LatestPostsFeed(), name='post_feed'),
+    url(r'^author/(?P<post_author>[-\w]+)/$',views.post_author, name='post_author'),
 ]

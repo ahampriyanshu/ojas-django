@@ -45,11 +45,11 @@
       </div>
       <div>
         <h1 class="text-xl font-medium text-gray-700"> {{ post.author.username }}</h1>
-        <p class="text-gray-600"> The author has published {% total_posts post.author %} articles since {{ post.author.date_joined|date:"M, Y" }}
+        <p class="text-gray-600"> The author has published  {%  total_posts post.author  %} articles since {{ post.author.date_joined|date:"M, Y" }}
         </p>
       </div>
     </div>
-    <a class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2">
+    <a href='{% url "blog:post_author" post.author %}'  class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2">
       Read More
     </a>
   </div>
@@ -83,38 +83,40 @@
     </div>
   </div>
 
+  <!--Discussion-->
   <p class="font-sans font-bold  text-2xl leading-none my-4 text-teal-400">
   Discussion
-    {% with comments.count as total_comments %}
+  {% with comments.count as total_comments %}
   <span class="ml-2 text-base font-normal text-black">{{ total_comments }} comment{{ total_comments|pluralize }}</span>
-{% endwith %}
+  {% endwith %}
   </p>
 
-
-  <div class="w-full my-4">
-    
-  {% for comment in comments %}
-  <div class="mb-5">
-    <div class="relative flex">
-      <img src="https://picsum.photos/id/684/600/400" alt="comment avatar"
-        class="my-auto h-12 w-12 rounded-full">
-        <p class="block flex static text-justify text-xs sm:text-sm lg:text-lg my-auto p-3"> 
-          {{ comment.name }}
-        </p>
-        <p class="block flex static text-justify text-xs sm:text-sm lg:text-lg my-auto p-3"> 
-          {{ comment.created|date:"d M, Y" }}
-          </p>
+<!--Comments-->
+{% for comment in comments %}
+<div class="p-8">
+  <div class="flex">
+    <div>
+      <div class="w-10 h-10 bg-cover bg-center rounded-full mr-3 shadow-inner" style="background-image: url('')">
       </div>
-      <div class=" ">
-      <p class="block flex static text-justify text-xs sm:text-sm lg:text-lg my-auto p-3"> 
-        {{ comment.body|markdown|linebreaks }}
-       </p>
+    </div>
+    <div>
+      <p class="text-gray-600 font-medium">{{ comment.name }}</p>
+      <div class="flex items-center text-xs text-gray-600">
+        <p> {{ comment.created|timesince }} ago</p>
       </div>
-      </div>
-      {% empty %}
+    </div>
+  </div>
+  <div class="mt-4">
+    <p class="text-gray-600 text-sm">
+      {{ comment.body }}
+    </p>
+  </div>
+</div>
+  {% empty %}
   <p>There are no comments yet.</p>
 {% endfor %}
-  </div>
+
+
 
 <!--Comment Section Starts-->
   
@@ -124,7 +126,6 @@
 <div class="flex mt-56 mx-8 mb-4 max-w-lg">
   <form class="w-full max-w-xl px-4 pt-2" action="." method="post">
      <div class="flex flex-wrap -mx-3 mb-6">
-      
         {{ comment_form }}
         {% csrf_token %}
         <div class="w-full md:w-full flex items-start md:w-full px-3">
