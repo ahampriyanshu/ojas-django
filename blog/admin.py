@@ -15,8 +15,20 @@ class AuthorAdmin(admin.ModelAdmin):
 admin.site.register(Author, AuthorAdmin)
 
 
+# class UrlHitAdmin(admin.ModelAdmin):
+#     list_display = ('url', 'hits')
+# admin.site.register(UrlHit, UrlHitAdmin)
+
+
+# class HitCountAdmin(admin.ModelAdmin):
+#     list_display = ('url_hit', 'ip', 'session', 'date')
+#     date_hierarchy = 'date'
+#     ordering = ['date']
+# admin.site.register(HitCount, HitCountAdmin)
+
+
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'publish', 'status')
+    list_display = ('title', 'views', 'author', 'publish', 'status')
     list_filter = ('status', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
     prepopulated_fields = {'slug': (slugify('title'),)}

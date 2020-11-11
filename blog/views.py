@@ -7,13 +7,16 @@ from taggit.models import Tag
 from .models import Post, Comment
 from .forms import CommentForm
 
+
 def error_404(request, exception):
         data = {}
         return render(request,'error_404.html', data)
 
+
 def error_500(request):
         data = {}
         return render(request,'error_500.html', data)
+
 
 def setup_tour(request):
         data = {}
@@ -23,6 +26,7 @@ def setup_tour(request):
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()
     tag = None
+
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
@@ -44,15 +48,12 @@ class PostListView(ListView):
     context_object_name = 'posts'
     paginate_by = 3
     template_name = 'index.html'
-
+    
 
 def post_detail(request, year, month, day, post):
-    post = get_object_or_404(Post, slug=post,
-                                   status='published',
-                                   publish__year=year,
-                                   publish__month=month,
-                                   publish__day=day)
-
+    post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month, publish__day=day)
+    post.views=post.views+1
+    post.save()
     
     comments = post.comments.filter(active=True)
     if request.method == 'POST':
@@ -72,10 +73,6 @@ def post_detail(request, year, month, day, post):
 
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
-    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags',
-                                                                             '-publish')[:4]
-    return render(request, 'blog.html', {'post': post,
-                                                     'comments': comments,
-                                                     'comment_form': comment_form,
-                                                     'similar_posts': similar_posts})
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
+    return render(request, 'blog.html', {'post': post, 'comments': comments, 'comment_form': comment_form, 'similar_posts': similar_posts})
 

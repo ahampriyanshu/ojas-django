@@ -7,10 +7,28 @@ from taggit.managers import TaggableManager
 from embed_video.fields import EmbedVideoField
 from ckeditor.fields import RichTextField
 
-
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(status='published')
+
+
+# class UrlHit(models.Model):
+#     url     = models.URLField()
+#     hits    = models.PositiveIntegerField(default=0)
+
+#     def __str__(self):
+#         return str(self.url)
+
+#     def increase(self):
+#         self.hits += 1
+#         self.save()
+
+
+# class HitCount(models.Model):
+#     url_hit = models.ForeignKey(UrlHit, editable=False, on_delete=models.CASCADE)
+#     ip      = models.CharField(max_length=40)
+#     session = models.CharField(max_length=40)
+#     date    = models.DateTimeField(auto_now=True)
 
 
 class Author(models.Model):
@@ -43,12 +61,20 @@ class Post(models.Model):
     published = PublishedManager()
     tags = TaggableManager()
     video = EmbedVideoField(blank = True, null = True)
+    views = models.PositiveIntegerField(default=0)
+
+
 
     class Meta:
         ordering = ('-publish',)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         print(self.publish)
