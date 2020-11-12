@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'taggit',
     'embed_video',
     'ckeditor',
+    'crispy_forms',
+    'crispy_tailwind',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +140,6 @@ EMAIL_USE_TLS = True
 
 
 SITE_ID=1
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
