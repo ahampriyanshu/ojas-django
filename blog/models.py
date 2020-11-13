@@ -15,7 +15,7 @@ class PublishedManager(models.Manager):
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='user', blank = True, null=True)
-    joined = models.DateTimeField(default=timezone.now)
+    joined = models.DateTimeField(auto_now_add=True)
     bio = models.TextField(max_length=200, blank = True, null=True)
     email = models.EmailField(blank = True, null=True)
     instagram = models.URLField(blank = True, null=True, unique = True) 
@@ -31,11 +31,14 @@ class Author(models.Model):
 
 
 class Viewer(models.Model):
-    viewer = models.TextField(default = None)
+    post = models.PositiveIntegerField(default=0)
+    ip = models.CharField(max_length = 16,default = None)
+    session = models.CharField(max_length=50, default = None)
+    last_visited = models.DateTimeField(default = timezone.now)
 
 
     def __str__(self):
-        return self.viewer
+        return self.ip
 
 
 class Post(models.Model):
@@ -70,7 +73,6 @@ class Post(models.Model):
 
 
     def get_absolute_url(self):
-        print(self.publish)
         return reverse('blog:post_detail', args=[self.publish.year,
                                                  self.publish.strftime('%m'),
                                                  self.publish.strftime('%d'),

@@ -16,12 +16,12 @@ admin.site.register(Author, AuthorAdmin)
 
 
 class ViewerAdmin(admin.ModelAdmin):
-    list_display = ('viewer',)
+    list_display = ('post','ip','session','last_visited',)
 admin.site.register(Viewer, ViewerAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'views', 'author', 'publish', 'status')
+    list_display = ('title', 'views', 'unique_visitor', 'author', 'publish', 'status')
     list_filter = ('status', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
     prepopulated_fields = {'slug': (slugify('title'),)}
