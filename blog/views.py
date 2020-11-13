@@ -72,39 +72,39 @@ def post_detail(request, year, month, day, post):
     if not request.session.exists(request.session.session_key):
         request.session.create() 
         yup = datetime.datetime.now()
-        request.session['member_id'] = yup
+        request.session = yup
         post.views=post.views+1
         post.save()
     else:
-        print(request.session['member_id'])
+        print(request.session.session_key)
         post.views=post.views+1
         post.save()
 
     
-    def get_ip(request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        print(x_forwarded_for)
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0]
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
+    # def get_ip(request):
+    #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    #     print(x_forwarded_for)
+    #     if x_forwarded_for:
+    #         ip = x_forwarded_for.split(',')[0]
+    #     else:
+    #         ip = request.META.get('REMOTE_ADDR')
+    #     return ip
 
 
-    ip = get_ip(request)
-    print(ip)
-    u = Viewer(viewer=ip)
-    result = Viewer.objects.filter(Q(viewer__icontains = ip))
-    if len(result) == 1:
-        print("USER EXIST")
-    elif len(result)>1:
-        print("AGAIN NOT AN UNIQUE VISITOR")
-    else:
-        u.save()
-        print("unique visitor")
+    # ip = get_ip(request)
+    # print(ip)
+    # u = Viewer(viewer=ip)
+    # result = Viewer.objects.filter(Q(viewer__icontains = ip))
+    # if len(result) == 1:
+    #     print("USER EXIST")
+    # elif len(result)>1:
+    #     print("AGAIN NOT AN UNIQUE VISITOR")
+    # else:
+    #     u.save()
+    #     print("unique visitor")
 
-    views_t = Viewer.objects.all().count()
-    print(views_t)
+    # views_t = Viewer.objects.all().count()
+    # print(views_t)
     
 
     comments = post.comments.filter(active=True)

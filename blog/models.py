@@ -16,12 +16,26 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='user', blank = True, null=True)
     joined = models.DateTimeField(default=timezone.now)
-    bio = RichTextField(max_length=100, blank = True, null=True)
+    bio = models.TextField(max_length=200, blank = True, null=True)
     email = models.EmailField(blank = True, null=True)
+    instagram = models.URLField(blank = True, null=True, unique = True) 
+    twitter = models.URLField(blank = True, null=True, unique = True)
+    reddit = models.URLField(blank = True, null=True, unique = True)
+    facebook = models.URLField(blank = True, null=True, unique = True)
+    github = models.URLField(blank = True, null=True, unique = True)
+    linkedin = models.URLField(blank = True, null=True, unique = True)
 
 
     def __str__(self):
         return self.user.username
+
+
+class Viewer(models.Model):
+    viewer = models.TextField(default = None)
+
+
+    def __str__(self):
+        return self.viewer
 
 
 class Post(models.Model):
@@ -42,8 +56,8 @@ class Post(models.Model):
     published = PublishedManager()
     tags = TaggableManager()
     video = EmbedVideoField(blank = True, null=True)
-    views = models.PositiveIntegerField(default=0, editable=False)
-    unique_visitors = models.PositiveIntegerField(default=0, editable=False)
+    views = models.PositiveIntegerField(editable=False, default=0)
+    unique_visitor = models.PositiveIntegerField(editable=False, default=0)
 
 
 
@@ -76,19 +90,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
-
-
-class Viewer(models.Model):
-    viewer = models.GenericIPAddressField()
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    times_visited = models.PositiveIntegerField()
-    ip_address = models.GenericIPAddressField()
-    date_last_visited = models.DateTimeField()
-
-
-    def __unicode__(self):
-        return u'(%s, %s)' % (str(self.session.session_key), str(self.post.name))
-
-
-    def __str__(self):
-        return self.viewer
