@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load custom_tags %}
-{% block content %}
 {% load tailwind_filters %}
+{% load social_share %}
 
+
+{% block content %}
 
 <!--Container-->
 <div class="container w-full md:max-w-3xl mx-auto pt-20">
@@ -28,54 +30,60 @@
   <!-- Tags -->
   <div class="text-base md:text-sm text-gray-500 px-4 py-6">
     Tags:
-            {% for tag in post.tags.all %}
-                <a href='{% url "blog:post_list_by_tag" tag.slug %}' 
-                 class="text-base md:text-sm text-teal-500 no-underline hover:underline">{{ tag.name }}</a>
-                {% if not forloop.last %}, {% endif %}
-            {% endfor %}
+    {% for tag in post.tags.all %}
+    <a href='{% url "blog:post_list_by_tag" tag.slug %}'
+      class="text-base md:text-sm text-teal-500 no-underline hover:underline">{{ tag.name }}</a>
+    {% if not forloop.last %}, {% endif %}
+    {% endfor %}
     </a>
   </div>
 
 
-   <!-- Author -->
-   <!-- src="{{ post.author.avatar.url }}" -->
+  <!-- Author -->
+  <!-- src="{{ post.author.avatar.url }}" -->
   <div class="bg-white p-6 shadow-lg rounded-lg mb-10 flex justify-between items-center">
     <div class="flex">
+      <a href='{% url "blog:post_author" post.author %}'>
       <div class="mr-4">
-         <img class="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full" src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg" alt="Avatar" />
+        <img class="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full"
+          src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg" alt="Avatar" />
       </div>
+    </a>
       <div>
         <h1 class="text-xl font-medium text-gray-700"> {{ post.author.username }}</h1>
-        <p class="text-gray-600"> The author has published  {%  total_posts post.author  %} articles since {{ post.author.date_joined|date:"M, Y" }}
+        <p class="text-gray-600"> The author has published {%  total_posts post.author  %} articles since
+          {{ post.author.date_joined|date:"M, Y" }}
         </p>
       </div>
     </div>
-    <a href='{% url "blog:post_author" post.author %}'  class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2">
+    <a href='{% url "blog:post_author" post.author %}'
+      class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2">
       Read More
     </a>
   </div>
-  
+
   <!--Next & Prev Links-->
   <div class="font-sans flex justify-between content-center px-4 pb-12">
     <div class="text-left">
       {% if post.has_previous %}
-      <a href="{{ post.has_previous }}"> <span class="text-xs md:text-sm font-normal text-gray-600">&lt; Previous Post</span><br /></a>
-  {% endif %}
-     
+      <a href="{{ post.has_previous }}"> <span class="text-xs md:text-sm font-normal text-gray-600">&lt; Previous
+          Post</span><br /></a>
+      {% endif %}
+
       <p>
         <a href="#" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
           Blog title
         </a>
       </p>
     </div>
-    
+
     <div class="text-right">
       {% if post.has_next %}
       <a href="?page={{ post.next_page_number }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
-        Next Post &gt;
-      </span>
-      <br /></a>
-  {% endif %}
+          Next Post &gt;
+        </span>
+        <br /></a>
+      {% endif %}
       <p>
         <a href="#" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
           Blog title
@@ -86,96 +94,134 @@
 
   <!--Discussion-->
   <p class="font-sans font-bold  text-2xl leading-none my-4 text-teal-400">
-  Discussion
-  {% with comments.count as total_comments %}
-  <span class="ml-2 text-base font-normal text-black">{{ total_comments }} comment{{ total_comments|pluralize }}</span>
-  {% endwith %}
+    Discussion
+    {% with comments.count as total_comments %}
+    <span class="ml-2 text-base font-normal text-black">{{ total_comments }}
+      comment{{ total_comments|pluralize }}</span>
+    {% endwith %}
   </p>
 
-<!--Comments-->
-{% for comment in comments %}
-<div class="p-8">
-  <div class="flex">
-    <div>
-      <div class="w-10 h-10 bg-cover bg-center rounded-full mr-3 shadow-inner" style="background-image: url('')">
-      </div>
-    </div>
-    <div>
-      <p class="text-gray-600 font-medium">{{ comment.name }}</p>
-      <div class="flex items-center text-xs text-gray-600">
-        <p> {{ comment.created|timesince }} ago</p>
-      </div>
-    </div>
-  </div>
-  <div class="mt-4">
-    <p class="text-gray-600 text-sm">
-      {{ comment.body|safe }}
-    </p>
-  </div>
-</div>
-  {% empty %}
-  <p>There are no comments yet.</p>
-{% endfor %}
-
-
-
-<!-- Comment_Form -->
-{% if new_comment %}
-<h2>Your comment has been added.</h2>
-{% else %}
-<h3>Leave a comment</h3>
-<form method="post" style="margin-top: 1.3em;">
-  {{ comment_form|crispy }}
-  {% csrf_token %}
-    <div class="-mr-1">
-    <input type="submit" class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2" value='Comment'>
-    </div>
-</form>
-{% endif %}
-
-
-<p class="font-sans font-bold  text-2xl leading-none mt-20 text-center text-teal-400">Recommended For You</p>
-
-
-    {% for post in similar_posts %}
-        
-<div class="mx-auto px-4 py-8 max-w-xl my-auto">
-  <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
-    <div class="md:flex-shrink-0">
-      <img src="https://ik.imagekit.io/q5edmtudmz/post1_fOFO9VDzENE.jpg" alt="mountains"
-        class="w-full h-64 rounded-lg rounded-b-none">
-    </div>
-    <div class="px-4 py-2 mt-2">
-      <h2 class="font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
-      <p class="text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
-      <div class="flex items-center justify-between mt-2 mx-6">
-        <a href="#" class="text-blue-500 text-xs -ml-3 ">Show More</a>
-        <a href="#" class="flex text-gray-700">
-          <svg fill="none" viewBox="0 0 24 24" class="w-6 h-6 text-blue-500" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-          5
-        </a>
-      </div>
-      <div class="author flex items-center -ml-3 my-3">
-        <div class="user-logo">
-          <img class="w-12 h-12 object-cover rounded-full mx-4  shadow"
-            src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80"
-            alt="avatar">
+  <!--Comments-->
+  {% for comment in comments %}
+  <div class="p-8">
+    <div class="flex">
+      <div>
+        <div class="w-10 h-10 bg-cover bg-center rounded-full mr-3 shadow-inner">
+          <svg class="fill-current h-10 w-10 text-teal-600 bg-white rounded-full flex justify-center items-center"
+            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z" />
+            </svg>
         </div>
-        <h2 class="text-sm tracking-tighter text-gray-900">
-          <a href="#">{{ post.author }}</a>
-          <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
-        </h2>
       </div>
+      <div>
+        <p class="text-gray-600 font-medium">{{ comment.name }}</p>
+        <div class="flex items-center text-xs text-gray-600">
+          <p> {{ comment.created|timesince }} ago</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4">
+      <p class="text-gray-600 text-sm">
+        {{ comment.body|safe }}
+      </p>
+    </div>
+  </div>
+  {% empty %}
+  <div class="flex p-4">
+  <div class="mr-4">
+    <svg class="fill-current h-10 w-10 text-teal-400 bg-white rounded-full flex justify-center items-center"
+      xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/> </svg>
+  </div>
+  <div class="flex justify-between w-full">
+    <div class="text-teal-400">
+      <p class="mb-2 font-bold">
+      No comments yet.
+      </p>
+      <p class="text-xs">
+      Be the first to comment.
+      </p>
     </div>
   </div>
 </div>
+  {% endfor %}
 
-    {% empty %}
-    <h2 class="leading-none mt-10 mb-20 text-center">No recommendations for now</h2>
-    {% endfor %}
+
+
+  <!-- Comment_Form -->
+  <div class="w-full lg:w-1/2 md:w-1/2 justify-start">
+    {% if new_comment %}
+    <div class="flex p-4">
+      <div class="mr-4">
+        <svg class="fill-current h-10 w-10 text-green-600 bg-white rounded-full flex justify-center items-center"
+          xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 17.292l-4.5-4.364 1.857-1.858 2.643 2.506 5.643-5.784 1.857 1.857-7.5 7.643z"/>
+        </svg>
+      </div>
+      <div class="flex justify-between w-full">
+        <div class="text-green-600">
+          <p class="mb-2 font-bold">
+            Your comment has been added.
+          </p>
+          <p class="text-xs">
+            Thank You for the feedback.
+          </p>
+        </div>
+      </div>
+      {% else %}
+      <h3>Leave a comment</h3>
+      <form method="post" style="margin-top: 1.3em;">
+        {{ comment_form|crispy }}
+        {% csrf_token %}
+        <div class="-mr-1">
+          <input type="submit" class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2" value='Comment'>
+        </div>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Recommended -->
+
+  <p class="font-sans font-bold  text-2xl leading-none mt-20 text-center text-teal-400">Recommended For You</p>
+
+
+  {% for post in similar_posts %}
+
+  <div class="mx-auto px-4 py-8 max-w-xl my-auto">
+    <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
+      <a href='{% url "blog:post_author" post.author %}'>
+      <div class="md:flex-shrink-0">
+        <img src="https://ik.imagekit.io/q5edmtudmz/post1_fOFO9VDzENE.jpg" alt="mountains"
+          class="w-full h-64 rounded-lg rounded-b-none">
+      </div>
+      </a>
+      <div class="px-4 py-2 mt-2">
+        <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
+        <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:200 }}</p>
+        <footer class="flex items-center justify-between leading-none mt-5 p-2 md:p-4">
+          <div class="flex items-center">
+            <img class="w-12 h-12 object-cover rounded-full shadow"
+              src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80"
+              alt="avatar">
+              <h2 class="ml-3 text-sm text-gray-900">
+                {{ post.author }}
+                <p class="tracking-tighter text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
+              </h2>
+          </div>
+
+          <a href="{{ post.get_absolute_url }}" class="bg-teal-500 hover:bg-teal-400 text-white rounded-full px-8 py-2">
+          Read More
+          </a>
+         </footer>
+      </div>
+    </div>
+  </div>
+
+  {% empty %}
+  <h2 class="leading-none mt-10 mb-20 text-center">No recommendations for now</h2>
+  {% endfor %}
 
   <!--Newsletter Starts-->
   <div class="container px-4 pb-8">
@@ -200,7 +246,7 @@
       </div>
     </div>
   </div>
-<!--Newsletter Ends-->
+  <!--Newsletter Ends-->
 
 </div>
 <hr class="border-b-2 border-gray-400 mb-8 mx-8" />

@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
-from django.db.models import Count
+from django.db.models import Count, Q
 from taggit.models import Tag
-from .models import Post, Comment
+from .models import Post, Comment, Author, Viewer
 from .forms import CommentForm
 import time
+import datetime
 
 
 def error_404(request, exception):
@@ -45,8 +46,9 @@ def post_list(request, tag_slug=None):
 
 
 def post_author(request, post_author):
-    articles = Post.objects.filter(author__username=post_author)
-    paginator = Paginator(articles, 9)
+    posts = Post.objects.filter(author__username=post_author)
+    authors = Author.objects.filter(user__username=post_author)
+    paginator = Paginator(posts, 9)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -54,7 +56,7 @@ def post_author(request, post_author):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'author.html', {'page': page, 'posts': posts})
+    return render(request, 'author.html', {'page': page, 'posts': posts, 'authors' : authors })
 
 
 class PostListView(ListView):
@@ -66,19 +68,45 @@ class PostListView(ListView):
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month, publish__day=day)
-    post.views=post.views+1
-    post.save()
+
+    if not request.session.exists(request.session.session_key):
+        request.session.create() 
+        yup = datetime.datetime.now()
+        request.session['member_id'] = yup
+        post.views=post.views+1
+        post.save()
+    else:
+        print(request.session['member_id'])
+        post.views=post.views+1
+        post.save()
 
     
-    # def get_ip(request):
-    #     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    #     if x_forwarded_for:
-    #         ip = x_forwarded_for.split(',')[0]
-    #     else:
-    #         ip = request.META.get('REMOTE_ADDR')
-    #     return ip
+    def get_ip(request):
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        print(x_forwarded_for)
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0]
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
 
+
+    ip = get_ip(request)
+    print(ip)
+    u = Viewer(viewer=ip)
+    result = Viewer.objects.filter(Q(viewer__icontains = ip))
+    if len(result) == 1:
+        print("USER EXIST")
+    elif len(result)>1:
+        print("AGAIN NOT AN UNIQUE VISITOR")
+    else:
+        u.save()
+        print("unique visitor")
+
+    views_t = Viewer.objects.all().count()
+    print(views_t)
     
+
     comments = post.comments.filter(active=True)
     new_comment = None
     if request.method == 'POST':

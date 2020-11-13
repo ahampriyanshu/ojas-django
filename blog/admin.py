@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, Author, Visitor
+from .models import Post, Comment, Author, Viewer
 import string 
 from django.utils.text import slugify 
 
@@ -15,9 +15,9 @@ class AuthorAdmin(admin.ModelAdmin):
 admin.site.register(Author, AuthorAdmin)
 
 
-class VisitorAdmin(admin.ModelAdmin):
-    list_display = ('visitor',)
-admin.site.register(Visitor, VisitorAdmin)
+class ViewerAdmin(admin.ModelAdmin):
+    list_display = ('viewer',)
+admin.site.register(Viewer, ViewerAdmin)
 
 
 class PostAdmin(admin.ModelAdmin):

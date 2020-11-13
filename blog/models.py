@@ -14,22 +14,14 @@ class PublishedManager(models.Manager):
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='user', blank = True, null = True)
+    avatar = models.ImageField(upload_to='user', blank = True, null=True)
     joined = models.DateTimeField(default=timezone.now)
-    bio = RichTextField(max_length=100, blank = True, null = True)
-    email = models.EmailField(blank = True, null = True)
+    bio = RichTextField(max_length=100, blank = True, null=True)
+    email = models.EmailField(blank = True, null=True)
 
 
     def __str__(self):
         return self.user.username
-
-
-class Visitor(models.Model):
-    visitor = models.TextField(default = None)
-
-
-    def __str__(self):
-        return self.user
 
 
 class Post(models.Model):
@@ -41,7 +33,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=100, unique_for_date='publish')
     author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
     body = RichTextField(max_length=1500,blank = True, null = True)
-    cover = models.ImageField(upload_to='blog', blank = True, null = True)
+    image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank = True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -49,13 +41,15 @@ class Post(models.Model):
     objects = models.Manager() 
     published = PublishedManager()
     tags = TaggableManager()
-    video = EmbedVideoField(blank = True, null = True)
-    views = models.PositiveIntegerField(default=0)
+    video = EmbedVideoField(blank = True, null=True)
+    views = models.PositiveIntegerField(default=0, editable=False)
+    unique_visitors = models.PositiveIntegerField(default=0, editable=False)
 
 
 
     class Meta:
         ordering = ('-publish',)
+
 
     def __str__(self):
         return self.title
@@ -82,3 +76,19 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
+
+
+class Viewer(models.Model):
+    viewer = models.GenericIPAddressField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    times_visited = models.PositiveIntegerField()
+    ip_address = models.GenericIPAddressField()
+    date_last_visited = models.DateTimeField()
+
+
+    def __unicode__(self):
+        return u'(%s, %s)' % (str(self.session.session_key), str(self.post.name))
+
+
+    def __str__(self):
+        return self.viewer

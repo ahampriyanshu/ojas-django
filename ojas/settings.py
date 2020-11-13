@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'crispy_forms',
     'crispy_tailwind',
+    'django_social_share',
 ]
 
 MIDDLEWARE = [

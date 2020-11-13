@@ -12,8 +12,14 @@ def total_posts(author):
     return Post.published.filter(author = author).count()
 
 
+@register.inclusion_tag('trending.html')
+def show_latest_posts(count=5):
+    trending_posts = Post.published.order_by('-publish')[:count]
+    return {'trending_posts': trending_posts}
+
+
 @register.inclusion_tag('latest.html')
-def show_latest_posts(count=4):
+def show_latest_posts(count=5):
     latest_posts = Post.published.order_by('-publish')[:count]
     return {'latest_posts': latest_posts}
 
