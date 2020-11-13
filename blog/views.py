@@ -83,18 +83,27 @@ def post_detail(request, year, month, day, post):
     if not request.session.exists(request.session.session_key):
         request.session.create()
         sess_key = request.session.session_key
-        print(sess_key)
         unique_visit = Viewer(post = post.id, ip=ip, session = sess_key)
         post.views=post.views+1
         post.unique_visitor = post.unique_visitor+1
         unique_visit.save()
+        post.save()
     else:
         sess_key = request.session.session_key
-        view =  Viewer.objects.exclude(last_visited__gte = datetime.now(tz=timezone.utc) - timedelta(hours=1)).filter(post = post.id, ip=ip, session = sess_key)
-        if view:
-            view.objects.last_visited = datetime.datetime.now(tz=timezone.utc)
-            view.save()
+        view =  Viewer.objects.filter(post = post.id).filter(ip=ip).filter(session = sess_key)
+        if not view:
+            new_view = Viewer(post = post.id, ip=ip, session = sess_key)
+            new_view.save()
             post.views=post.views+1
+            post.unique_visitor = post.unique_visitor+1
+            post.save()
+        else:
+            view =  Viewer.objects.filter(last_visited__lte= datetime.now(tz=timezone.utc)- timedelta(hours=1))
+            if view:
+                view[0].last_visited = datetime.now(tz=timezone.utc)
+                view[0].save()
+                post.views=post.views+1
+                post.save()
 
 
     comments = post.comments.filter(active=True)
