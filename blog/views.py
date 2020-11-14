@@ -47,8 +47,9 @@ def post_list(request, tag_slug=None):
 
 
 def post_author(request, post_author):
-    posts = Post.objects.filter(author__username=post_author)
-    authors = Author.objects.filter(user__username=post_author)
+    posts = Post.objects.filter(author__author__username = post_author).order_by('-publish')
+    author = Author.objects.filter(author__username=post_author)
+
     paginator = Paginator(posts, 9)
     page = request.GET.get('page')
     try:
@@ -57,7 +58,7 @@ def post_author(request, post_author):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'author.html', {'page': page, 'posts': posts, 'authors' : authors })
+    return render(request, 'author.html', {'page': page, 'posts': posts, 'author': author})
 
 
 class PostListView(ListView):
@@ -78,6 +79,9 @@ def get_ip(request):
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month, publish__day=day)
 
+
+    var = request.META['HTTP_USER_AGENT']
+    print(var)
 
     ip = get_ip(request)
     if not request.session.exists(request.session.session_key):

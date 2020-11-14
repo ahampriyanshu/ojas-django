@@ -25,7 +25,10 @@ SECRET_KEY = 'nr34p*=3aap!3j6us%@@vgdjnwe6qsnm9m@vxheb41gzq5+#0i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ ]
+ALLOWED_HOSTS = [ 
+    'ahampriyanshu.herokuapp.com',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'blog',
+    'api',
     'taggit',
     'embed_video',
     'ckeditor',
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     'crispy_tailwind',
     'django_social_share',
     'user_visit',
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [

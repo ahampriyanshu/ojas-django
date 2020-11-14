@@ -9,7 +9,7 @@ admin.site.index_title = "Home"
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('user', 'joined')
+    list_display = ('author', 'joined')
     date_hierarchy = 'joined'
     ordering = ['joined']
 admin.site.register(Author, AuthorAdmin)
@@ -30,14 +30,14 @@ class PostAdmin(admin.ModelAdmin):
 
 
     def save_model(self, request, obj, form, change):
-        obj.author = request.user
+        obj.author = request.user.author
         super().save_model(request, obj, form, change)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(author=request.user)
+        return qs.filter(author=request.user.author)
 
 
 admin.site.register(Post, PostAdmin)

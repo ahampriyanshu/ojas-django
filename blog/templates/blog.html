@@ -46,11 +46,11 @@
       <a href='{% url "blog:post_author" post.author %}'>
       <div class="mr-4">
         <img class="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full"
-          src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg" alt="Avatar" />
+        src="{{ post.author.author.avatar.url }}" alt="Avatar" />
       </div>
     </a>
       <div>
-        <h1 class="text-xl font-medium text-gray-700"> {{ post.author.username }}</h1>
+        <h1 class="text-xl font-medium text-gray-700"> {{ post.author.author.username }}</h1>
         <p class="text-gray-600"> The author has published {%  total_posts post.author  %} articles since
           {{ post.author.date_joined|date:"M, Y" }}
         </p>
@@ -193,11 +193,11 @@
     <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
       <a href='{% url "blog:post_author" post.author %}'>
       <div class="md:flex-shrink-0">
-        <img src="https://ik.imagekit.io/q5edmtudmz/post1_fOFO9VDzENE.jpg" alt="mountains"
-          class="w-full h-64 rounded-lg rounded-b-none">
+        <img src="{{ post.image.url }}" alt="cover image"
+          class="w-full h-64 rounded-lg rounded-b-none" style="object-fit: contain ;">
       </div>
       </a>
-      <div class="px-4 py-2 mt-2">
+      <div class="px-4 py-2">
         <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
         <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:200 }}</p>
         <footer class="flex items-center justify-between leading-none mt-5 p-2 md:p-4">

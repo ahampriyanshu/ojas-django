@@ -13,8 +13,9 @@ class PublishedManager(models.Manager):
 
 
 class Author(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='user', blank = True, null=True)
+    author = models.OneToOneField(User, on_delete=models.CASCADE, unique = True )
+    full_name = models.CharField(max_length=100, blank = True, null=True)
+    avatar = models.ImageField(upload_to='author', blank = True, null=True)
     joined = models.DateTimeField(auto_now_add=True)
     bio = models.TextField(max_length=200, blank = True, null=True)
     email = models.EmailField(blank = True, null=True)
@@ -27,7 +28,7 @@ class Author(models.Model):
 
 
     def __str__(self):
-        return self.user.username
+        return self.author.username
 
 
 class Viewer(models.Model):
@@ -48,7 +49,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique_for_date='publish')
-    author = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, editable=False, on_delete=models.CASCADE)
     body = RichTextField(max_length=1500,blank = True, null = True)
     image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank = True, null=True)
     publish = models.DateTimeField(default=timezone.now)
