@@ -192,10 +192,12 @@
   <div class="mx-auto px-4 py-8 max-w-xl my-auto">
     <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
       <a href='{% url "blog:post_author" post.author %}'>
+        {% if post.image %}
       <div class="md:flex-shrink-0">
-        <img src="{{ post.image.url }}" alt="cover image"
-          class="w-full h-64 rounded-lg rounded-b-none" style="object-fit: contain ;">
+        <img src="{{post.image.url}}" alt="cover image"
+          class="w-full h-auto rounded-lg rounded-b-none" style="object-fit: file ;">
       </div>
+      {% endif %}
       </a>
       <div class="px-4 py-2">
         <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
@@ -203,7 +205,7 @@
         <footer class="flex items-center justify-between leading-none mt-5 p-2 md:p-4">
           <div class="flex items-center">
             <img class="w-12 h-12 object-cover rounded-full shadow"
-              src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80"
+              src="{{ post.author.avatar.url }}"
               alt="avatar">
               <h2 class="ml-3 text-sm text-gray-900">
                 {{ post.author }}

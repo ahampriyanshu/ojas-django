@@ -74,14 +74,11 @@ def get_ip(request):
         else:
             ip = request.META.get('REMOTE_ADDR')
         return ip
-    
+
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month, publish__day=day)
 
-
-    var = request.META['HTTP_USER_AGENT']
-    print(var)
 
     ip = get_ip(request)
     if not request.session.exists(request.session.session_key):
@@ -99,7 +96,6 @@ def post_detail(request, year, month, day, post):
             new_view = Viewer(post = post.id, ip=ip, session = sess_key)
             new_view.save()
             post.views=post.views+1
-            post.unique_visitor = post.unique_visitor+1
             post.save()
         else:
             view =  Viewer.objects.filter(last_visited__lte= datetime.now(tz=timezone.utc)- timedelta(hours=1))
