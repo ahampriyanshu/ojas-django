@@ -42,8 +42,13 @@
     <div class="flex">
       <a href='{% url "blog:post_author" post.author %}'>
       <div class="mr-4">
-        <img class="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full"
-        src="{{ post.author.author.avatar.url }}" alt="Avatar" />
+        {% if post.author %}
+        <img class="sm:w-12 sm:h-12 w-14 h-14 rounded-full"
+        src="{{ post.author.avatar.url }}" alt="Avatar" />
+        {% else %}
+        <img class="sm:w-12 sm:h-12 w-14 h-14 rounded-full"
+        src="{% static 'default/user.png' %}" alt="Avatar" />
+        {% endif %}
       </div>
     </a>
       <div>
@@ -62,8 +67,8 @@
   <!--Next & Prev Links-->
   <div class="font-sans flex justify-between content-center px-4 pb-12">
     <div class="text-left">
-      {% if post.has_previous %}
-      <a href="{{ post.has_previous }}"> <span class="text-xs md:text-sm font-normal text-gray-600">&lt; Previous
+      {% if post.get_previous_by_publish %}
+      <a href="{{ post.get_next_by_publish }}"> <span class="text-xs md:text-sm font-normal text-gray-600">&lt; Previous
           Post</span><br /></a>
       {% endif %}
 
@@ -75,7 +80,7 @@
     </div>
 
     <div class="text-right">
-      {% if post.has_next %}
+      {% if post.get_next_by_publish %}
       <a href="?page={{ post.next_page_number }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
           Next Post &gt;
         </span>
@@ -112,7 +117,11 @@
         </div>
       </div>
       <div>
-        <p class="text-gray-600 font-medium">{{ comment.name }}</p>
+      {% if comment.name %}
+      <p class="text-gray-600 font-medium">{{ comment.name }}</p>
+      {% else %}
+      <p class="text-gray-600 font-medium">Anonymous</p>
+      {% endif %}
         <div class="flex items-center text-xs text-gray-600">
           <p> {{ comment.created|timesince }} ago</p>
         </div>
@@ -129,7 +138,7 @@
   <div class="mr-4">
     <svg class="fill-current h-10 w-10 text-teal-400 bg-white rounded-full flex justify-center items-center"
       xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/> </svg>
+      <path d="M12 2c5.514 0 10 body4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/> </svg>
   </div>
   <div class="flex justify-between w-full">
     <div class="text-teal-400">
@@ -207,13 +216,12 @@
         <footer class="flex items-center justify-between leading-none mt-5 p-2 md:p-4">
           <div class="flex items-center">
             {% if post.author %}
-            <img class="w-12 h-12 object-cover rounded-full shadow"
-            src="{{ post.author.avatar.url  }}" alt="upload avatar">
+            <img class="w-12 h-12 object-cover rounded-full"
+            src="{{ post.author.avatar.url }}" alt="upload avatar">
             {% else %}
-            <img class="w-12 h-12 object-cover rounded-full shadow"
+            <img class="w-12 h-12 object-cover rounded-full"
             src="{% static 'default/user.png' %}" alt="default avatar">
             {% endif %}
-
               <h2 class="ml-3 text-sm text-gray-900">
                 {{ post.author }}
                 <p class="tracking-tighter text-gray-600">{{ post.publish|date:"d M, Y" }}</p>

@@ -14,19 +14,18 @@ class PublishedManager(models.Manager):
 
 
 class Author(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE, unique = True )
-    full_name = models.CharField(max_length=100, blank = True, null=True)
-    avatar = models.ImageField(upload_to='author', blank = True, null=True)
+    author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    full_name = models.CharField(max_length=100, blank=True, null=True)
+    avatar = models.ImageField(upload_to='author', blank=True, null=True)
     joined = models.DateTimeField(auto_now_add=True)
-    bio = models.TextField(max_length=200, blank = True, null=True)
-    email = models.EmailField(blank = True, null=True)
-    instagram = models.URLField(blank = True, null=True, unique = True) 
-    twitter = models.URLField(blank = True, null=True, unique = True)
-    reddit = models.URLField(blank = True, null=True, unique = True)
-    facebook = models.URLField(blank = True, null=True, unique = True)
-    github = models.URLField(blank = True, null=True, unique = True)
-    linkedin = models.URLField(blank = True, null=True, unique = True)
-
+    bio = models.TextField(max_length=200, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True, unique=True)
+    twitter = models.URLField(blank=True, null=True, unique=True)
+    reddit = models.URLField(blank=True, null=True, unique=True)
+    facebook = models.URLField(blank=True, null=True, unique=True)
+    github = models.URLField(blank=True, null=True, unique=True)
+    linkedin = models.URLField(blank=True, null=True, unique=True)
 
     def __str__(self):
         return self.author.username
@@ -34,10 +33,9 @@ class Author(models.Model):
 
 class Viewer(models.Model):
     post = models.PositiveIntegerField(default=0)
-    ip = models.CharField(max_length = 16,default = None)
-    session = models.CharField(max_length=50, default = None)
-    last_visited = models.DateTimeField(default = timezone.now)
-
+    ip = models.CharField(max_length=16, default=None)
+    session = models.CharField(max_length=50, default=None)
+    last_visited = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.ip
@@ -51,27 +49,24 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique_for_date='publish')
     author = models.ForeignKey(Author, editable=False, on_delete=models.CASCADE)
-    body = RichTextField(max_length=1500,blank = True, null = True)
-    image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank = True, null=True)
+    body = RichTextField(max_length=1500, blank=True, null=True)
+    image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-    objects = models.Manager() 
+    objects = models.Manager()
     published = PublishedManager()
     tags = TaggableManager()
-    video = EmbedVideoField(blank = True, null=True)
+    video = EmbedVideoField(blank=True, null=True)
     views = models.PositiveIntegerField(editable=False, default=0)
     unique_visitor = models.PositiveIntegerField(editable=False, default=0)
-
 
     class Meta:
         ordering = ('-publish',)
 
-
     def __str__(self):
         return self.title
-
 
     def get_absolute_url(self):
         return reverse('blog:post_detail', args=[self.publish.year,
@@ -82,7 +77,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE,)
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, null=True, blank=True)
     body = models.TextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

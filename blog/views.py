@@ -96,6 +96,7 @@ def post_detail(request, year, month, day, post):
             new_view = Viewer(post = post.id, ip=ip, session = sess_key)
             new_view.save()
             post.views=post.views+1
+            post.unique_visitor = post.unique_visitor+1
             post.save()
         else:
             view =  Viewer.objects.filter(last_visited__lte= datetime.now(tz=timezone.utc)- timedelta(hours=1))
