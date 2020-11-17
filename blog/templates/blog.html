@@ -9,8 +9,10 @@
 
 <!--Container-->
 <div class="container w-full md:max-w-3xl mx-auto pt-20">
+
+
+  <!-- Article -->
   <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family: Georgia, serif">
-    <!--Title-->
     <div class="font-sans">
       <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
         {{ post.title }}
@@ -19,15 +21,10 @@
         Published {{ post.publish|date:"d M, Y" }}
       </p>
     </div>
-
-    <!--Post Content-->
-
-    <!--Lead Para-->
     <p class="py-6" style="font-family: Georgia, serif">
       {{ post.body|markdown|linebreaks }}
   </div>
 
-  <!-- Tags -->
   <div class="text-base md:text-sm text-gray-500 px-4 py-6">
     Tags:
     {% for tag in post.tags.all %}
@@ -192,9 +189,14 @@
   <div class="mx-auto px-4 py-8 max-w-xl my-auto">
     <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
       <a href='{% url "blog:post_author" post.author %}'>
-        {% if post.image %}
+      {% if post.image %}
       <div class="md:flex-shrink-0">
-        <img src="{{post.image.url}}" alt="cover image"
+        <img src="{{post.image.url}}" alt="uploaded cover image"
+          class="w-full h-auto rounded-lg rounded-b-none" style="object-fit: file ;">
+      </div>
+      {% else %}
+      <div class="md:flex-shrink-0">
+        <img src="{% static 'default/blog.png' %}"  alt="default cover image"
           class="w-full h-auto rounded-lg rounded-b-none" style="object-fit: file ;">
       </div>
       {% endif %}
@@ -204,15 +206,19 @@
         <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:200 }}</p>
         <footer class="flex items-center justify-between leading-none mt-5 p-2 md:p-4">
           <div class="flex items-center">
+            {% if post.author %}
             <img class="w-12 h-12 object-cover rounded-full shadow"
-              src="{{ post.author.avatar.url }}"
-              alt="avatar">
+            src="{{ post.author.avatar.url  }}" alt="upload avatar">
+            {% else %}
+            <img class="w-12 h-12 object-cover rounded-full shadow"
+            src="{% static 'default/user.png' %}" alt="default avatar">
+            {% endif %}
+
               <h2 class="ml-3 text-sm text-gray-900">
                 {{ post.author }}
                 <p class="tracking-tighter text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
               </h2>
           </div>
-
           <a href="{{ post.get_absolute_url }}" class="bg-teal-500 hover:bg-teal-400 text-white rounded-full px-8 py-2">
           Read More
           </a>
