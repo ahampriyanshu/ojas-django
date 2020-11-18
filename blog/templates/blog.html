@@ -38,28 +38,29 @@
 
   <!-- Author -->
   <!-- src="{{ post.author.image.url }}" -->
-  <div class="bg-white p-6 shadow-lg rounded-lg mb-10 flex justify-between items-center">
+  <div class="pt-2 ml-6 md:bg-white md:p-6 md:shadow-lg md:rounded-lg lg:bg-white lg:p-6 lg:shadow-lg lg:rounded-lg
+  xl:bg-white xl:p-6 xl:shadow-lg xl:rounded-lg mb-10 flex justify-between items-center">
     <div class="flex">
-      <a href='{% url "blog:post_author" post.author %}'>
+      <a target="_blank" href='{% url "blog:post_author" post.author %}'>
       <div class="mr-4">
         {% if post.author.image %}
-        <img class="sm:w-12 sm:h-12 w-14 h-14 rounded-full"
+        <img class="w-12 h-12 object-cover rounded-full"
         src="{{ post.author.image.url }}" alt="image" />
         {% else %}
-        <img class="sm:w-12 sm:h-12 w-14 h-14 rounded-full"
+        <img class="w-12 h-12 object-cover rounded-full"
         src="{% static 'default/user.png' %}" alt="image" />
         {% endif %}
       </div>
     </a>
       <div>
-        <h1 class="text-xl font-medium text-gray-700"> {{ post.author.author.username }}</h1>
-        <p class="text-gray-600"> The author has published {%  total_posts post.author  %} articles since
-          {{ post.author.date_joined|date:"M, Y" }}
+        <p class="sm:text-sm md:text-lg lg:text-xl font-medium text-gray-700"> {{ post.author.author.username }}</p>
+        <p class="text-xs md:text-lg lg:text-lg text-gray-600"> The author has published {%  total_posts post.author  %} articles since
+          {{ post.author.joined|date:"M, Y" }}
         </p>
       </div>
     </div>
-    <a href='{% url "blog:post_author" post.author %}'
-      class="bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2">
+     <a href='{% url "blog:post_author" post.author %}'
+      class="hidden md:block lg:block xl:block bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2 ">
       Read More
     </a>
   </div>
@@ -100,7 +101,7 @@
   </div>
 
   <!--Discussion-->
-  <p class="font-sans font-bold  text-2xl leading-none my-4 text-teal-400">
+  <p class="font-sans font-bold text-2xl leading-none my-4 text-teal-400">
     Discussion
     {% with comments.count as total_comments %}
     <span class="ml-2 text-base font-normal text-black">{{ total_comments }}
@@ -202,24 +203,27 @@
 
   <div class="mx-auto px-4 py-8 max-w-xl my-auto">
     <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
-      <a href='{% url "blog:post_author" post.author %}'>
+      <a href='{{ post.get_absolute_url }}'>
       {% if post.image %}
       <div class="md:flex-shrink-0">
         <img src="{{post.image.url}}" alt="uploaded cover image"
-          class="w-full h-auto rounded-lg rounded-b-none" style="object-fit: file ;">
+          class="object-none rounded-lg rounded-b-none" style="object-fit: file ;">
       </div>
       {% else %}
       <div class="md:flex-shrink-0">
         <img src="{% static 'default/blog.png' %}"  alt="default cover image"
-          class="w-full h-auto rounded-lg rounded-b-none" style="object-fit: file ;">
+          class="object-none rounded-lg rounded-b-none" style="object-fit: file ;">
       </div>
       {% endif %}
       </a>
       <div class="px-4 py-2">
+        <div class="pl-4 pt-2">
         <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
         <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:200 }}</p>
-        <footer class="flex items-center justify-between leading-none mt-5 p-2 md:p-4">
+      </div>
+        <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
           <div class="flex items-center">
+            <a target="_blank" href='{% url "blog:post_author" post.author %}'>
             {% if post.author %}
             <img class="w-12 h-12 object-cover rounded-full"
             src="{{ post.author.image.url }}" alt="upload image">
@@ -227,10 +231,11 @@
             <img class="w-12 h-12 object-cover rounded-full"
             src="{% static 'default/user.png' %}" alt="default image">
             {% endif %}
-              <h2 class="ml-3 text-sm text-gray-900">
-                {{ post.author }}
-                <p class="tracking-tighter text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
-              </h2>
+          </a>
+            <div class="text-sm ml-2">
+              <p class="text-black leading-none">{{ post.author }}</p>
+              <p class="text-grey-dark">{{ post.publish|date:"d M, Y" }}</p>
+            </div>
           </div>
           <a href="{{ post.get_absolute_url }}" class="bg-teal-500 hover:bg-teal-400 text-white rounded-full px-8 py-2">
           Read More
@@ -254,6 +259,12 @@
         Get the latest posts delivered right to your inbox
       </h3>
       <div class="w-full text-center pt-4">
+
+          <svg class="animate-bounce w-6 h-6 text-teal-500 mx-auto justify-center" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+    
+      
         <form action="#">
           <div class="max-w-xl mx-auto p-1 pr-0 flex flex-wrap items-center">
             <input type="email" placeholder="youremail@example.com"

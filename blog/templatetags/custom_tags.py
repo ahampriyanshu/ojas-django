@@ -13,7 +13,7 @@ def total_posts(author):
 
 @register.filter
 def highlight_search(text, search):
-    highlighted = text.replace(search, '<span class="font-sans text-lg text-yellow-800 text-center">{}</span>'.format(search))
+    highlighted = text.replace(search, '<span class="font-sans text-lg text-teal-500 text-center">{}</span>'.format(search))
     return mark_safe(highlighted)
 
 
