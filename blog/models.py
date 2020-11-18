@@ -16,7 +16,7 @@ class PublishedManager(models.Manager):
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    avatar = models.ImageField(upload_to='author', blank=True, null=True)
+    image = models.ImageField(upload_to='author', blank=True, null=True)
     joined = models.DateTimeField(auto_now_add=True)
     bio = models.TextField(max_length=200, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
@@ -29,6 +29,12 @@ class Author(models.Model):
 
     def __str__(self):
         return self.author.username
+
+    @property
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        return '#'
 
 
 class Viewer(models.Model):
@@ -48,13 +54,16 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique_for_date='publish')
-    author = models.ForeignKey(Author, editable=False, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        Author, editable=False, on_delete=models.CASCADE)
     body = RichTextField(max_length=1500, blank=True, null=True)
-    image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='blog/%Y/%m/%d/', blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default='draft')
     objects = models.Manager()
     published = PublishedManager()
     tags = TaggableManager()
@@ -76,7 +85,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE,)
+    post = models.ForeignKey(
+        Post, related_name='comments', on_delete=models.CASCADE,)
     name = models.CharField(max_length=80, null=True, blank=True)
     body = models.TextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)

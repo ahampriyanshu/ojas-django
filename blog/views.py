@@ -11,6 +11,21 @@ from .forms import CommentForm
 import time
 
 
+def search(request):
+    queryset = Post.objects.all()
+    query = request.GET.get('q')
+    if query:
+        queryset = queryset.filter(
+            Q(title__icontains=query)  | 
+            Q(body__icontains=query)   ).distinct()
+
+    print(query)
+    return render(request, 'search.html',  {
+        'queryset': queryset,
+        'query':query
+    })
+
+
 def error_404(request, exception):
         data = {}
         return render(request,'error_404.html', data)

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load static %}
+{% block content %}
+
+<h2>This is the results of your search</h2>
+{% for post in queryset %}
+    {{ post.title|highlight_search:query }} , {{post.author}} <br>
+    {{post.body|highlight_search:query}}
+
+{% endfor %}
+
+{% endblock %}

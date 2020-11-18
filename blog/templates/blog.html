@@ -37,17 +37,17 @@
 
 
   <!-- Author -->
-  <!-- src="{{ post.author.avatar.url }}" -->
+  <!-- src="{{ post.author.image.url }}" -->
   <div class="bg-white p-6 shadow-lg rounded-lg mb-10 flex justify-between items-center">
     <div class="flex">
       <a href='{% url "blog:post_author" post.author %}'>
       <div class="mr-4">
-        {% if post.author %}
+        {% if post.author.image %}
         <img class="sm:w-12 sm:h-12 w-14 h-14 rounded-full"
-        src="{{ post.author.avatar.url }}" alt="Avatar" />
+        src="{{ post.author.image.url }}" alt="image" />
         {% else %}
         <img class="sm:w-12 sm:h-12 w-14 h-14 rounded-full"
-        src="{% static 'default/user.png' %}" alt="Avatar" />
+        src="{% static 'default/user.png' %}" alt="image" />
         {% endif %}
       </div>
     </a>
@@ -64,34 +64,39 @@
     </a>
   </div>
 
-  <!--Next & Prev Links-->
+  <!-- Next & Prev Links -->
   <div class="font-sans flex justify-between content-center px-4 pb-12">
-    <div class="text-left">
-      {% if post.get_previous_by_publish %}
-      <a href="{{ post.get_next_by_publish }}"> <span class="text-xs md:text-sm font-normal text-gray-600">&lt; Previous
-          Post</span><br /></a>
-      {% endif %}
+    {% if post.get_previous_by_publish %}
+      <div class="text-left">
+
+      <a href="{{ post.get_previous_by_publish.get_absolute_url }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
+      &lt; Previous Post</span><br/></a>
+    
 
       <p>
         <a href="#" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
-          Blog title
+          {{ post.get_previous_by_publish.title|truncatewords_html:5 }}
         </a>
       </p>
     </div>
 
+    {% endif %}
+
+    {% if post.get_next_by_publish %}
     <div class="text-right">
-      {% if post.get_next_by_publish %}
-      <a href="?page={{ post.next_page_number }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
-          Next Post &gt;
+      
+      <a href="?page={{ post.get_next_by_publish.get_absolute_url }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
+      Next Post &gt;
         </span>
         <br /></a>
-      {% endif %}
+      
       <p>
         <a href="#" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
-          Blog title
+          {{ post.get_next_by_publish.title|truncatewords_html:5 }}
         </a>
       </p>
     </div>
+    {% endif %}
   </div>
 
   <!--Discussion-->
@@ -217,10 +222,10 @@
           <div class="flex items-center">
             {% if post.author %}
             <img class="w-12 h-12 object-cover rounded-full"
-            src="{{ post.author.avatar.url }}" alt="upload avatar">
+            src="{{ post.author.image.url }}" alt="upload image">
             {% else %}
             <img class="w-12 h-12 object-cover rounded-full"
-            src="{% static 'default/user.png' %}" alt="default avatar">
+            src="{% static 'default/user.png' %}" alt="default image">
             {% endif %}
               <h2 class="ml-3 text-sm text-gray-900">
                 {{ post.author }}
