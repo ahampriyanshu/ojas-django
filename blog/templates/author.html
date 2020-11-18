@@ -64,61 +64,6 @@
   </div>
   {% endfor %}
 
-  <!-- Articles -->
-
-  <p class="font-sans font-bold  text-2xl leading-none mt-20 text-center text-teal-400">More From {{author.full_name}}</p>
-
-
-  {% for post in posts %}
-
-  <div class="mx-auto px-4 py-8 max-w-xl my-auto">
-    <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
-      <a href='{{ post.get_absolute_url }}'>
-      {% if post.image %}
-      <div class="md:flex-shrink-0">
-        <img src="{{post.image.url}}" alt="uploaded cover image"
-          class="w-full h-auto rounded-lg rounded-b-none" style="object-fit: file ;">
-      </div>
-      {% else %}
-      <div class="md:flex-shrink-0">
-        <img src="{% static 'default/blog.png' %}"  alt="default cover image"
-          class="w-full h-auto rounded-lg rounded-b-none" style="object-fit: file ;">
-      </div>
-      {% endif %}
-      </a>
-      <div class="px-4 py-2">
-        <div class="pl-4 pt-2">
-          <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
-          <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:200 }}</p>
-        </div>
-        <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
-          <div class="flex items-center">
-            <a target="_blank" href='{% url "blog:post_author" post.author %}'>
-            {% if post.author %}
-            <img class="w-12 h-12 object-cover rounded-full"
-            src="{{ post.author.image.url }}" alt="upload image">
-            {% else %}
-            <img class="w-12 h-12 object-cover rounded-full"
-            src="{% static 'default/user.png' %}" alt="default image">
-            {% endif %}
-          </a>
-            <div class="text-sm ml-2">
-              <p class="text-black leading-none">{{ post.author }}</p>
-              <p class="text-grey-dark">{{ post.publish|date:"d M, Y" }}</p>
-            </div>
-          </div>
-          <a href="{{ post.get_absolute_url }}" class="bg-teal-500 hover:bg-teal-400 text-white rounded-full px-8 py-2">
-          Read More
-          </a>
-         </footer>
-      </div>
-    </div>
-  </div>
-
-  {% empty %}
-  <h2 class="leading-none mt-10 mb-20 text-center">No recommendations for now</h2>
-  {% endfor %}
-
   <!--Newsletter Starts-->
   <div class="container px-4 pb-8">
     <div class="font-sans p-4 text-center">

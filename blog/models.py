@@ -16,7 +16,7 @@ class PublishedManager(models.Manager):
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='author', blank=True, null=True)
+    image = models.ImageField(upload_to='author', blank=True, null=True, default ='default/author.png')
     joined = models.DateTimeField(auto_now_add=True)
     bio = models.TextField(max_length=200, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
@@ -29,12 +29,6 @@ class Author(models.Model):
 
     def __str__(self):
         return self.author.username
-
-    @property
-    def image_url(self):
-        if self.image:
-            return self.image.url
-        return '#'
 
 
 class Viewer(models.Model):

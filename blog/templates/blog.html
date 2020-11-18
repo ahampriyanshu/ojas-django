@@ -37,19 +37,13 @@
 
 
   <!-- Author -->
-  <!-- src="{{ post.author.image.url }}" -->
   <div class="pt-2 ml-6 md:bg-white md:p-6 md:shadow-lg md:rounded-lg lg:bg-white lg:p-6 lg:shadow-lg lg:rounded-lg
   xl:bg-white xl:p-6 xl:shadow-lg xl:rounded-lg mb-10 flex justify-between items-center">
     <div class="flex">
       <a target="_blank" href='{% url "blog:post_author" post.author %}'>
       <div class="mr-4">
-        {% if post.author.image %}
         <img class="w-12 h-12 object-cover rounded-full"
         src="{{ post.author.image.url }}" alt="image" />
-        {% else %}
-        <img class="w-12 h-12 object-cover rounded-full"
-        src="{% static 'default/user.png' %}" alt="image" />
-        {% endif %}
       </div>
     </a>
       <div>
@@ -61,7 +55,8 @@
     </div>
      <a href='{% url "blog:post_author" post.author %}'
       class="hidden md:block lg:block xl:block bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2 ">
-      Read More
+      Read MoreFailed to load resource: the server responded with a status of 404 (Not Found)
+
     </a>
   </div>
 
@@ -69,11 +64,8 @@
   <div class="font-sans flex justify-between content-center px-4 pb-12">
     {% if post.get_previous_by_publish %}
       <div class="text-left">
-
       <a href="{{ post.get_previous_by_publish.get_absolute_url }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
       &lt; Previous Post</span><br/></a>
-    
-
       <p>
         <a href="#" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
           {{ post.get_previous_by_publish.title|truncatewords_html:5 }}
@@ -222,21 +214,16 @@
         <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:200 }}</p>
       </div>
         <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
+          <a target="_blank" href='{% url "blog:post_author" post.author %}'>
           <div class="flex items-center">
-            <a target="_blank" href='{% url "blog:post_author" post.author %}'>
-            {% if post.author %}
             <img class="w-12 h-12 object-cover rounded-full"
             src="{{ post.author.image.url }}" alt="upload image">
-            {% else %}
-            <img class="w-12 h-12 object-cover rounded-full"
-            src="{% static 'default/user.png' %}" alt="default image">
-            {% endif %}
-          </a>
             <div class="text-sm ml-2">
               <p class="text-black leading-none">{{ post.author }}</p>
               <p class="text-grey-dark">{{ post.publish|date:"d M, Y" }}</p>
             </div>
           </div>
+        </a>
           <a href="{{ post.get_absolute_url }}" class="bg-teal-500 hover:bg-teal-400 text-white rounded-full px-8 py-2">
           Read More
           </a>
@@ -258,13 +245,7 @@
       <h3 class="font-bold break-normal font-normal text-gray-600 text-sm md:text-base">
         Get the latest posts delivered right to your inbox
       </h3>
-      <div class="w-full text-center pt-4">
-
-          <svg class="animate-bounce w-6 h-6 text-teal-500 mx-auto justify-center" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
-    
-      
+      <div class="w-full text-center pt-4">     
         <form action="#">
           <div class="max-w-xl mx-auto p-1 pr-0 flex flex-wrap items-center">
             <input type="email" placeholder="youremail@example.com"
