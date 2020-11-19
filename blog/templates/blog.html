@@ -39,13 +39,12 @@
   <!-- Author -->
   <div class="pt-2 ml-6 md:bg-white md:p-6 md:shadow-lg md:rounded-lg lg:bg-white lg:p-6 lg:shadow-lg lg:rounded-lg
   xl:bg-white xl:p-6 xl:shadow-lg xl:rounded-lg mb-10 flex justify-between items-center">
+  <a target="_blank" href='{% url "blog:post_author" post.author %}'>
     <div class="flex">
-      <a target="_blank" href='{% url "blog:post_author" post.author %}'>
       <div class="mr-4">
         <img class="w-12 h-12 object-cover rounded-full"
         src="{{ post.author.image.url }}" alt="image" />
       </div>
-    </a>
       <div>
         <p class="sm:text-sm md:text-lg lg:text-xl font-medium text-gray-700"> {{ post.author.author.username }}</p>
         <p class="text-xs md:text-lg lg:text-lg text-gray-600"> The author has published {%  total_posts post.author  %} articles since
@@ -53,10 +52,10 @@
         </p>
       </div>
     </div>
+  </a>
      <a href='{% url "blog:post_author" post.author %}'
       class="hidden md:block lg:block xl:block bg-teal-500 hover:opacity-75 text-white rounded-full px-8 py-2 ">
-      Read MoreFailed to load resource: the server responded with a status of 404 (Not Found)
-
+      Read More
     </a>
   </div>
 

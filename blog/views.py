@@ -9,6 +9,13 @@ from taggit.models import Tag
 from .models import Post, Comment, Author, Viewer
 from .forms import CommentForm
 import time
+from rest_framework import viewsets 
+from .serializers import PostSerializer 
+
+
+class PostViewSet(viewsets.ModelViewSet): 
+    queryset = Post.objects.all() 
+    serializer_class = PostSerializer 
 
 
 def search(request):
