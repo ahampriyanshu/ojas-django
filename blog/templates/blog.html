@@ -66,24 +66,21 @@
       <a href="{{ post.get_previous_by_publish.get_absolute_url }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
       &lt; Previous Post</span><br/></a>
       <p>
-        <a href="#" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
+        <a href="{{ post.get_previous_by_publish.get_absolute_url }}" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
           {{ post.get_previous_by_publish.title|truncatewords_html:5 }}
         </a>
       </p>
     </div>
-
     {% endif %}
-
     {% if post.get_next_by_publish %}
     <div class="text-right">
-      
-      <a href="?page={{ post.get_next_by_publish.get_absolute_url }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
+      <a href="{{ post.get_next_by_publish.get_absolute_url }}"> <span class="text-xs md:text-sm font-normal text-gray-600">
       Next Post &gt;
         </span>
         <br /></a>
       
       <p>
-        <a href="#" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
+        <a href="{{ post.get_next_by_publish.get_absolute_url }}" class="break-normal text-base md:text-sm text-teal-500 font-bold no-underline hover:underline">
           {{ post.get_next_by_publish.title|truncatewords_html:5 }}
         </a>
       </p>
@@ -91,6 +88,7 @@
     {% endif %}
   </div>
 
+  <div class="px-4">
   <!--Discussion-->
   <p class="font-sans font-bold text-2xl leading-none my-4 text-teal-400">
     Discussion
@@ -135,11 +133,11 @@
   <div class="mr-4">
     <svg class="fill-current h-10 w-10 text-teal-400 bg-white rounded-full flex justify-center items-center"
       xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M12 2c5.514 0 10 body4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/> </svg>
+      <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"/></svg>
   </div>
   <div class="flex justify-between w-full">
     <div class="text-teal-400">
-      <p class="mb-2 font-bold">
+      <p class="font-bold">
       No comments yet.
       </p>
       <p class="text-xs">
@@ -184,6 +182,7 @@
       {% endif %}
     </div>
   </div>
+</div>
 
   <!-- Recommended -->
 
@@ -192,18 +191,18 @@
 
   {% for post in similar_posts %}
 
-  <div class="mx-auto px-4 py-8 max-w-xl my-auto">
-    <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
+  <div class="mx-auto px-4 py-4 max-w-xl my-auto">
+    <div class="bg-white shadow-xl rounded-lg mb-6 tracking-wide">
       <a href='{{ post.get_absolute_url }}'>
       {% if post.image %}
       <div class="md:flex-shrink-0">
         <img src="{{post.image.url}}" alt="uploaded cover image"
-          class="object-none rounded-lg rounded-b-none" style="object-fit: file ;">
+          class="object-cover h-full w-full rounded-lg rounded-b-none">
       </div>
       {% else %}
       <div class="md:flex-shrink-0">
         <img src="{% static 'default/blog.png' %}"  alt="default cover image"
-          class="object-none rounded-lg rounded-b-none" style="object-fit: file ;">
+          class="object-cover h-full w-full rounded-lg rounded-b-none">
       </div>
       {% endif %}
       </a>
@@ -219,7 +218,7 @@
             src="{{ post.author.image.url }}" alt="upload image">
             <div class="text-sm ml-2">
               <p class="text-black leading-none">{{ post.author }}</p>
-              <p class="text-grey-dark">{{ post.publish|date:"d M, Y" }}</p>
+              <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
             </div>
           </div>
         </a>
@@ -261,5 +260,4 @@
   <!--Newsletter Ends-->
 
 </div>
-<hr class="border-b-2 border-gray-400 mb-8 mx-8" />
 {% endblock content %}
