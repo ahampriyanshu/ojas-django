@@ -1,4 +1,4 @@
-
+{% load static %}
 <div class="container w-full my-12 mx-auto py-4 md:px-12">
     <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
   
@@ -6,8 +6,12 @@
   
       <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2 lg:flex">
         <div
-          class="h-64 lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-          style="background-image: url('https://tailwindcss.com/img/card-left.jpg')">
+          class="h-64 lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+          {% if post.image %}
+         <img class="h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
+         {% else %}
+         <img class="h-64" src="{% static 'default/blog.png'  %}" alt="default cover image" />
+         {% endif %}
         </div>
         <div
           class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">

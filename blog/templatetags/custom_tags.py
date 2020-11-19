@@ -2,14 +2,17 @@ from django import template
 from django.db.models import Count
 from django.utils.safestring import mark_safe
 import markdown
+from taggit.models import Tag
 
 register = template.Library()
 
 from ..models import Post
 
+
 @register.simple_tag
 def total_posts(author):
     return Post.published.filter(author = author).count()
+
 
 @register.filter
 def highlight_search(text, search):
@@ -17,10 +20,10 @@ def highlight_search(text, search):
     return mark_safe(highlighted)
 
 
-@register.inclusion_tag('trending.html')
-def show_latest_posts(count=5):
-    trending_posts = Post.published.order_by('-publish')[:count]
-    return {'trending_posts': trending_posts}
+# @register.inclusion_tag('trending.html')
+# def show_latest_posts(count=5):
+#     trending_posts = Post.published.order_by('-publish')[:count]
+#     return {'trending_posts': trending_posts}
 
 
 
@@ -28,6 +31,13 @@ def show_latest_posts(count=5):
 def show_latest_posts(count=4):
     latest_posts = Post.published.order_by('-publish')[:count]
     return {'latest_posts': latest_posts}
+
+
+@register.inclusion_tag('footer.html')
+def common_tags(count=5):
+    tags = Post.tags.most_common()
+    return {'tags': tags}
+
 
 
 @register.inclusion_tag('most_commented.html')

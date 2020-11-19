@@ -17,9 +17,7 @@
         <a href="{{ post.get_absolute_url }}">
           {% if post.image %}
           <img alt="Placeholder" class="block object-cover h-48 w-full" src="{{post.image.url}}">
-
           {% else %}
-
           <img alt="Placeholder" class="block object-cover h-48 w-full" src="{% static 'default/blog.png' %}">
           {% endif %}
         </a>
