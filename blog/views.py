@@ -48,6 +48,16 @@ def setup_tour(request):
         return render(request,'setup/step_1.html', data)
 
 
+def about_page(request):
+        data = {}
+        return render(request,'about.html', data)
+
+
+def contact_page(request):
+        data = {}
+        return render(request,'contact.html', data)
+
+
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()
     tag = None

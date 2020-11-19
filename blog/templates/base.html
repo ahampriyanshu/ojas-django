@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-{% include "header.html" %}
-
-<body class="bg-gray-100">
+    {% include "header.html" %}
+<body class="bg-gray-100 antialiased">
 
     {% include 'navbar.html' %}
     {% block content %}
     {% endblock content %}
     {% include 'footer.html' %}
     {% include 'scripts.html' %}
-    
+
 </body>
 </html>

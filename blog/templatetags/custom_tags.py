@@ -20,10 +20,10 @@ def highlight_search(text, search):
     return mark_safe(highlighted)
 
 
-# @register.inclusion_tag('trending.html')
-# def show_latest_posts(count=5):
-#     trending_posts = Post.published.order_by('-publish')[:count]
-#     return {'trending_posts': trending_posts}
+@register.inclusion_tag('trending.html')
+def show_latest_posts(count=4):
+    trending_posts = Post.published.order_by('views')[:count]
+    return {'trending_posts': trending_posts}
 
 
 
@@ -35,9 +35,9 @@ def show_latest_posts(count=4):
 
 @register.inclusion_tag('footer.html')
 def common_tags(count=5):
-    tags = Post.tags.most_common()
+    tags = Post.tags.most_common()[:count]
+    print(tags)
     return {'tags': tags}
-
 
 
 @register.inclusion_tag('most_commented.html')

@@ -13,6 +13,23 @@ class PublishedManager(models.Manager):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
+class Contact(models.Model):
+    full_name = models.CharField(max_length=100, blank=True, null=True)
+    image = models.ImageField(upload_to='author', blank=True, null=True, default ='default/author.png')
+    status = models.TextField(max_length=50, blank=True, null=True)
+    bio = models.TextField(max_length=300, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True, unique=True)
+    twitter = models.URLField(blank=True, null=True, unique=True)
+    reddit = models.URLField(blank=True, null=True, unique=True)
+    facebook = models.URLField(blank=True, null=True, unique=True)
+    github = models.URLField(blank=True, null=True, unique=True)
+    linkedin = models.URLField(blank=True, null=True, unique=True)
+
+    def __str__(self):
+        return self.full_name
+
+
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
