@@ -6,7 +6,7 @@ from taggit.models import Tag
 
 register = template.Library()
 
-from ..models import Post, Contact
+from ..models import Post, Me
 
 
 @register.simple_tag

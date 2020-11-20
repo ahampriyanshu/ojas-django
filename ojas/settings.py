@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django_social_share',
     'user_visit',
     'django_user_agents',
+    'sorl.thumbnail',
+    'newsletter',
 ]
 
 MIDDLEWARE = [
