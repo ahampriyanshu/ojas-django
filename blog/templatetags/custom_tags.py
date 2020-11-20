@@ -36,7 +36,6 @@ def show_latest_posts(count=4):
 @register.inclusion_tag('common_tags.html')
 def common_tags(count=5):
     tags = Post.tags.most_common()[:count]
-    print(tags)
     return {'tags': tags}
 
 
