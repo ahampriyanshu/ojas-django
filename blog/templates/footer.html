@@ -101,12 +101,7 @@
             <span class="block uppercase text-gray-600 text-sm font-semibold mb-2">Popular</span>
             <ul class="list-unstyled">
 
-              {% for tag in common_tags %}
-              <li>
-                <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
-                  href="https://www.creative-tim.com/presentation">About Us</a>
-              </li>
-              {% endfor %}
+              {% common_tags 4 %}
               
             </ul>
           </div>

@@ -15,14 +15,17 @@ class PublishedManager(models.Manager):
 
 class Contact(models.Model):
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='author', blank=True, null=True, default ='default/author.png')
-    status = models.TextField(max_length=50, blank=True, null=True)
+    image = models.ImageField(upload_to='me/',default='me/me.png')
+    status = models.CharField(max_length=50,  blank=True, null=True)
+    location = models.CharField(max_length=100,  blank=True, null=True)
     bio = models.TextField(max_length=300, blank=True, null=True)
+    number = models.PositiveIntegerField(default=919917956610)
+    greeting = models.CharField(max_length=100,  blank=True, null=True, default='Hi%20Priyanshu')
     email = models.EmailField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True, unique=True)
     twitter = models.URLField(blank=True, null=True, unique=True)
     reddit = models.URLField(blank=True, null=True, unique=True)
-    facebook = models.URLField(blank=True, null=True, unique=True)
+    telegram = models.CharField(max_length=50,blank=True, null=True, unique=True)
     github = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
 

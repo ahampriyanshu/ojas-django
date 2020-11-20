@@ -6,7 +6,7 @@ from taggit.models import Tag
 
 register = template.Library()
 
-from ..models import Post
+from ..models import Post, Contact
 
 
 @register.simple_tag
@@ -33,7 +33,7 @@ def show_latest_posts(count=4):
     return {'latest_posts': latest_posts}
 
 
-@register.inclusion_tag('footer.html')
+@register.inclusion_tag('common_tags.html')
 def common_tags(count=5):
     tags = Post.tags.most_common()[:count]
     print(tags)

@@ -1,0 +1,10 @@
+{% for tag in tags %}
+
+
+<li>
+    <a class="text-gray-700 hover:text-gray-900 font-semibold block pb-2 text-sm"
+    href='{% url "blog:post_list_by_tag" tag.slug %}'   >{{tag}}</a>
+  </li>
+
+
+{% endfor %}
