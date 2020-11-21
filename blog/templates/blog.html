@@ -11,6 +11,13 @@
   <!-- Article -->
   <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family: Georgia, serif">
     <div class="font-sans">
+      <span class="text-base md:text-sm text-teal-500 font-bold">&lt;</span>
+      <a
+        href="/"
+        class="text-base md:text-sm text-teal-500 font-bold no-underline hover:underline"
+      >
+        BACK TO HOME
+      </a>
       <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
         {{ post.title }}
       </h1>
@@ -298,29 +305,7 @@
   {% endfor %}
 
   <!--Newsletter Starts-->
-  <div class="container px-4 pb-8">
-    <div class="font-sans p-4 text-center">
-      <h2 class="font-bold break-normal text-xl md:text-3xl">
-        Subscribe to the Newsletter
-      </h2>
-      <h3 class="font-bold break-normal font-normal text-gray-600 text-sm md:text-base">
-        Get the latest posts delivered right to your inbox
-      </h3>
-      <div class="w-full text-center pt-4">
-        <form action="#">
-          <div class="max-w-xl mx-auto p-1 pr-0 flex flex-wrap items-center">
-            <input type="email" placeholder="youremail@example.com"
-              class="flex-1 mt-4 appearance-none border border-gray-400 rounded shadow-md p-3 text-gray-600 mr-2 focus:outline-none" />
-            <button type="submit"
-              class="flex-1 mt-4 block md:inline-block appearance-none bg-teal-500 text-white text-base font-semibold tracking-wider uppercase py-4 rounded shadow hover:bg-teal-400">
-              Subscribe
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <!--Newsletter Ends-->
+  {% include 'newsletter.html' %}
 
 </div>
 {% endblock content %}

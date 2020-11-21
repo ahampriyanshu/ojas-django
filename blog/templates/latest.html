@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 <div class="container w-full my-12 mx-auto py-4 md:px-12">
     <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
   
@@ -14,11 +15,10 @@
          {% endif %}
         </div>
         <div
-          class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          class="h-64 border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
           <div class="mb-8">
-            <div class="text-black font-bold text-xl mb-2">{{ post.title }}</div>
-            <p class="text-grey-darker text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-              quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+            <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>
+            <p class="break-all text-grey-darker text-base"> {{ post.body|markdown|truncatewords_html:25 }} </p>
           </div>
           <div class="flex items-center">
             <img class="w-10 h-10 rounded-full mr-4"
