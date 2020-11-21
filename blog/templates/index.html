@@ -7,8 +7,6 @@
 {% show_latest_posts %}
 
 
-{% show_trending_posts %}
-
 <!-- component -->
 <div class="container my-12 mx-auto py-4 md:px-12 lg:w-10/12 ">
   <div class="flex flex-wrap justify-center">
@@ -41,7 +39,7 @@
             </div>
           </div>
           <a href="{{ post.get_absolute_url }}"
-            class="py-2 px-3 mt-4 px-6 text-white bg-teal-500 inline-block rounded">Read More</a>
+            class="py-2 px-3 mt-4 px-6 text-white bg-red-500 inline-block rounded">Read More</a>
         </footer>
       </article>
     </div>
@@ -52,7 +50,5 @@
 {% show_commented_posts %}
 
 {% include 'newsletter.html' %}
-
-<hr class="border-b-2 border-gray-400 mb-8 mx-8" />
 
 {% endblock content %}
