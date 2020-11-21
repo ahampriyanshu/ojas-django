@@ -7,12 +7,12 @@
         Get the latest posts delivered right to your inbox
       </h3>
       <div class="w-full text-center pt-4">
-        <form enctype="multipart/form-data" method="post" action="subscribe.html">
+        <form enctype="multipart/form-data" method="post" action="">
             {% csrf_token %}
           <div class="max-w-xl mx-auto p-1 pr-0 flex flex-wrap items-center">
             <input type="email" name="email_field" required="" id="id_email_field" placeholder="youremail@example.com"
               class="flex-1 mt-4 appearance-none border border-gray-400 rounded shadow-md p-3 text-gray-600 mr-2 focus:outline-none" />
-            <button type="submit" id="id_submit" name="submit"
+            <button id="id_submit" name="submit"
               class="flex-1 cursor-wait mt-4 block md:inline-block cursor-not-allowed bg-green-400 text-white text-base font-bold uppercase py-3 rounded shadow hover:bg-green-500">
               Subscribe
             </button>

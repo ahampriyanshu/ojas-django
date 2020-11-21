@@ -1,0 +1,20 @@
+      <!-- Next & Prev Links -->
+      <div class="font-sans flex justify-between content-center px-4 mt-5">
+        {% if page.has_previous %}
+        <div class="text-left">
+          <a href="?page={{ page.previous_page_number }}"> <span
+              class="text-xs md:text-sm font-normal text-gray-600">
+              &lt; Previous Page</span><br /></a>
+        </div>
+        {% endif %} 
+    
+        {% if page.has_next %}
+        <div class="text-right">
+          <a href="?page={{ page.next_page_number }}"> <span
+              class="text-xs md:text-sm font-normal text-gray-600">
+              Next Page &gt;
+            </span>
+            <br /></a>
+        </div>
+        {% endif %}
+      </div>

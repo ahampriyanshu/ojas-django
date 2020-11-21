@@ -24,9 +24,9 @@ def search(request):
     if query:
         queryset = queryset.filter(
             Q(title__icontains=query)  | 
-            Q(body__icontains=query)   ).distinct()
+            Q(body__icontains=query)   |
+            Q(author__author__username__icontains=query)).distinct()
 
-    print(query)
     return render(request, 'search.html',  {
         'queryset': queryset,
         'query':query
@@ -58,16 +58,20 @@ def contact_page(request):
         return render(request,'contact.html', {'me': me})
 
 
+def most_viewed(request):
+        posts = Post.published.order_by('views')[:9]
+        return render(request,'index.html', {'posts': posts})
+
+
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()
     tag = None
-
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list, 9)
+    paginator = Paginator(object_list, 2)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -75,11 +79,11 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'index.html', {'page': page, 'posts': posts, 'tag': tag})
+    return render(request, 'article.html', {'page': page, 'posts': posts, 'tag': tag})
 
 
 def post_author(request, post_author):
-    posts = Post.objects.filter(author__author__username = post_author).order_by('-publish')
+    posts = Post.published.filter(author__author__username = post_author).order_by('-publish')
     author = Author.objects.filter(author__username=post_author)
 
     paginator = Paginator(posts, 9)
@@ -92,12 +96,6 @@ def post_author(request, post_author):
         posts = paginator.page(paginator.num_pages)
     return render(request, 'author.html', {'page': page, 'posts': posts, 'author': author})
 
-
-class PostListView(ListView):
-    queryset = Post.published.all()
-    context_object_name = 'posts'
-    paginate_by = 9
-    template_name = 'index.html'
 
 def get_ip(request):
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

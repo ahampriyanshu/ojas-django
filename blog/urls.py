@@ -12,7 +12,8 @@ router.register(r'api', PostViewSet)
 
 app_name = 'blog'
 urlpatterns = [
-    path('', views.post_list, name='post_list'),
+    path('', views.most_viewed, name='most_viewed'),
+    path('article/', views.post_list, name='post_list'),
     url(r'^tag/(?P<tag_slug>[-\w]+)/$', views.post_list, name='post_list_by_tag'),
     url(r'^blog/(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})/(?P<post>[-\w]+)/$', views.post_detail, name='post_detail'),
     path('feed/', LatestPostsFeed(), name='post_feed'),

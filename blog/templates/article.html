@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+
+
+<!-- articles -->
+<div class="container my-12 mx-auto py-4 md:px-12 lg:w-10/12 ">
+    <div class="flex flex-wrap justify-center">
+
+        {% for post in posts %}
+        <div class="my-1 mb-5 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+            <article class="overflow-hidden bg-white rounded-lg shadow-lg">
+                <a href="{{ post.get_absolute_url }}">
+                    {% if post.image %}
+                    <img alt="Placeholder" class="block object-cover h-48 w-full" src="{{post.image.url}}">
+                    {% else %}
+                    <img alt="Placeholder" class="block object-cover h-48 w-full" src="{% static 'default/blog.png' %}">
+                    {% endif %}
+                </a>
+                <div class="md:h-64">
+                    <div class="p-5">
+                        <h1 class="truncate font-bold text-xl mb-2">{{ post.title }}</h1>
+                        <p class="break-all bg-white text-sm text-black">{{ post.body|markdown|truncatewords_html:30 }}
+                        </p>
+                    </div>
+                    <footer class="mb-5 flex items-center justify-between leading-none mx-3">
+                        <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+                            <div class="flex items-center">
+                                <img class="w-10 h-10 rounded-full" src="{{ post.author.image.url }}" alt="autor image">
+                                <div class="text-sm ml-2">
+                                    <p class="text-black leading-none">{{ post.author }}</p>
+                                    <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ post.get_absolute_url }}"
+                            class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
+                            Read More
+                        </a>
+                    </footer>
+                </div>
+            </article>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% include "pagination.html" with page=posts %}
+
+</div>
+
+{% include 'newsletter.html' %}
+
+{% endblock content %}
