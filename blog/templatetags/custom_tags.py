@@ -3,6 +3,9 @@ from django.db.models import Count
 from django.utils.safestring import mark_safe
 import markdown
 from taggit.models import Tag
+import time
+from django.utils import timezone
+from datetime import datetime, timedelta
 
 register = template.Library()
 
@@ -21,8 +24,8 @@ def highlight_search(text, search):
 
 
 @register.inclusion_tag('trending.html')
-def show_latest_posts(count=4):
-    trending_posts = Post.published.order_by('views')[:count]
+def show_trending_posts(count=4):
+    trending_posts = Post.published.filter(publish__gte= datetime.now(tz=timezone.utc)- timedelta(days=7)).order_by('views')[:count]
     return {'trending_posts': trending_posts}
 
 

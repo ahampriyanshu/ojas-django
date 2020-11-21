@@ -2,13 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
+import time
 from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count, Q
 from taggit.models import Tag
 from .models import Post, Comment, Author, Viewer, Me
 from .forms import CommentForm
-import time
 from rest_framework import viewsets 
 from .serializers import PostSerializer 
 

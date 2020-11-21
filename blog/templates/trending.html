@@ -1,0 +1,38 @@
+{% load static %}
+{% load custom_tags %}
+<div class="container w-full my-12 mx-auto py-4 md:px-12">
+    <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
+  
+        {% for post in trending_posts %}
+  
+      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2 lg:flex">
+        <div
+          class="h-64 lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+          {% if post.image %}
+         <img class="h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
+         {% else %}
+         <img class="h-64" src="{% static 'default/blog.png'  %}" alt="default cover image" />
+         {% endif %}
+        </div>
+        <div
+          class="h-64 border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div class="mb-8">
+            <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>
+            <p class="break-all text-grey-darker text-base"> {{ post.body|markdown|truncatewords_html:25 }} </p>
+          </div>
+          <div class="flex items-center">
+            <img class="w-10 h-10 rounded-full mr-4"
+              src="https://pbs.twimg.com/profile_images/885868801232961537/b1F6H4KC_400x400.jpg"
+              alt="image of Jonathan Reinink">
+            <div class="text-sm">
+              <p class="text-black leading-none">Jonathan Reinink</p>
+              <p class="text-grey-dark">Aug 18</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {% endfor %}
+      
+    </div>
+  </div>
