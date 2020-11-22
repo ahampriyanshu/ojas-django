@@ -9,13 +9,14 @@ from django.db.models import Count, Q
 from taggit.models import Tag
 from .models import Post, Comment, Author, Viewer, Contact
 from .forms import CommentForm
-from rest_framework import viewsets 
-from .serializers import PostSerializer 
+from rest_framework import viewsets
+from .serializers import PostSerializer
+from django_user_agents.utils import get_user_agent
 
 
-class PostViewSet(viewsets.ModelViewSet): 
-    queryset = Post.objects.all() 
-    serializer_class = PostSerializer 
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.published.all()
+    serializer_class = PostSerializer
 
 
 def search(request):
@@ -23,44 +24,77 @@ def search(request):
     query = request.GET.get('q')
     if query:
         queryset = queryset.filter(
-            Q(title__icontains=query)  | 
-            Q(body__icontains=query)   |
+            Q(title__icontains=query) |
+            Q(body__icontains=query) |
             Q(author__author__username__icontains=query)).distinct()
 
     return render(request, 'search.html',  {
         'queryset': queryset,
-        'query':query
+        'query': query
     })
 
 
+def get_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 def error_404(request, exception):
-        data = {}
-        return render(request,'error_404.html', data)
+    data = {}
+    return render(request, 'error_404.html', data)
 
 
 def error_500(request):
-        data = {}
-        return render(request,'error_500.html', data)
+    data = {}
+    return render(request, 'error_500.html', data)
 
 
 def setup_tour(request):
-        data = {}
-        return render(request,'setup/step_1.html', data)
+    data = {}
+    return render(request, 'setup/step_1.html', data)
 
 
 def about_page(request):
-        data = {}
-        return render(request,'about.html', data)
+    data = {}
+    return render(request, 'about.html', data)
+
+
+def me(request):
+
+    if request.user_agent.is_mobile:
+        device = 'mobile'
+    if request.user_agent.is_tablet:
+        device = 'tablet'
+    if request.user_agent.is_pc:
+        device = 'pc'
+
+        
+
+
+    me = {  'device':device,
+            'bot' : request.user_agent.is_bot,
+            'touch' : request.user_agent.is_touch_capable,
+            'browser' : request.user_agent.browser.family,
+            'browser_version' : request.user_agent.browser.version_string,
+            'ip' : get_ip(request),
+            'os' : request.user_agent.os.family,
+            'time' : datetime.now(),
+            }
+    return render(request, 'me.html', {'me': me})
 
 
 def contact_page(request):
-        me = Contact.objects.all()
-        return render(request,'contact.html', {'me': me})
+    contacts = Contact.objects.all()
+    return render(request, 'contact.html', {'contacts': contacts})
 
 
 def most_viewed(request):
-        posts = Post.published.order_by('views')[:9]
-        return render(request,'index.html', {'posts': posts})
+    posts = Post.published.order_by('views')[:9]
+    return render(request, 'index.html', {'posts': posts})
 
 
 def post_list(request, tag_slug=None):
@@ -71,7 +105,7 @@ def post_list(request, tag_slug=None):
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list, 9)
+    paginator = Paginator(object_list, 3)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -83,7 +117,8 @@ def post_list(request, tag_slug=None):
 
 
 def post_author(request, post_author):
-    posts = Post.published.filter(author__author__username = post_author).order_by('-publish')
+    posts = Post.published.filter(
+        author__author__username=post_author).order_by('-publish')
     author = Author.objects.filter(author__username=post_author)
 
     paginator = Paginator(posts, 5)
@@ -97,45 +132,37 @@ def post_author(request, post_author):
     return render(request, 'author.html', {'page': page, 'posts': posts, 'author': author})
 
 
-def get_ip(request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[-1].strip()
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-
-
 def post_detail(request, year, month, day, post):
-    post = get_object_or_404(Post, slug=post, status='published', publish__year=year, publish__month=month, publish__day=day)
-
+    post = get_object_or_404(Post, slug=post, status='published',
+                             publish__year=year, publish__month=month, publish__day=day)
 
     ip = get_ip(request)
     if not request.session.exists(request.session.session_key):
         request.session.create()
         sess_key = request.session.session_key
-        unique_visit = Viewer(post = post.id, ip=ip, session = sess_key)
-        post.views=post.views+1
+        unique_visit = Viewer(post=post.id, ip=ip, session=sess_key)
+        post.views = post.views+1
         post.unique_visitor = post.unique_visitor+1
         unique_visit.save()
         post.save()
     else:
         sess_key = request.session.session_key
-        view =  Viewer.objects.filter(post = post.id).filter(ip=ip).filter(session = sess_key)
+        view = Viewer.objects.filter(post=post.id).filter(
+            ip=ip).filter(session=sess_key)
         if not view:
-            new_view = Viewer(post = post.id, ip=ip, session = sess_key)
+            new_view = Viewer(post=post.id, ip=ip, session=sess_key)
             new_view.save()
-            post.views=post.views+1
+            post.views = post.views+1
             post.unique_visitor = post.unique_visitor+1
             post.save()
         else:
-            view =  Viewer.objects.filter(last_visited__lte= datetime.now(tz=timezone.utc)- timedelta(hours=1))
+            view = Viewer.objects.filter(last_visited__lte=datetime.now(
+                tz=timezone.utc) - timedelta(hours=1))
             if view:
                 view[0].last_visited = datetime.now(tz=timezone.utc)
                 view[0].save()
-                post.views=post.views+1
+                post.views = post.views+1
                 post.save()
-
 
     comments = post.comments.filter(active=True)
     new_comment = None
@@ -149,9 +176,9 @@ def post_detail(request, year, month, day, post):
     else:
         comment_form = CommentForm()
 
-
     post_tags_ids = post.tags.values_list('id', flat=True)
-    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
-    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
+    similar_posts = Post.published.filter(
+        tags__in=post_tags_ids).exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count(
+        'tags')).order_by('-same_tags', '-publish')[:4]
     return render(request, 'blog.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form, 'similar_posts': similar_posts})
-

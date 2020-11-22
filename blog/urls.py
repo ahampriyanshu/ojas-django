@@ -21,6 +21,7 @@ urlpatterns = [
     path('contact/', views.contact_page, name='contact_page'),
     url(r'^author/(?P<post_author>[-\w]+)/$',views.post_author, name='post_author'),
     path('search', search, name='search'),
+    path('me/', views.me, name='me'),
     path('setup/', views.setup_tour, name='setup'),
     path('', include(router.urls)), 
     path('api-auth/', include('rest_framework.urls')),
