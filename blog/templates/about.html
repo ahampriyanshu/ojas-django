@@ -1,6 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
+{% for abt in about %}
+
+<div class="text-gray-800 antialiased">
+    <section class="header relative pt-16 items-center flex h-screen" >
+        <div class="container mx-auto items-center flex flex-wrap">
+            <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
+                <div class="pt-32 sm:pt-0">
+                    <h2 class="font-semibold text-4xl text-gray-700">Ojas<span style="color: #FF7F50;">.</span></h2>
+                    <p class="mt-4 text-lg leading-relaxed text-gray-600">A blog PWA in Django styled with tailwind and hosted with
+                    pythonanywhere
+                    </p>
+                    <div class="mt-12"><a
+                            class="transition duration-500 ease-in-out bg-red-500ver:bg-rrered-500form hover:-translate-y-1 hover:scale-110 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1  uppercase text-sm shadow hover:shadow-lg"
+                            style="transition:all .15s ease"
+                            href="">Installation</a><a
+                            href="https://github.com/ahampriyanshu/ojas"
+                            class="transition duration-500 ease-in-out bg-rered-red-500-redred-50red-500over:-translate-y-1 hover:scale-110 ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1  uppercase text-sm shadow hover:shadow-lg"
+                            >Documentation</a>
+                        </div>
+                </div>
+            </div>
+        </div><img class="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12"
+            src=""
+            alt="..."  />
+    </section>
+
+  
+</div>
+{% empty %}
+ 
+
 <div class="text-gray-800 antialiased">
     <section class="header relative pt-16 items-center flex h-screen" >
         <div class="container mx-auto items-center flex flex-wrap">
@@ -246,4 +278,6 @@
         </div>
     </section>
 </div>
+
+      {% endfor %} 
 {% endblock content %}

@@ -7,11 +7,10 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count, Q
 from taggit.models import Tag
-from .models import Post, Comment, Author, Viewer, Contact
+from .models import Post, Comment, Author, Viewer, Contact, About
 from .forms import CommentForm
 from rest_framework import viewsets
 from .serializers import PostSerializer
-from django_user_agents.utils import get_user_agent
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -59,8 +58,8 @@ def setup_tour(request):
 
 
 def about_page(request):
-    data = {}
-    return render(request, 'about.html', data)
+    about = About.objects.order_by('pk')[:1]
+    return render(request, 'about.html',  {'about': about})
 
 
 def me(request):
@@ -72,18 +71,17 @@ def me(request):
     if request.user_agent.is_pc:
         device = 'pc'
 
-        
+    me = {
+        'device': device,
+        'bot': request.user_agent.is_bot,
+        'touch': request.user_agent.is_touch_capable,
+        'browser': request.user_agent.browser.family,
+        'browser_version': request.user_agent.browser.version_string,
+        'ip': get_ip(request),
+        'os': request.user_agent.os.family,
+        'time': datetime.now(),
+    }
 
-
-    me = {  'device':device,
-            'bot' : request.user_agent.is_bot,
-            'touch' : request.user_agent.is_touch_capable,
-            'browser' : request.user_agent.browser.family,
-            'browser_version' : request.user_agent.browser.version_string,
-            'ip' : get_ip(request),
-            'os' : request.user_agent.os.family,
-            'time' : datetime.now(),
-            }
     return render(request, 'me.html', {'me': me})
 
 
@@ -105,7 +103,7 @@ def post_list(request, tag_slug=None):
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list, 3)
+    paginator = Paginator(object_list, 9)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -140,17 +138,17 @@ def post_detail(request, year, month, day, post):
     if not request.session.exists(request.session.session_key):
         request.session.create()
         sess_key = request.session.session_key
-        unique_visit = Viewer(post=post.id, ip=ip, session=sess_key)
+        unique_visit = Viewer(post=post.pk, ip=ip, session=sess_key)
         post.views = post.views+1
         post.unique_visitor = post.unique_visitor+1
         unique_visit.save()
         post.save()
     else:
         sess_key = request.session.session_key
-        view = Viewer.objects.filter(post=post.id).filter(
+        view = Viewer.objects.filter(post=post.pk).filter(
             ip=ip).filter(session=sess_key)
         if not view:
-            new_view = Viewer(post=post.id, ip=ip, session=sess_key)
+            new_view = Viewer(post=post.pk, ip=ip, session=sess_key)
             new_view.save()
             post.views = post.views+1
             post.unique_visitor = post.unique_visitor+1
@@ -158,6 +156,7 @@ def post_detail(request, year, month, day, post):
         else:
             view = Viewer.objects.filter(last_visited__lte=datetime.now(
                 tz=timezone.utc) - timedelta(hours=1))
+            print(view)
             if view:
                 view[0].last_visited = datetime.now(tz=timezone.utc)
                 view[0].save()
@@ -178,7 +177,7 @@ def post_detail(request, year, month, day, post):
 
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.published.filter(
-        tags__in=post_tags_ids).exclude(id=post.id)
+        tags__in=post_tags_ids).exclude(id=post.pk)
     similar_posts = similar_posts.annotate(same_tags=Count(
         'tags')).order_by('-same_tags', '-publish')[:4]
     return render(request, 'blog.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form, 'similar_posts': similar_posts})

@@ -3,7 +3,7 @@ from .models import Post
 
 
 class PostSitemap(sitemaps.Sitemap):
-    changefreq = 'daily'
+    changefreq = 'weekly'
     priority = 0.9
 
     def items(self):

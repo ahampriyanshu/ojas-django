@@ -19,13 +19,13 @@
         {{ post.title }}
       </h1>
       <p class="text-sm ml-2 md:text-base font-normal text-gray-600">
-        Published {{ post.publish|date:"d M, Y" }}
+        Published on {{ post.publish|date:"d M, Y" }}
       </p>
     </div>
     {% if post.image %}
     <img class="object-cover shadow-xl rounded-lg mt-10 h-auto w-full" alt="cover image" src="{{ post.image.url }}">
     {% endif %}
-    <p class="py-6" style="font-family: Georgia, serif">
+    <p class="py-6" style="font-family: Georgia, serif break-all">
       {{ post.body|markdown|linebreaks }}
   </div>
 

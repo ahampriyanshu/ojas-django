@@ -9,12 +9,18 @@ from datetime import datetime, timedelta
 
 register = template.Library()
 
-from ..models import Post, Contact
+from ..models import Post, Contact, About
 
 
 @register.simple_tag
 def total_posts(author):
     return Post.published.filter(author = author).count()
+
+
+@register.simple_tag
+def get_title():
+    about = About.objects.order_by('pk')[:1]
+    return about[0].title
 
 
 @register.filter
@@ -29,11 +35,16 @@ def show_trending_posts(count=4):
     return {'trending_posts': trending_posts}
 
 
-
 @register.inclusion_tag('latest.html')
 def show_latest_posts(count=4):
     latest_posts = Post.published.order_by('-publish')[:count]
     return {'latest_posts': latest_posts}
+
+
+@register.inclusion_tag('footer_about.html')
+def get_about():
+    about = About.objects.order_by('pk')[:1]
+    return {'about': about}
 
 
 @register.inclusion_tag('common_tags.html')
