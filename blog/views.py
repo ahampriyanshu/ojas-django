@@ -52,14 +52,15 @@ def error_500(request):
     return render(request, 'error_500.html', data)
 
 
-def setup_tour(request):
-    data = {}
-    return render(request, 'setup/step_1.html', data)
-
-
 def about_page(request):
     about = About.objects.order_by('pk')[:1]
-    return render(request, 'about.html',  {'about': about})
+
+    if about[0].default_page:
+        data = {}
+    else:
+        data = {'about': about}
+
+    return render(request, 'about.html', data)
 
 
 def me(request):

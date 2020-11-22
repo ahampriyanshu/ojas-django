@@ -35,6 +35,8 @@ class Contact(models.Model):
 
 
 class About(models.Model):
+    Yes_NO = ((True, 'Yes'), (False, 'No'))
+
     title = models.CharField(max_length=15, blank=True, null=True)
     description = models.TextField(max_length=50, blank=True, null=True)
     button1_title = models.CharField(max_length=15, blank=True, null=True)
@@ -48,6 +50,7 @@ class About(models.Model):
     telegram = models.CharField(max_length=50,blank=True, null=True, unique=True)
     github = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
+    default_page = models.BooleanField(choices=Yes_NO, default='Yes')
 
     def __str__(self):
         return self.title
