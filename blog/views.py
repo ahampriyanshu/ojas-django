@@ -7,7 +7,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count, Q
 from taggit.models import Tag
-from .models import Post, Comment, Author, Viewer, Me
+from .models import Post, Comment, Author, Viewer, Contact
 from .forms import CommentForm
 from rest_framework import viewsets 
 from .serializers import PostSerializer 
@@ -19,7 +19,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 def search(request):
-    queryset = Post.objects.all()
+    queryset = Post.published.all()
     query = request.GET.get('q')
     if query:
         queryset = queryset.filter(
@@ -54,7 +54,7 @@ def about_page(request):
 
 
 def contact_page(request):
-        me = Me.objects.all()
+        me = Contact.objects.all()
         return render(request,'contact.html', {'me': me})
 
 
@@ -71,7 +71,7 @@ def post_list(request, tag_slug=None):
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list, 3)
+    paginator = Paginator(object_list, 9)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -86,7 +86,7 @@ def post_author(request, post_author):
     posts = Post.published.filter(author__author__username = post_author).order_by('-publish')
     author = Author.objects.filter(author__username=post_author)
 
-    paginator = Paginator(posts, 9)
+    paginator = Paginator(posts, 5)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)

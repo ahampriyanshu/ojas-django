@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, Author, Viewer, Me, About
+from .models import Post, Comment, Author, Viewer, Contact, About
 import string 
 from django.utils.text import slugify 
 
@@ -8,9 +8,9 @@ admin.site.site_title = "OJAS"
 admin.site.index_title = "Home"
 
 
-class MeAdmin(admin.ModelAdmin):
+class ContactAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'location', 'status')
-admin.site.register(Me, MeAdmin)
+admin.site.register(Contact, ContactAdmin)
 
 
 class AboutAdmin(admin.ModelAdmin):

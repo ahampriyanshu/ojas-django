@@ -27,7 +27,7 @@ SECRET_KEY = 'nr34p*=3aap!3j6us%@@vgdjnwe6qsnm9m@vxheb41gzq5+#0i'
 DEBUG = True
 
 ALLOWED_HOSTS = [ 
-    'ahampriyanshu.herokuapp.com',
+    'ahampriyanshu.pythonanywhere.com',
     '127.0.0.1',
 ]
 
@@ -53,8 +53,6 @@ INSTALLED_APPS = [
     'django_social_share',
     'user_visit',
     'django_user_agents',
-    'sorl.thumbnail',
-    'newsletter',
 ]
 
 MIDDLEWARE = [

@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 
 register = template.Library()
 
-from ..models import Post, Me
+from ..models import Post, Contact
 
 
 @register.simple_tag
@@ -19,7 +19,7 @@ def total_posts(author):
 
 @register.filter
 def highlight_search(text, search):
-    highlighted = text.replace(search, '<span class="font-sans text-lg text-green-400 text-center">{}</span>'.format(search))
+    highlighted = text.replace(search, '<span class="font-sans text-lg text-green-500 text-center">{}</span>'.format(search))
     return mark_safe(highlighted)
 
 

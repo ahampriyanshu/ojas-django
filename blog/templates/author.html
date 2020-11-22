@@ -116,7 +116,10 @@
   <h2 class="leading-none mt-10 mb-10 text-center">Sorry, I'm still writing my first article.</h2>
   {% endfor %}
 
-  <!--Newsletter Starts-->
+  <!-- Pagination -->
+  {% include "pagination.html" with page=posts %}
+  
+  <!-- Newsletter -->
   {% include 'newsletter.html' %}
 
 </div>

@@ -1,9 +1,9 @@
       <!-- Next & Prev Links -->
-      <div class="font-sans flex md:mt-8 justify-between content-center px-4 mt-5">
+      <div class="font-sans flex md:mt-8 justify-between  content-center px-4 mt-5">
         {% if page.has_previous %}
         <div class="text-left">
           <a href="?page={{ page.previous_page_number }}"> <span
-              class="text-sm md:text-base font-normal text-gray-600">
+              class="text-sm md:text-base font-normal text-gray-600 no-underline hover:underline">
               &lt; Previous Page</span><br /></a>
         </div>
         {% endif %} 
@@ -21,7 +21,7 @@
         {% if page.has_next %}
         <div class="text-right">
           <a href="?page={{ page.next_page_number }}"> <span
-              class="text-sm md:text-base font-normal text-gray-600">
+              class="text-sm md:text-base font-normal text-gray-600 no-underline hover:underline">
               Next Page &gt;
             </span>
             <br /></a>

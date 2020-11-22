@@ -13,7 +13,7 @@ class PublishedManager(models.Manager):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
-class Me(models.Model):
+class Contact(models.Model):
     full_name = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='me/',default='me/me.png')
     status = models.CharField(max_length=50,  blank=True, null=True)
@@ -35,12 +35,19 @@ class Me(models.Model):
 
 
 class About(models.Model):
-    title = models.CharField(max_length=50, blank=True, null=True)
-    description = models.TextField(max_length=300, blank=True, null=True)
+    title = models.CharField(max_length=15, blank=True, null=True)
+    description = models.TextField(max_length=50, blank=True, null=True)
     button1_title = models.CharField(max_length=15, blank=True, null=True)
     button1_url = models.URLField(blank=True, null=True, unique=True)
     button2_title = models.CharField(max_length=15, blank=True, null=True)   
     button2_url = models.URLField(blank=True, null=True, unique=True)
+    email = models.EmailField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True, unique=True)
+    twitter = models.URLField(blank=True, null=True, unique=True)
+    reddit = models.URLField(blank=True, null=True, unique=True)
+    telegram = models.CharField(max_length=50,blank=True, null=True, unique=True)
+    github = models.URLField(blank=True, null=True, unique=True)
+    linkedin = models.URLField(blank=True, null=True, unique=True)
 
     def __str__(self):
         return self.title
@@ -56,7 +63,7 @@ class Author(models.Model):
     instagram = models.URLField(blank=True, null=True, unique=True)
     twitter = models.URLField(blank=True, null=True, unique=True)
     reddit = models.URLField(blank=True, null=True, unique=True)
-    facebook = models.URLField(blank=True, null=True, unique=True)
+    telegram = models.URLField(blank=True, null=True, unique=True)
     github = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
 
