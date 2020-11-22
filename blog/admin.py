@@ -36,7 +36,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'body')
     prepopulated_fields = {'slug': (slugify('title'),)}
     date_hierarchy = 'publish'
-    ordering = ['status', 'publish']
+    ordering = ['status', '-publish']
 
 
     def save_model(self, request, obj, form, change):

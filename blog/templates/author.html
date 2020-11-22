@@ -64,31 +64,60 @@
   </div>
   {% endfor %}
 
-  <!--Newsletter Starts-->
-  <div class="container px-4 pb-8">
-    <div class="font-sans p-4 text-center">
-      <h2 class="font-bold break-normal text-xl md:text-3xl">
-        Subscribe to the Newsletter
-      </h2>
-      <h3 class="font-bold break-normal font-normal text-gray-600 text-sm md:text-base">
-        Get the latest posts delivered right to your inbox
-      </h3>
-      <div class="w-full text-center pt-4">
-        <form action="#">
-          <div class="max-w-xl mx-auto p-1 pr-0 flex flex-wrap items-center">
-            <input type="email" placeholder="youremail@example.com"
-              class="flex-1 mt-4 appearance-none border border-gray-400 rounded shadow-md p-3 text-gray-600 mr-2 focus:outline-none" />
-            <button type="submit"
-              class="flex-1 mt-4 block md:inline-block appearance-none bg-green-400 text-white text-base font-semibold tracking-wider uppercase py-4 rounded shadow hover:bg-green-500">
-              Subscribe
-            </button>
-          </div>
-        </form>
+
+  {% for auth in author %}
+  <p class="font-sans mb-5 font-bold text-2xl md:text-3xl leading-none mt-5 text-center text-green-500">
+    More from {{ auth.full_name }}</p>  
+    {% endfor %}
+
+
+  {% for post in posts %}
+
+  <div class="mx-auto px-4 py-4 max-w-xl my-auto">
+    <div class="bg-white shadow-xl rounded-lg mb-6 tracking-wide">
+      <a href='{{ post.get_absolute_url }}'>
+        {% if post.image %}
+        <div class="md:flex-shrink-0">
+          <img src="{{post.image.url}}" alt="uploaded cover image"
+            class="object-cover h-full w-full rounded-lg rounded-b-none">
+        </div>
+        {% else %}
+        <div class="md:flex-shrink-0">
+          <img src="{% static 'default/blog.png' %}" alt="default cover image"
+            class="object-cover h-full w-full rounded-lg rounded-b-none">
+        </div>
+        {% endif %}
+      </a>
+      <div class="px-4 py-2">
+        <div class="pl-4 pt-2">
+          <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
+          <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
+        </div>
+        <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
+          <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+            <div class="flex items-center">
+              <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="author image">
+              <div class="text-sm ml-2">
+                <p class="text-black leading-none">{{ post.author }}</p>
+                <p class="text-gray-700">{{ post.publish|date:"d M, Y" }}</p>
+              </div>
+            </div>
+          </a>
+          <a href="{{ post.get_absolute_url }}"
+            class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
+            Read More
+          </a>
+        </footer>
       </div>
     </div>
   </div>
-<!--Newsletter Ends-->
+
+  {% empty %}
+  <h2 class="leading-none mt-10 mb-10 text-center">Sorry, I'm still writing my first article.</h2>
+  {% endfor %}
+
+  <!--Newsletter Starts-->
+  {% include 'newsletter.html' %}
 
 </div>
-<hr class="border-b-2 border-gray-400 mb-8 mx-8" />
 {% endblock content %}

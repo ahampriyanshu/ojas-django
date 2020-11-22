@@ -43,7 +43,7 @@ def common_tags(count=5):
 
 
 @register.inclusion_tag('most_commented.html')
-def show_commented_posts(count=5):
+def show_commented_posts(count=4):
     commented_posts = Post.published.annotate(total_comments=Count('comments')).order_by('-total_comments')[:count]
     return {'commented_posts': commented_posts}
 

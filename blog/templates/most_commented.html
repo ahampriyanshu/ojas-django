@@ -1,38 +1,50 @@
-{% for post in commented_posts %}
 {% load custom_tags %}
+{% load static %}
 
-<div class="mx-auto px-4 py-8 max-w-xl my-20">
-  <div class="bg-white shadow-2xl rounded-lg mb-6 tracking-wide">
-    <div class="md:flex-shrink-0">
-      <img src="https://ik.imagekit.io/q5edmtudmz/post1_fOFO9VDzENE.jpg" alt="mountains"
-        class="w-full h-64 rounded-lg rounded-b-none">
-    </div>
-    <div class="px-4 py-2 mt-2">
-      <h2 class="font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
-      <p class="text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
-      <div class="flex items-center justify-between mt-2 mx-6">
-        <a href="#" class="text-blue-500 text-xs -ml-3 ">Show More</a>
-        <a href="#" class="flex text-gray-700">
-          <svg fill="none" viewBox="0 0 24 24" class="w-6 h-6 text-blue-500" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-          5
-        </a>
-      </div>
-      <div class="author flex items-center -ml-3 my-3">
-        <div class="user-logo">
-          <img class="w-12 h-12 object-cover rounded-full mx-4  shadow"
-            src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80"
-            alt="image">
+<div class="container w-full md:mt-8 mx-auto py-4 md:px-12">
+  
+  <p class="font-sans font-bold text-3xl leading-none text-center text-green-500">Most Discussed</p>
+    <div class="max-w-6xl m-auto mt-5 text-gray-800 flex flex-wrap justify-center">
+      {% for post in commented_posts %}
+      <div class="md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2 lg:flex mb-8">
+        <a href='{{ post.get_absolute_url }}'>
+        <div
+          class="md:h-64 h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+          {% if post.image %}
+         <img class="md:border md:border-r-0 md:h-64 h-auto" src="{{ post.image.url }}" alt="uploaded cover image" />
+         {% else %}
+         <img class="md:border md:border-r-0 md:h-64 h-auto"  src="{% static 'default/blog.png'  %}" alt="default cover image" />
+         {% endif %}
         </div>
-        <h2 class="text-sm tracking-tighter text-gray-900">
-          <a href="#">{{ post.author }}</a>
-          <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
-        </h2>
+        </a>
+        <div
+          class="md:h-64 md:w-full  border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+         
+          <div class="mb-8">
+            <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>
+            <p class="break-all text-grey-darker text-base"> {{ post.body|markdown|truncatewords_html:25 }} </p>
+          </div>
+   
+        <footer class="flex items-center justify-between leading-none mx-3">
+          <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+          <div class="flex items-center">
+            <img class="w-10 h-10 rounded-full" src="{{ post.author.image.url }}" alt="autor image">
+            <div class="text-sm ml-2">
+              <p class="text-black leading-none">{{ post.author }}</p>
+              <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
+            </div>
+          </div>
+          </a>
+          <a href="{{ post.get_absolute_url }}"
+            class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
+            Read More
+          </a>
+        </footer>
+        </div>
       </div>
+      {% empty %}
+  <h2 class="leading-none mt-10 mb-20 text-center">We may need some more articles</h2>
+      {% endfor %}      
     </div>
   </div>
-</div>
 
-{% endfor %}

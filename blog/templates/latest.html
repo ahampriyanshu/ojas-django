@@ -2,11 +2,9 @@
 {% load custom_tags %}
 <div class="container w-full md:mt-8 mx-auto py-4 md:px-12">
 
-  <p class="font-sans font-bold text-2xl md:text-3xl leading-none mt-10 md:mt-15 mb-5 text-center text-green-500">Featured</p>
-
-    <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-center">
+  <p class="font-sans font-bold text-3xl leading-none text-center text-green-500">Latest</p>
+    <div class="max-w-6xl m-auto mt-5  text-gray-800 flex flex-wrap justify-center">
       {% for post in latest_posts %}
-  
       <div class="md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2 lg:flex mb-8">
         <a href='{{ post.get_absolute_url }}'>
         <div
@@ -43,8 +41,8 @@
         </footer>
         </div>
       </div>
-      
-      {% endfor %}
-      
+      {% empty %}
+  <h2 class="leading-none mt-10 mb-20 text-center">We may need some more articles</h2>
+      {% endfor %}      
     </div>
   </div>

@@ -1,17 +1,27 @@
       <!-- Next & Prev Links -->
-      <div class="font-sans flex justify-between content-center px-4 mt-5">
+      <div class="font-sans flex md:mt-8 justify-between content-center px-4 mt-5">
         {% if page.has_previous %}
         <div class="text-left">
           <a href="?page={{ page.previous_page_number }}"> <span
-              class="text-xs md:text-sm font-normal text-gray-600">
+              class="text-sm md:text-base font-normal text-gray-600">
               &lt; Previous Page</span><br /></a>
         </div>
         {% endif %} 
+
+
+        <div class="text-center">
+          <span
+              class="text-sm md:text-base font-normal text-gray-600">
+              Page {{ page.number }} of {{ page.paginator.num_pages }}
+            </span>
+            <br />
+        </div>
+
     
         {% if page.has_next %}
         <div class="text-right">
           <a href="?page={{ page.next_page_number }}"> <span
-              class="text-xs md:text-sm font-normal text-gray-600">
+              class="text-sm md:text-base font-normal text-gray-600">
               Next Page &gt;
             </span>
             <br /></a>
