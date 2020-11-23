@@ -136,12 +136,13 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 MEDIA_URL = '/media/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'serviceworker.js')
 
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_USER = 'your_account@gmail.com'
@@ -157,9 +158,9 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-PWA_APP_NAME = 'ojas'
-PWA_APP_DESCRIPTION = "Open Source blog application"
-PWA_APP_THEME_COLOR = '#000000'
+PWA_APP_NAME = 'Ojas'
+PWA_APP_DESCRIPTION = "Open Source blog application in Django3 and Tailwind2"
+PWA_APP_THEME_COLOR = '#10b981'
 PWA_APP_BACKGROUND_COLOR = '#f9fafb'
 PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/'
@@ -168,19 +169,19 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': os.path.join(BASE_DIR, 'android-icon-144x144.png'),
-        'sizes': '144x144'
+        'src': '/static/img/android-icon-192x192.png',
+        'sizes': '192x192'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': os.path.join(BASE_DIR, 'apple-icon-144x144.png'),
-        'sizes': '144x144'
+        'src': '/static/img/apple-icon-180x180.png',
+        'sizes': '180x180'
     }
 ]
 PWA_APP_SPLASH_SCREEN = [
     {
-        'src': os.path.join(BASE_DIR, 'favicon-32x32.png'),
+        'src': '/static/img/favicon-96x96.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     }
 ]

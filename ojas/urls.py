@@ -1,5 +1,6 @@
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path,include
+from django.conf.urls import url
 from blog.sitemaps import PostSitemap
 from django.contrib import admin
 from blog import views as blog
@@ -18,9 +19,9 @@ sitemaps = {
 
 
 urlpatterns = [
+    url('', include('pwa.urls')), 
     path('', include('blog.urls', namespace='blog')),
     path('admin/', admin.site.urls),
-    path('', include('pwa.urls')),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap')
 ]
