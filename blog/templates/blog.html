@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title> {{ post.title }}</title>
@@ -33,7 +33,7 @@
     <meta name="msapplication-TileImage" content="{% static 'img/ms-icon-144x144.png' %}">
     <meta name="theme-color" content="#f9fafb">
 </head>
-<body class="bg-gray-50 antialiased select-none">
+<body class="bg-gray-50 antialiased">
     {% include 'navbar.html' %}
 
 
@@ -106,10 +106,10 @@
     <a target="_blank" rel="noopener noreferrer"
       class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
       href='mailto:?subject=New%20Article:%20{{post.title}}&body={{ request.build_absolute_uri }}' type="button">
-      <svg class="fill-current cursor-pointer text-green-500 hover:text-red-500" width="24" height="24"
+      <svg class="fill-current cursor-pointer text-green-500 hover:text-red-400" width="24" height="24"
         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" />
+          d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z" />
       </svg>
     </a>
     <a target="_blank" rel="noopener noreferrer"
@@ -348,5 +348,4 @@
     {% include 'footer.html' %}
 </body>
 <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
-<script src="https://kit.fontawesome.com/479346cc73.js" crossorigin="anonymous"></script>
 </html>
