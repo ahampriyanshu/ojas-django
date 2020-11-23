@@ -1,8 +1,41 @@
-{% extends 'base.html' %}
 {% load static %}
 {% load custom_tags %}
 {% load tailwind_filters %}
-{% block content %}
+{% load pwa %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title> {{ post.title }}</title>
+    <meta name="author" content="{{ post.author.author.username }}" />
+    <meta name="description" content=" {{ post.body|safe|truncatewords_html:15 }} " />
+    <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,Django3,Tailwind2,ahampriyanshu,github" />
+    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    {% progressive_web_app_meta %}
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+    <meta name="msapplication-TileColor" content="#f9fafb">
+    <meta name="msapplication-TileImage" content="{% static 'img/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#f9fafb">
+</head>
+<body class="bg-gray-50 antialiased select-none">
+    {% include 'navbar.html' %}
+
 
 <!--Container-->
 <div class="container w-full md:max-w-3xl mx-auto pt-20">
@@ -109,7 +142,7 @@
           <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="image" />
         </div>
         <div>
-          <p class="sm:text-sm md:text-lg lg:text-xl font-medium text-gray-700"> {{ post.author.author.username }}</p>
+          <p class="sm:text-sm md:text-lg lg:text-xl font-medium text-gray-700">{{ post.author.author.username }}</p>
           <p class="text-xs md:text-lg lg:text-lg text-gray-600"> The author has published
             {%  total_posts post.author  %} articles since
             {{ post.author.joined|date:"M, Y" }}
@@ -311,4 +344,9 @@
   {% include 'newsletter.html' %}
 
 </div>
-{% endblock content %}
+
+    {% include 'footer.html' %}
+</body>
+<script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+<script src="https://kit.fontawesome.com/479346cc73.js" crossorigin="anonymous"></script>
+</html>
