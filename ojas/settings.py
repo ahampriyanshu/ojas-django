@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nr34p*=3aap!3j6us%@@vgdjnwe6qsnm9m@vxheb41gzq5+#0i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [ 
     'ahampriyanshu.pythonanywhere.com',
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'crispy_forms',
     'crispy_tailwind',
-    'django_social_share',
     'user_visit',
     'django_user_agents',
     'pwa',
@@ -71,11 +70,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ojas.urls'
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/templates')],
+        'DIRS': [os.path.join(BASE_DIR,'blog', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
