@@ -15,7 +15,7 @@ class PublishedManager(models.Manager):
 
 class Contact(models.Model):
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='me/',default='me/me.png')
+    image = models.ImageField(upload_to='contact/',blank=True, null=True, default = 'default/contact.png' )
     status = models.CharField(max_length=50,  blank=True, null=True)
     location = models.CharField(max_length=100,  blank=True, null=True)
     bio = models.TextField(max_length=300, blank=True, null=True)
@@ -38,10 +38,10 @@ class About(models.Model):
     Yes_NO = ((True, 'Yes'), (False, 'No'))
 
     title = models.CharField(max_length=15, blank=True, null=True)
-    description = models.TextField(max_length=50, blank=True, null=True)
-    button1_title = models.CharField(max_length=15, blank=True, null=True)
+    description = models.TextField(max_length=100, blank=True, null=True)
+    button1_title = models.CharField(max_length=10, blank=True, null=True)
     button1_url = models.URLField(blank=True, null=True, unique=True)
-    button2_title = models.CharField(max_length=15, blank=True, null=True)   
+    button2_title = models.CharField(max_length=10, blank=True, null=True)   
     button2_url = models.URLField(blank=True, null=True, unique=True)
     email = models.EmailField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True, unique=True)

@@ -2,350 +2,359 @@
 {% load custom_tags %}
 {% load tailwind_filters %}
 {% load pwa %}
+{% load embed_video_tags %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no, initial-scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title> {{ post.title }}</title>
-    <meta name="author" content="{{ post.author.author.username }}" />
-    <meta name="description" content=" {{ post.body|safe|truncatewords_html:15 }} " />
-    <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,Django3,Tailwind2,ahampriyanshu,github" />
-    <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-    {% progressive_web_app_meta %}
-    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/apple-icon-60x60.png' %}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-icon-72x72.png' %}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon-76x76.png' %}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple-icon-114x114.png' %}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple-icon-120x120.png' %}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-icon-144x144.png' %}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-icon-152x152.png' %}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-icon-180x180.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/android-icon-192x192.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
-    <meta name="msapplication-TileColor" content="#f9fafb">
-    <meta name="msapplication-TileImage" content="{% static 'img/ms-icon-144x144.png' %}">
-    <meta name="theme-color" content="#f9fafb">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title> {{ post.title }}</title>
+  <meta name="author" content="{{ post.author.author.username }}" />
+  <meta name="description" content=" {{ post.body|safe|truncatewords_html:15 }} " />
+  <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,Django3,Tailwind2,ahampriyanshu,github" />
+  <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  {% progressive_web_app_meta %}
+  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}">
+  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/apple-icon-60x60.png' %}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-icon-72x72.png' %}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon-76x76.png' %}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple-icon-114x114.png' %}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple-icon-120x120.png' %}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-icon-144x144.png' %}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-icon-152x152.png' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-icon-180x180.png' %}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/android-icon-192x192.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+  <meta name="msapplication-TileColor" content="#f9fafb">
+  <meta name="msapplication-TileImage" content="{% static 'img/ms-icon-144x144.png' %}">
+  <meta name="theme-color" content="#f9fafb">
 </head>
+
 <body class="bg-gray-50 antialiased">
-    {% include 'navbar.html' %}
+  {% include 'navbar.html' %}
 
 
-<!--Container-->
-<div class="container w-full md:max-w-3xl mx-auto pt-20">
+  <!--Container-->
+  <div class="container w-full md:max-w-3xl mx-auto pt-20">
 
 
-  <!-- Article -->
-  <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family: Georgia, serif">
-    <div class="font-sans">
-      <span class="text-base md:text-sm text-green-400 font-bold">&lt;</span>
-      <a href="/" class="text-base md:text-sm text-green-400 uppercase font-bold no-underline hover:underline">
-        back to home
-      </a>
-      <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
-        {{ post.title }}
-      </h1>
-      <p class="text-sm ml-2 md:text-base font-normal text-gray-600">
-        Published on {{ post.publish|date:"d M, Y" }}
-      </p>
-    </div>
-    {% if post.image %}
-    <img class="object-cover shadow-xl rounded-lg mt-10 h-auto w-full" alt="cover image" src="{{ post.image.url }}">
-    {% endif %}
-    <p class="py-6" style="font-family: Georgia, serif break-all">
-      {{ post.body|markdown|linebreaks }}
-  </div>
-
-  <!-- Tags -->
-  <div class="text-base md:text-sm text-gray-500 px-4 py-6">
-    Tags:
-    {% for tag in post.tags.all %}
-    <a href='{% url "blog:post_list_by_tag" tag.slug %}'
-      class="text-base md:text-sm text-green-400 no-underline hover:underline">{{ tag.name }}</a>
-    {% if not forloop.last %}, {% endif %}
-    {% endfor %}
-    </a>
-  </div>
-
-  <!-- Social Shares -->
-  <div class="my-5 text-center">
-
-    <a target="_blank" rel="noopener noreferrer"
-      class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
-      href='https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}' type="button">
-      <svg class="fill-current cursor-pointer text-green-500 hover:text-blue-500" width="24" height="24"
-        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
-      </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer"
-      class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
-      href='https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}' type="button">
-      <svg class="fill-current cursor-pointer text-green-500 hover:text-green-400" width="24" height="24"
-        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-      </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer"
-      class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
-      href='https://t.me/share/url?text={{post.title}}&url={{ request.build_absolute_uri }}' type="button">
-      <svg class="fill-current cursor-pointer text-green-500 hover:text-blue-400" width="24" height="24"
-        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path id="telegram-1"
-          d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z" />
-      </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer"
-      class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
-      href='mailto:?subject=New%20Article:%20{{post.title}}&body={{ request.build_absolute_uri }}' type="button">
-      <svg class="fill-current cursor-pointer text-green-500 hover:text-red-400" width="24" height="24"
-        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z" />
-      </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer"
-      class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
-      href='https://twitter.com/intent/tweet?text={{ request.build_absolute_uri }}' type="button">
-      <svg class="fill-current cursor-pointer text-green-500 hover:text-blue-400" width="24" height="24"
-        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-      </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer"
-      href="https://www.reddit.com/submit?title={{post.title}}&url={{ request.build_absolute_uri }}"
-      class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none" type="button">
-      <svg class="fill-current cursor-pointer text-green-500 hover:text-red-600" width="24" height="24"
-        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z" />
-      </svg>
-    </a>
-  </div>
-
-
-  <!-- Author -->
-  <div class="pt-2 ml-6 md:bg-white md:p-6 md:shadow-lg md:rounded-lg lg:bg-white lg:p-6 lg:shadow-lg lg:rounded-lg
-  xl:bg-white xl:p-6 xl:shadow-lg xl:rounded-lg mb-10 flex justify-between items-center">
-    <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
-      <div class="flex">
-        <div class="mr-4">
-          <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="image" />
-        </div>
-        <div>
-          <p class="sm:text-sm md:text-lg lg:text-xl font-medium text-gray-700">{{ post.author.author.username }}</p>
-          <p class="text-xs md:text-lg lg:text-lg text-gray-600"> The author has published
-            {%  total_posts post.author  %} articles since
-            {{ post.author.joined|date:"M, Y" }}
-          </p>
-        </div>
-      </div>
-    </a>
-    <a href='{% url "blog:post_author" post.author %}'
-      class="hidden md:block lg:block xl:block bg-green-400 hover:opacity-75 text-white rounded-full px-8 py-2 ">
-      Read More
-    </a>
-  </div>
-
-  <!-- Next & Prev Links -->
-  <div class="font-sans flex justify-between content-center px-4 pb-12">
-    {% if post.get_previous_by_publish %}
-    <div class="text-left">
-      <a href="{{ post.get_previous_by_publish.get_absolute_url }}"> <span
-          class="text-xs md:text-sm font-normal text-gray-600">
-          &lt; Previous Post</span><br /></a>
-      <p>
-        <a href="{{ post.get_previous_by_publish.get_absolute_url }}"
-          class="break-normal text-base md:text-sm text-green-400 font-bold no-underline hover:underline">
-          {{ post.get_previous_by_publish.title|truncatewords_html:5 }}
+    <!-- Article -->
+    <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family: Georgia, serif">
+      <div class="font-sans">
+        <span class="text-base md:text-sm text-green-400 font-bold">&lt;</span>
+        <a href="/" class="text-base md:text-sm text-green-400 uppercase font-bold no-underline hover:underline">
+          back to home
         </a>
-      </p>
-    </div>
-    {% endif %}
-    {% if post.get_next_by_publish %}
-    <div class="text-right">
-      <a href="{{ post.get_next_by_publish.get_absolute_url }}"> <span
-          class="text-xs md:text-sm font-normal text-gray-600">
-          Next Post &gt;
-        </span>
-        <br /></a>
-
-      <p>
-        <a href="{{ post.get_next_by_publish.get_absolute_url }}"
-          class="break-normal text-base md:text-sm text-green-400 font-bold no-underline hover:underline">
-          {{ post.get_next_by_publish.title|truncatewords_html:5 }}
-        </a>
-      </p>
-    </div>
-    {% endif %}
-  </div>
-
-  <div class="px-4">
-    <!--Discussion-->
-    <p class="font-sans font-bold text-2xl leading-none my-4 text-green-500">
-      Discussion
-      {% with comments.count as total_comments %}
-      <span class="ml-2 text-base font-normal text-black">{{ total_comments }}
-        comment{{ total_comments|pluralize }}</span>
-      {% endwith %}
-    </p>
-
-    <!--Comments-->
-    {% for comment in comments %}
-    <div class="p-8">
-      <div class="flex">
-        <div>
-          <div class="w-10 h-10 bg-cover bg-center rounded-full mr-3 shadow-inner">
-            <svg class="fill-current h-10 w-10 text-green-500 bg-white rounded-full flex justify-center items-center"
-              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-              <path
-                d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z" />
-            </svg>
-          </div>
-        </div>
-        <div>
-          {% if comment.name %}
-          <p class="text-gray-600 font-medium">{{ comment.name }}</p>
-          {% else %}
-          <p class="text-gray-600 font-medium">Anonymous</p>
-          {% endif %}
-          <div class="flex items-center text-xs text-gray-600">
-            <p> {{ comment.created|timesince }} ago</p>
-          </div>
-        </div>
-      </div>
-      <div class="mt-4">
-        <p class="text-gray-600 text-sm">
-          {{ comment.body|safe }}
+        <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">
+          {{ post.title }}
+        </h1>
+        <p class="text-sm ml-2 md:text-base font-normal text-gray-600">
+          Published on {{ post.publish|date:"d M, Y" }}
         </p>
       </div>
+      {% if post.image %}
+      <img class="object-cover shadow-xl rounded-lg mt-10 h-auto w-full" alt="cover image" src="{{ post.image.url }}">
+      {% endif %}
+      <p class="py-6" style="font-family: Georgia, serif break-all">
+        {{ post.body|markdown|linebreaks }}
+      </p>
+      <div class="mt-10 items-center">
+      {% video post.video as em_video %}
+      {% video em_video "medium" %}
+      {% endvideo %}
+      {% video em_video '800x600' %}
     </div>
-    {% empty %}
-    <div class="flex p-4">
-      <div class="mr-4">
-        <svg class="fill-current h-10 w-10 text-green-500 bg-white rounded-full flex justify-center items-center"
-          xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    </div>
+
+    <!-- Tags -->
+    <div class="text-base md:text-sm text-gray-500 px-4 py-6">
+      Tags:
+      {% for tag in post.tags.all %}
+      <a href='{% url "blog:post_list_by_tag" tag.slug %}'
+        class="text-base md:text-sm text-green-400 no-underline hover:underline">{{ tag.name }}</a>
+      {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      </a>
+    </div>
+
+    <!-- Social Shares -->
+    <div class="my-5 text-center">
+      <a target="_blank" rel="noopener noreferrer"
+        class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
+        href='https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}' type="button">
+        <svg class="fill-current cursor-pointer text-green-500 hover:text-blue-500" width="24" height="24"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path
-            d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z" />
+            d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
         </svg>
+      </a>
+      <a target="_blank" rel="noopener noreferrer"
+        class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
+        href='https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}' type="button">
+        <svg class="fill-current cursor-pointer text-green-500 hover:text-green-400" width="24" height="24"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+        </svg>
+      </a>
+      <a target="_blank" rel="noopener noreferrer"
+        class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
+        href='https://t.me/share/url?text={{post.title}}&url={{ request.build_absolute_uri }}' type="button">
+        <svg class="fill-current cursor-pointer text-green-500 hover:text-blue-400" width="24" height="24"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path id="telegram-1"
+            d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z" />
+        </svg>
+      </a>
+      <a target="_blank" rel="noopener noreferrer"
+        class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
+        href='mailto:?subject=New%20Article:%20{{post.title}}&body={{ request.build_absolute_uri }}' type="button">
+        <svg class="fill-current cursor-pointer text-green-500 hover:text-red-400" width="24" height="24"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z" />
+        </svg>
+      </a>
+      <a target="_blank" rel="noopener noreferrer"
+        class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none"
+        href='https://twitter.com/intent/tweet?text={{ request.build_absolute_uri }}' type="button">
+        <svg class="fill-current cursor-pointer text-green-500 hover:text-blue-400" width="24" height="24"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+        </svg>
+      </a>
+      <a target="_blank" rel="noopener noreferrer"
+        href="https://www.reddit.com/submit?title={{post.title}}&url={{ request.build_absolute_uri }}"
+        class="font-normal h-8 w-8 rounded-full outline-none focus:outline-none" type="button">
+        <svg class="fill-current cursor-pointer text-green-500 hover:text-red-600" width="24" height="24"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z" />
+        </svg>
+      </a>
+    </div>
+
+
+    <!-- Author -->
+    <div class="pt-2 ml-6 md:bg-white md:p-6 md:shadow-lg md:rounded-lg lg:bg-white lg:p-6 lg:shadow-lg lg:rounded-lg
+  xl:bg-white xl:p-6 xl:shadow-lg xl:rounded-lg mb-10 flex justify-between items-center">
+      <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+        <div class="flex">
+          <div class="mr-4">
+            <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="image" />
+          </div>
+          <div>
+            <p class="sm:text-sm md:text-lg lg:text-xl font-medium text-gray-700">{{ post.author.author.username }}</p>
+            <p class="text-xs md:text-lg lg:text-lg text-gray-600"> The author has published
+              {%  total_posts post.author  %} articles since
+              {{ post.author.joined|date:"M, Y" }}
+            </p>
+          </div>
+        </div>
+      </a>
+      <a href='{% url "blog:post_author" post.author %}'
+        class="hidden md:block lg:block xl:block bg-green-400 hover:opacity-75 text-white rounded-full px-8 py-2 ">
+        Read More
+      </a>
+    </div>
+
+    <!-- Next & Prev Links -->
+    <div class="font-sans flex justify-between content-center px-4 pb-12">
+      {% if post.get_previous_by_publish %}
+      <div class="text-left">
+        <a href="{{ post.get_previous_by_publish.get_absolute_url }}"> <span
+            class="text-xs md:text-sm font-normal text-gray-600">
+            &lt; Previous Post</span><br /></a>
+        <p>
+          <a href="{{ post.get_previous_by_publish.get_absolute_url }}"
+            class="break-normal text-base md:text-sm text-green-400 font-bold no-underline hover:underline">
+            {{ post.get_previous_by_publish.title|truncatewords_html:5 }}
+          </a>
+        </p>
       </div>
-      <div class="flex justify-between w-full">
-        <div class="text-green-500">
-          <p class="font-bold">
-            No comments yet.
-          </p>
-          <p class="text-xs">
-            Be the first to comment.
+      {% endif %}
+      {% if post.get_next_by_publish %}
+      <div class="text-right">
+        <a href="{{ post.get_next_by_publish.get_absolute_url }}"> <span
+            class="text-xs md:text-sm font-normal text-gray-600">
+            Next Post &gt;
+          </span>
+          <br /></a>
+
+        <p>
+          <a href="{{ post.get_next_by_publish.get_absolute_url }}"
+            class="break-normal text-base md:text-sm text-green-400 font-bold no-underline hover:underline">
+            {{ post.get_next_by_publish.title|truncatewords_html:5 }}
+          </a>
+        </p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="px-4">
+      <!--Discussion-->
+      <p class="font-sans font-bold text-2xl leading-none my-4 text-green-500">
+        Discussion
+        {% with comments.count as total_comments %}
+        <span class="ml-2 text-base font-normal text-black">{{ total_comments }}
+          comment{{ total_comments|pluralize }}</span>
+        {% endwith %}
+      </p>
+
+      <!--Comments-->
+      {% for comment in comments %}
+      <div class="p-8">
+        <div class="flex">
+          <div>
+            <div class="w-10 h-10 bg-cover bg-center rounded-full mr-3 shadow-inner">
+              <svg class="fill-current h-10 w-10 text-green-500 bg-white rounded-full flex justify-center items-center"
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path
+                  d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7.753 18.305c-.261-.586-.789-.991-1.871-1.241-2.293-.529-4.428-.993-3.393-2.945 3.145-5.942.833-9.119-2.489-9.119-3.388 0-5.644 3.299-2.489 9.119 1.066 1.964-1.148 2.427-3.393 2.945-1.084.25-1.608.658-1.867 1.246-1.405-1.723-2.251-3.919-2.251-6.31 0-5.514 4.486-10 10-10s10 4.486 10 10c0 2.389-.845 4.583-2.247 6.305z" />
+              </svg>
+            </div>
+          </div>
+          <div>
+            {% if comment.name %}
+            <p class="text-gray-600 font-medium">{{ comment.name }}</p>
+            {% else %}
+            <p class="text-gray-600 font-medium">Anonymous</p>
+            {% endif %}
+            <div class="flex items-center text-xs text-gray-600">
+              <p> {{ comment.created|timesince }} ago</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <p class="text-gray-600 text-sm">
+            {{ comment.body|safe }}
           </p>
         </div>
       </div>
-    </div>
-    {% endfor %}
-
-
-
-    <!-- Comment_Form -->
-    <div class="w-full lg:w-1/2 md:w-1/2 justify-start">
-      {% if new_comment %}
+      {% empty %}
       <div class="flex p-4">
         <div class="mr-4">
-          <svg class="fill-current h-10 w-10 text-green-600 bg-white rounded-full flex justify-center items-center"
+          <svg class="fill-current h-10 w-10 text-green-500 bg-white rounded-full flex justify-center items-center"
             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path
-              d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 17.292l-4.5-4.364 1.857-1.858 2.643 2.506 5.643-5.784 1.857 1.857-7.5 7.643z" />
+              d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z" />
           </svg>
         </div>
         <div class="flex justify-between w-full">
-          <div class="text-green-600">
-            <p class="mb-2 font-bold">
-              Your comment has been added.
+          <div class="text-green-500">
+            <p class="font-bold">
+              No comments yet.
             </p>
             <p class="text-xs">
-              Thank You for the feedback.
+              Be the first to comment.
             </p>
           </div>
         </div>
-        {% else %}
-        <h3>Leave a comment</h3>
-        <form method="post" style="margin-top: 1.3em;">
-          {{ comment_form|crispy }}
-          {% csrf_token %}
-          <div class="-mr-1">
-            <input type="submit" class="bg-green-400 hover:opacity-75 text-white rounded-full px-8 py-2"
-              value='Comment'>
+      </div>
+      {% endfor %}
+
+
+
+      <!-- Comment_Form -->
+      <div class="w-full lg:w-1/2 md:w-1/2 justify-start">
+        {% if new_comment %}
+        <div class="flex p-4">
+          <div class="mr-4">
+            <svg class="fill-current h-10 w-10 text-green-600 bg-white rounded-full flex justify-center items-center"
+              xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path
+                d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 17.292l-4.5-4.364 1.857-1.858 2.643 2.506 5.643-5.784 1.857 1.857-7.5 7.643z" />
+            </svg>
           </div>
-        </form>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-
-  <!-- Recommended -->
-
-  <p class="font-sans font-bold text-2xl md:text-3xl leading-none mt-10 md:mt-15 text-center text-green-500">
-    Recommended For You</p>
-
-
-  {% for post in similar_posts %}
-
-  <div class="mx-auto px-4 py-4 max-w-xl my-auto">
-    <div class="bg-white shadow-xl rounded-lg mb-6 tracking-wide">
-      <a href='{{ post.get_absolute_url }}'>
-        {% if post.image %}
-        <div class="md:flex-shrink-0">
-          <img src="{{post.image.url}}" alt="uploaded cover image"
-            class="object-cover h-full w-full rounded-lg rounded-b-none">
-        </div>
-        {% else %}
-        <div class="md:flex-shrink-0">
-          <img src="{% static 'default/blog.png' %}" alt="default cover image"
-            class="object-cover h-full w-full rounded-lg rounded-b-none">
-        </div>
-        {% endif %}
-      </a>
-      <div class="px-4 py-2">
-        <div class="pl-4 pt-2">
-          <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
-          <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
-        </div>
-        <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
-          <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
-            <div class="flex items-center">
-              <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="author image">
-              <div class="text-sm ml-2">
-                <p class="text-black leading-none">{{ post.author }}</p>
-                <p class="text-gray-700">{{ post.publish|date:"d M, Y" }}</p>
-              </div>
+          <div class="flex justify-between w-full">
+            <div class="text-green-600">
+              <p class="mb-2 font-bold">
+                Your comment has been added.
+              </p>
+              <p class="text-xs">
+                Thank You for the feedback.
+              </p>
             </div>
-          </a>
-          <a href="{{ post.get_absolute_url }}"
-            class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
-            Read More
-          </a>
-        </footer>
+          </div>
+          {% else %}
+          <h3>Leave a comment</h3>
+          <form method="post" style="margin-top: 1.3em;">
+            {{ comment_form|crispy }}
+            {% csrf_token %}
+            <div class="-mr-1">
+              <input type="submit" class="bg-green-400 hover:opacity-75 text-white rounded-full px-8 py-2"
+                value='Comment'>
+            </div>
+          </form>
+          {% endif %}
+        </div>
       </div>
     </div>
+
+    <!-- Recommended -->
+
+    <p class="font-sans font-bold text-2xl md:text-3xl leading-none mt-10 md:mt-15 text-center text-green-500">
+      Recommended For You</p>
+
+
+    {% for post in similar_posts %}
+
+    <div class="mx-auto px-4 py-4 max-w-xl my-auto">
+      <div class="bg-white shadow-xl rounded-lg mb-6 tracking-wide">
+        <a href='{{ post.get_absolute_url }}'>
+          {% if post.image %}
+          <div class="md:flex-shrink-0">
+            <img src="{{post.image.url}}" alt="uploaded cover image"
+              class="object-cover h-full w-full rounded-lg rounded-b-none">
+          </div>
+          {% else %}
+          <div class="md:flex-shrink-0">
+            <img src="{% static 'default/blog.png' %}" alt="default cover image"
+              class="object-cover h-full w-full rounded-lg rounded-b-none">
+          </div>
+          {% endif %}
+        </a>
+        <div class="px-4 py-2">
+          <div class="pl-4 pt-2">
+            <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
+            <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
+          </div>
+          <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
+            <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+              <div class="flex items-center">
+                <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="author image"/>
+                <div class="text-sm ml-2">
+                  <p class="text-black leading-none">{{ post.author }}</p>
+                  <p class="text-gray-700">{{ post.publish|date:"d M, Y" }}</p>
+                </div>
+              </div>
+            </a>
+            <a href="{{ post.get_absolute_url }}"
+              class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
+              Read More
+            </a>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+    <h2 class="leading-none mt-10 mb-20 text-center">No recommendations for now</h2>
+    {% endfor %}
+
+    <!--Newsletter Starts-->
+    {% include 'newsletter.html' %}
+
   </div>
 
-  {% empty %}
-  <h2 class="leading-none mt-10 mb-20 text-center">No recommendations for now</h2>
-  {% endfor %}
-
-  <!--Newsletter Starts-->
-  {% include 'newsletter.html' %}
-
-</div>
-
-    {% include 'footer.html' %}
+  {% include 'footer.html' %}
 </body>
 <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+
 </html>
