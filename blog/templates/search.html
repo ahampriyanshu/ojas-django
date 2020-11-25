@@ -3,33 +3,35 @@
 {% load static %}
 {% block content %}
 
-<p class="font-sans font-bold text-2xl md:text-3xl leading-none mt-24 text-center text-green-500">
-Search results for '{{ query }}'</p>
+<p class="font-sans font-bold text-2xl md:text-3xl leading-none mt-24 text-center text-gray-700">
+Search results for <span class="text-green-500" >{{ query }}</span></p>
 
 
   {% for post in queryset %}
 
   <div class="mx-auto px-4 py-4 max-w-xl my-auto">
-    <div class="bg-white shadow-xl rounded-lg mb-6 tracking-wide">
+    <div class="bg-white md:shadow-xl rounded-lg mb-6 tracking-wide">
       <a href='{{ post.get_absolute_url }}'>
+        <div class="p-4 md:flex-shrink-0">
         {% if post.image %}
-        <div class="md:flex-shrink-0">
+        
           <img src="{{post.image.url}}" alt="uploaded cover image"
             class="object-cover h-full w-full rounded-lg rounded-b-none">
-        </div>
+  
         {% else %}
-        <div class="md:flex-shrink-0">
+       
           <img src="{% static 'default/blog.png' %}" alt="default cover image"
             class="object-cover h-full w-full rounded-lg rounded-b-none">
-        </div>
+        
         {% endif %}
+      </div>
       </a>
-      <div class="px-4 py-2">
-        <div class="pl-4 pt-2">
-          <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title|highlight_search:query }}</h2>
+      <div class="py-2">
+        <div class="p-4">
+          <h2 class="truncate font-bold mb-2 md:mt-4 text-2xl text-gray-800 tracking-normal">{{ post.title|highlight_search:query }}</h2>
           <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30|highlight_search:query }}</p>
         </div>
-        <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
+        <footer class="flex items-center justify-between p-2 md:p-4">
           <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center">
               <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="author image">
@@ -49,7 +51,7 @@ Search results for '{{ query }}'</p>
   </div>
 
   {% empty %}
-  <h2 class="leading-none mt-5 md:h-screen text-center">No results were found</h2>
+  <h2 class="leading-none mt-5 md:h-screen text-gray-800 text-center">No results were found</h2>
   {% endfor %}
 
 {% endblock %}
