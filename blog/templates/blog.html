@@ -66,9 +66,16 @@
       </p>
       <div class="mt-10 items-center">
       {% video post.video as em_video %}
-      {% video em_video "medium" %}
+
+      <div class="block md:hidden">
+        {% video em_video "100%x50%" %}
+      </div>
+
+      <div class="hidden md:block">
+        {% video em_video "medium" %}
+      </div>
+
       {% endvideo %}
-      {% video em_video '800x600' %}
     </div>
     </div>
 
