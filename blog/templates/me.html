@@ -4,11 +4,11 @@
 
 {% with me as you %}
 
-<div class="h-screen overflow-hidden flex items-center justify-center" style="background: #edf2f7;">
-<div class="w-1/2 mx-auto">
+<div class="mt-24 md:my-24 overflow-hidden flex items-center justify-center">
+<div class="w-full mx-1 md:w-1/2 md:mx-auto">
     <div class="w-full shadow-2xl subpixel-antialiased rounded h-64 bg-black border-black mx-auto">
       <div class="flex items-center h-6 rounded-t bg-gray-100 border-b border-gray-500 text-center text-black" id="headerTerminal">
-        <div class="flex ml-2 items-center text-center border-red-900 bg-green-500 shadow-inner rounded-full w-3 h-3" id="closebtn">
+        <div class="flex ml-2 items-center text-center border-red-900 bg-red-500 shadow-inner rounded-full w-3 h-3" id="closebtn">
         </div>
         <div class="ml-2 border-yellow-900 bg-yellow-500 shadow-inner rounded-full w-3 h-3" id="minbtn">
         </div>
@@ -17,9 +17,8 @@
         <div class="mx-auto pr-16" id="terminaltitle">
           <p class="text-center text-sm">Terminal</p>
         </div>
-  
       </div>
-      <div class="pl-1 pt-1 h-auto  text-white font-mono text-xs bg-black" id="console">
+      <div class="pl-1 pt-1 h-auto md:m-2 text-white font-mono text-xs bg-black">
         <p class="pb-1">Last login: {{ you.time }}</p>
         <p class="pb-1">You are using a {{ you.device }}</p>
 
@@ -38,7 +37,6 @@
         <p class="pb-1">You are viewing this website on {{ you.browser }} {{ you.browser_version }} </p>
         <p class="pb-1">Your {{ you.device }} is running on {{ you.os }}</p>
         <p class="pb-1">Your IP is {{ you.ip }}</p>
-        <p class="pb-1 text-green-400">BTW you should use a VPN</p>
       </div>
     </div> 
   </div>

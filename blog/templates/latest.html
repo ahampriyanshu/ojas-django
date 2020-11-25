@@ -5,7 +5,7 @@
   <p class="font-sans font-bold text-3xl leading-none text-center text-green-500">Latest</p>
     <div class="max-w-6xl m-auto mt-5  text-gray-800 flex flex-wrap justify-center">
       {% for post in latest_posts %}
-      <div class="overflow-hidden md:w-1/2 md:my-4 md:px-4 md:flex mb-8">
+      <div class="md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2 lg:flex mb-8">
         <a href='{{ post.get_absolute_url }}'>
         <div
           class="md:h-64 h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
@@ -17,7 +17,7 @@
         </div>
         </a>
         <div
-          class="md:h-64 md:w-full border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          class="md:h-64 md:w-full  border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
          
           <div class="mb-8">
             <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>

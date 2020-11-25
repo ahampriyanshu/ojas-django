@@ -16,14 +16,14 @@ document.addEventListener('scroll', function () {
 
     if (scrollpos > 10) {
         header.classList.add('bg-white');
-        header.classList.add('shadow-lg');
-        navcontent.classList.remove('bg-gray-100');
+        header.classList.add('shadow-xl');
+        navcontent.classList.remove('bg-gray-50');
         navcontent.classList.add('bg-white');
     } else {
         header.classList.remove('bg-white');
-        header.classList.remove('shadow-lg');
+        header.classList.remove('shadow-xl');
         navcontent.classList.remove('bg-white');
-        navcontent.classList.add('bg-gray-100');
+        navcontent.classList.add('bg-gray-50');
     }
 });
 
