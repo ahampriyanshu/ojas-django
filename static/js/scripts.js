@@ -26,7 +26,3 @@ document.addEventListener('scroll', function () {
         navcontent.classList.add('bg-gray-50');
     }
 });
-
-document.getElementById('nav-toggle').onclick = function () {
-    document.getElementById('nav-content').classList.toggle('hidden');
-};

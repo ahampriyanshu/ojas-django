@@ -187,3 +187,9 @@ PWA_APP_SPLASH_SCREEN = [
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
+
+CKEDITOR_CONFIGS = {
+'default': {
+    'width': 'auto',
+          },
+    }

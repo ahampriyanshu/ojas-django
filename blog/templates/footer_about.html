@@ -1,13 +1,12 @@
 {% load custom_tags %}
-    
 {% for abt in about %}
-<h3 class="font-bold text-gray-900">{{ abt.title }}</h3>
-<p class="py-4 text-gray-600 text-sm">
-    {{ abt.description|safe|truncatewords_html:20 }}
+<h3 class="font-bold text-gray-900">{{ abt.title }}<span style="color: #FF7F50;">.</span></h3>
+<p class="py-4 text-gray-700 text-sm">
+    {{ abt.description|safe|truncatewords_html:15 }}
 </p>
 <div class="my-3">
     {% if abt.github %}
-  <a target="_blank" rel="noopener noreferrer" href="{{abt.github}}"
+  <a   href="{{abt.github}}"
     class="h-8 w-8 rounded-full outline-none focus:outline-none" 
     type="button">
     <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-600" width="24" height="24" viewBox="0 0 24 24">
@@ -17,7 +16,7 @@
   </a>
   {% endif %}
   {% if abt.linkedin %}
-  <a target="_blank" rel="noopener noreferrer"
+  <a  
     class="h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.linkedin}}'
     type="button">
     <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-600" width="24" height="24" viewBox="0 0 24 24">
@@ -27,7 +26,7 @@
   </a>
   {% endif %}
   {% if abt.telegram %}
-  <a target="_blank" rel="noopener noreferrer"
+  <a  
     class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.telegram}}'
     type="button">
     <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-600" width="24" height="24" viewBox="0 0 24 24">
@@ -37,7 +36,7 @@
   </a>
   {% endif %}
   {% if abt.email %}
-  <a target="_blank" rel="noopener noreferrer"
+  <a  
     class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.email}}'
     type="button">
     <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-600" width="24" height="24" viewBox="0 0 24 24">
@@ -47,7 +46,7 @@
   </a>
   {% endif %}
   {% if abt.twitter %}
-  <a target="_blank" rel="noopener noreferrer"
+  <a  
     class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.twitter}}'
     type="button">
     <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-600" width="24" height="24" viewBox="0 0 24 24">
@@ -57,7 +56,7 @@
   </a>
   {% endif %}
   {% if abt.instagram %}
-  <a target="_blank" rel="noopener noreferrer"
+  <a  
     class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.instagram}}'
     type="button">
     <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-600" width="24" height="24" viewBox="0 0 24 24">
@@ -67,7 +66,7 @@
   </a>
   {% endif %}
   {% if abt.reddit %}
-  <a target="_blank" rel="noopener noreferrer"
+  <a  
     class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.reddit}}'
     type="button">
     <svg class="fill-current cursor-pointer text-gray-500 hover:text-gray-600" width="24" height="24" viewBox="0 0 24 24">

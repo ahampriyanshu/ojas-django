@@ -18,14 +18,13 @@
         </a>
         <div
           class="md:h-64 md:w-full  border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-         
           <div class="mb-8">
             <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>
-            <p class="break-all text-grey-darker text-base"> {{ post.body|markdown|truncatewords_html:25 }} </p>
+            <p class="break-words text-grey-darker text-base"> {{ post.body|markdown|truncatewords_html:25 }} </p>
           </div>
    
         <footer class="flex items-center justify-between leading-none mx-3">
-          <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+          <a   href='{% url "blog:post_author" post.author %}'>
           <div class="flex items-center">
             <img class="w-10 h-10 rounded-full" src="{{ post.author.image.url }}" alt="autor image">
             <div class="text-sm ml-2">
@@ -35,7 +34,7 @@
           </div>
           </a>
           <a href="{{ post.get_absolute_url }}"
-            class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
+            class="bg-green-500 hover:bg-green-600 text-white rounded-full px-8 py-2">
             Read More
           </a>
         </footer>

@@ -29,10 +29,10 @@ Search results for <span class="text-green-500" >{{ query }}</span></p>
       <div class="py-2">
         <div class="p-4">
           <h2 class="truncate font-bold mb-2 md:mt-4 text-2xl text-gray-800 tracking-normal">{{ post.title|highlight_search:query }}</h2>
-          <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30|highlight_search:query }}</p>
+          <p class="break-words text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30|highlight_search:query }}</p>
         </div>
         <footer class="flex items-center justify-between p-2 md:p-4">
-          <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+          <a   href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center">
               <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="author image">
               <div class="text-sm ml-2">
@@ -42,7 +42,7 @@ Search results for <span class="text-green-500" >{{ query }}</span></p>
             </div>
           </a>
           <a href="{{ post.get_absolute_url }}"
-            class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
+            class="bg-green-500 hover:bg-green-600 text-white rounded-full px-8 py-2">
             Read More
           </a>
         </footer>

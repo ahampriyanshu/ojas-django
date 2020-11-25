@@ -27,7 +27,7 @@
           
           <div class="my-6">
             {% if auth.github %}
-            <a target="_blank" rel="noopener noreferrer" href="{{auth.github}}"
+            <a   href="{{auth.github}}"
               class="h-8 w-8 rounded-full outline-none focus:outline-none" 
               type="button">
               <svg class="fill-current cursor-pointer text-green-500 hover:text-green-600" width="24" height="24" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@
             </a>
             {% endif %}
             {% if auth.linkedin %}
-            <a target="_blank" rel="noopener noreferrer"
+            <a  
               class="h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.linkedin}}'
               type="button">
               <svg class="fill-current cursor-pointer text-green-500 hover:text-green-600" width="24" height="24" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@
             </a>
             {% endif %}
             {% if auth.telegram %}
-            <a target="_blank" rel="noopener noreferrer"
+            <a  
               class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.telegram}}'
               type="button">
               <svg class="fill-current cursor-pointer text-green-500 hover:text-green-600" width="24" height="24" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@
             </a>
             {% endif %}
             {% if auth.email %}
-            <a target="_blank" rel="noopener noreferrer"
+            <a  
               class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.email}}'
               type="button">
               <svg class="fill-current cursor-pointer text-green-500 hover:text-green-600" width="24" height="24" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@
             </a>
             {% endif %}
             {% if auth.twitter %}
-            <a target="_blank" rel="noopener noreferrer"
+            <a  
               class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.twitter}}'
               type="button">
               <svg class="fill-current cursor-pointer text-green-500 hover:text-green-600" width="24" height="24" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@
             </a>
             {% endif %}
             {% if auth.instagram %}
-            <a target="_blank" rel="noopener noreferrer"
+            <a  
               class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.instagram}}'
               type="button">
               <svg class="fill-current cursor-pointer text-green-500 hover:text-green-600" width="24" height="24" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@
             </a>
             {% endif %}
             {% if auth.reddit %}
-            <a target="_blank" rel="noopener noreferrer"
+            <a  
               class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.reddit}}'
               type="button">
               <svg class="fill-current cursor-pointer text-green-500 hover:text-green-600" width="24" height="24" viewBox="0 0 24 24">
@@ -130,10 +130,10 @@
       <div class="px-4 py-2">
         <div class="pl-4 pt-2">
           <h2 class="truncate font-bold text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
-          <p class="break-all text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
+          <p class="break-words text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
         </div>
         <footer class="flex items-center justify-between mt-5 p-2 md:p-4">
-          <a target="_blank" rel="noopener noreferrer" href='{% url "blog:post_author" post.author %}'>
+          <a   href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center">
               <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="author image">
               <div class="text-sm ml-2">
@@ -143,7 +143,7 @@
             </div>
           </a>
           <a href="{{ post.get_absolute_url }}"
-            class="bg-green-400 hover:bg-green-500 text-white rounded-full px-8 py-2">
+            class="bg-green-500 hover:bg-green-600 text-white rounded-full px-8 py-2">
             Read More
           </a>
         </footer>
