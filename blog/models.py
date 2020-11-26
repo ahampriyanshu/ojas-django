@@ -15,20 +15,22 @@ class PublishedManager(models.Manager):
 
 class Contact(models.Model):
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='contact/',blank=True, null=True, default = 'default/contact.png' )
+    image = models.ImageField(
+        upload_to='contact/', blank=True, null=True, default='default/contact.png')
     status = models.CharField(max_length=50,  blank=True, null=True)
     location = models.CharField(max_length=100,  blank=True, null=True)
     bio = models.TextField(max_length=300, blank=True, null=True)
     number = models.PositiveIntegerField(default=919917956610)
-    greeting = models.CharField(max_length=100,  blank=True, null=True, default='Hi%20Priyanshu')
+    greeting = models.CharField(
+        max_length=100,  blank=True, null=True, default='Hi%20Priyanshu')
     email = models.EmailField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True, unique=True)
     twitter = models.URLField(blank=True, null=True, unique=True)
     reddit = models.URLField(blank=True, null=True, unique=True)
-    telegram = models.CharField(max_length=50,blank=True, null=True, unique=True)
+    telegram = models.CharField(
+        max_length=50, blank=True, null=True, unique=True)
     github = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
-
 
     def __str__(self):
         return self.full_name
@@ -41,13 +43,14 @@ class About(models.Model):
     description = models.TextField(max_length=100, blank=True, null=True)
     button1_title = models.CharField(max_length=10, blank=True, null=True)
     button1_url = models.URLField(blank=True, null=True, unique=True)
-    button2_title = models.CharField(max_length=10, blank=True, null=True)   
+    button2_title = models.CharField(max_length=10, blank=True, null=True)
     button2_url = models.URLField(blank=True, null=True, unique=True)
     email = models.EmailField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True, unique=True)
     twitter = models.URLField(blank=True, null=True, unique=True)
     reddit = models.URLField(blank=True, null=True, unique=True)
-    telegram = models.CharField(max_length=50,blank=True, null=True, unique=True)
+    telegram = models.CharField(
+        max_length=50, blank=True, null=True, unique=True)
     github = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
     default_page = models.BooleanField(choices=Yes_NO, default='Yes')
@@ -59,7 +62,8 @@ class About(models.Model):
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='author', blank=True, null=True, default ='default/author.png')
+    image = models.ImageField(
+        upload_to='author', blank=True, null=True, default='default/author.png')
     joined = models.DateTimeField(auto_now_add=True)
     bio = models.TextField(max_length=200, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
