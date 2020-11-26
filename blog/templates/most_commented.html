@@ -1,50 +1,47 @@
-{% load custom_tags %}
 {% load static %}
+{% load custom_tags %}
+<div class="container w-full md:mt-4 mx-auto py-4 md:px-12">
+  <p class="font-sans font-bold text-3xl mb-5 leading-none text-center text-green-500">Most Discussed</p>
+  <div class="max-w-full flex flex-wrap justify-center">
 
-<div class="container w-full md:mt-8 mx-auto py-4 md:px-12">
-  
-  <p class="font-sans font-bold text-3xl leading-none text-center text-green-500">Most Discussed</p>
-    <div class="max-w-6xl m-auto mt-5 text-gray-800 flex flex-wrap justify-center">
-      {% for post in commented_posts %}
-      <div class="md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2 lg:flex mb-8">
-        <a href='{{ post.get_absolute_url }}'>
-        <div
-          class="md:h-64 h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+    {% for post in commented_posts %}
+
+    <div class="w-full md:w-1/2 md:my-4 lg:px-4 md:flex mb-8">
+      <a href='{{ post.get_absolute_url }}'>
+        <div class="md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
           {% if post.image %}
-         <img class="md:border md:border-r-0 md:h-64 h-auto" src="{{ post.image.url }}" alt="uploaded cover image" />
-         {% else %}
-         <img class="md:border md:border-r-0 md:h-64 h-auto"  src="{% static 'default/blog.png'  %}" alt="default cover image" />
-         {% endif %}
+          <img class="md:border md:border-r-0 md:h-64 h-auto" src="{{ post.image.url }}" alt="uploaded cover image" />
+          {% else %}
+          <img class="md:border md:border-r-0 md:h-64 h-auto" src="{% static 'default/blog.png'  %}"
+            alt="default cover image" />
+          {% endif %}
         </div>
-        </a>
-        <div
-          class="md:h-64 md:w-full  border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-         
-          <div class="mb-8">
-            <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>
-            <p class="break-words text-grey-darker text-base"> {{ post.body|markdown|truncatewords_html:25 }} </p>
-          </div>
-   
-        <footer class="flex items-center justify-between leading-none mx-3">
-          <a   href='{% url "blog:post_author" post.author %}'>
-          <div class="flex items-center">
-            <img class="w-10 h-10 rounded-full" src="{{ post.author.image.url }}" alt="autor image">
-            <div class="text-sm ml-2">
-              <p class="text-black leading-none">{{ post.author }}</p>
-              <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
+      </a>
+      <div
+        class="overflow-hidden h-48 md:h-64 md:w-full md:border md:border  md:border-l-0 border-grey-light bg-gray-50 md:bg-white rounded-b md:rounded-b-none md:rounded-r p-4 flex flex-col justify-between leading-normal">
+        <div class="overflow-hidden mb-8 h-32 md:h-48">
+          <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>
+          <p class="break-words text-grey-800 "> {{ post.body|truncatewords_html:20|markdown }} </p>
+        </div>
+        <div class="flex items-center justify-between leading-none mx-3">
+          <a href='{% url "blog:post_author" post.author %}'>
+            <div class="flex items-center">
+              <img class="w-10 h-10 rounded-full" src="{{ post.author.image.url }}" alt="autor image">
+              <div class="text-sm ml-2">
+                <p class="text-black leading-none">{{ post.author }}</p>
+                <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
+              </div>
             </div>
-          </div>
           </a>
           <a href="{{ post.get_absolute_url }}"
             class="bg-green-500 hover:bg-green-600 text-white rounded-full px-8 py-2">
             Read More
           </a>
-        </footer>
         </div>
       </div>
-      {% empty %}
-  <h2 class="leading-none mt-10 mb-20 text-center">We may need some more articles</h2>
-      {% endfor %}      
     </div>
+    {% empty %}
+    <h2 class="md:text-2xl my-10 text-center">We may need some more articles</h2>
+    {% endfor %}
   </div>
-
+</div>
