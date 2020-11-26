@@ -146,3 +146,5 @@ CKEDITOR_CONFIGS = {
     'width': 'auto',
           },
     }
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'

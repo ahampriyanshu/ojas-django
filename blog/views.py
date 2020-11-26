@@ -11,6 +11,41 @@ from .models import Post, Comment, Author, Viewer, Contact, About
 from .forms import CommentForm
 from rest_framework import viewsets
 from .serializers import PostSerializer
+import logging
+from django.urls import reverse
+from django.views.decorators.cache import never_cache
+from django.views.generic import TemplateView
+from django.templatetags.static import static
+from ojas import version
+
+logger = logging.getLogger('ojas.pwa.views')
+
+def offline(request):
+    return render(request, 'offline.html')
+
+def fill_dynamic_cache(request, id):
+    return render(request, 'fill_dynamic_cache.html', context={'id': id})
+
+
+@never_cache
+def must_not_cache(request):
+    return render(request, 'must_not_cache.html', context={'requested_at': timezone.now()})
+
+
+class ServiceWorkerView(TemplateView):
+    template_name = 'sw.js'
+    content_type = 'application/javascript'
+    name = 'sw.js'
+
+    def get_context_data(self, **kwargs):
+        return {
+            'version': version,
+            'icon_url': static('img/android-icon-512x512.png'),
+            'manifest_url': static('manifest.json'),
+            'style_url': static('css/tailwind.min.css'),
+            'home_url': reverse('blog:most_viewed'),
+            'offline_url': reverse('blog:offline'),
+        }
 
 
 class PostViewSet(viewsets.ModelViewSet):

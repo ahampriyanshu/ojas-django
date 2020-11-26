@@ -1,7 +1,6 @@
 {% load static %}
 {% load custom_tags %}
 {% load tailwind_filters %}
-{% load pwa %}
 {% load embed_video_tags %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +16,6 @@
   <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,Django3,Tailwind2,ahampriyanshu,github" />
   <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-  {% progressive_web_app_meta %}
   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}">
   <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/apple-icon-60x60.png' %}">
   <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-icon-72x72.png' %}">
@@ -37,9 +35,23 @@
 </head>
 
 <body class="bg-gray-50 antialiased">
+
+  {% block sw_script %}
+  <script>
+      if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('{% url "sw.js" %}', { scope: '/' }).then(function(reg) {
+              // registration worked
+              console.log('Registration succeeded. Scope is ' + reg.scope);
+          }).catch(function(error) {
+              // registration failed
+              console.log('Registration failed with ' + error);
+          });
+      }
+  </script>
+{% endblock %}
+
   {% include 'navbar.html' %}
-
-
+  
   <!--Container-->
   <div class="container w-full md:max-w-3xl mx-auto pt-20">
 

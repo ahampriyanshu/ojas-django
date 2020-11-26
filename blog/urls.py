@@ -4,6 +4,7 @@ from . import views
 from .feeds import LatestPostsFeed
 from .views import search, PostViewSet
 from rest_framework import routers 
+from django.views.generic import TemplateView
 
 
 router = routers.DefaultRouter() 
@@ -24,4 +25,13 @@ urlpatterns = [
     path('me/', views.me, name='me'),
     path('', include(router.urls)), 
     path('api-auth/', include('rest_framework.urls')),
+    path('offline/', views.offline, name='offline'),
+    path('fill-dynamic-cache/<int:id>', views.fill_dynamic_cache, name='fill_dynamic_cache'),
+    path('must-not-cache', views.must_not_cache, name='must_not_cache'),
+    path(
+        'sw.js',
+        views.ServiceWorkerView.as_view(),
+        name=views.ServiceWorkerView.name,
+        ),
+
 ]
