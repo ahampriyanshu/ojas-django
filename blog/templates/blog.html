@@ -36,19 +36,6 @@
 
 <body class="bg-gray-50 antialiased">
 
-  {% block sw_script %}
-  <script>
-      if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('{% url "sw.js" %}', { scope: '/' }).then(function(reg) {
-              // registration worked
-              console.log('Registration succeeded. Scope is ' + reg.scope);
-          }).catch(function(error) {
-              // registration failed
-              console.log('Registration failed with ' + error);
-          });
-      }
-  </script>
-{% endblock %}
 
   {% include 'navbar.html' %}
   
@@ -377,6 +364,5 @@
   {% include 'footer.html' %}
 </body>
 <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
+<script src="{% static 'js/alpine.min.js' %}" defer></script>
 </html>

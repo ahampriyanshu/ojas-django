@@ -11,7 +11,7 @@
     <title>{%  get_title  %}</title>
     <meta name="author" content="ahampriyanshu" />
     <meta name="description"
-        content="Open-Source progressive web application powered by Django3 styled with Tailwind2" />
+        content="Open Sources blog application in django and tailwind" />
     <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,Django3,Tailwind2,ahampriyanshu,github" />
     <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
@@ -58,6 +58,5 @@
     {% include 'footer.html' %}
 </body>
 <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
+<script src="{% static 'js/alpine.min.js' %}" defer></script>
 </html>
