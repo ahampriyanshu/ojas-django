@@ -31,9 +31,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
-
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,10 +47,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'crispy_forms',
     'crispy_tailwind',
-    'django_social_share',
     'user_visit',
     'django_user_agents',
-    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -68,9 +63,7 @@ MIDDLEWARE = [
     'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
-
 ROOT_URLCONF = 'ojas.urls'
-
 
 TEMPLATES = [
     {
@@ -138,55 +131,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'your_account@gmail.com'
-# EMAIL_HOST_PASSWORD = 'your_password'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-
-
 SITE_ID=1
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
-
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-PWA_APP_NAME = 'Ojas'
-PWA_APP_DESCRIPTION = "Open Source blog application in Django3 and Tailwind2"
-PWA_APP_THEME_COLOR = '#10b981'
-PWA_APP_BACKGROUND_COLOR = '#f9fafb'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_ORIENTATION = 'any'
-PWA_APP_START_URL = '/'
-PWA_APP_STATUS_BAR_COLOR = 'default'
-PWA_APP_ICONS = [
-    {
-        'src': '/static/img/android-icon-192x192.png',
-        'sizes': '192x192'
-    }
-]
-PWA_APP_ICONS_APPLE = [
-    {
-        'src': '/static/img/apple-icon-180x180.png',
-        'sizes': '180x180'
-    }
-]
-PWA_APP_SPLASH_SCREEN = [
-    {
-        'src': '/static/img/favicon-96x96.png',
-        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-    }
-]
-PWA_APP_DIR = 'ltr'
-PWA_APP_LANG = 'en-US'
 
 CKEDITOR_CONFIGS = {
 'default': {
