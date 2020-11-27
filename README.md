@@ -3,12 +3,13 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](track-covid-react.netlify.app)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://ahampriyanshu.pythonanywhere.com)
-[![size](https://img.shields.io/github/repo-size/ahampriyanshu/ojas?style=flat-square)](track-covid-react.netlify.app)
+[![size](https://img.shields.io/github/repo-size/ahampriyanshu/ojas?style=flat-square)](https://ahampriyanshu.pythonanywhere.com)
 [![Website status](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://ahampriyanshu.pythonanywhere.com)
 
 <p align="center" >
 <img src="https://user-images.githubusercontent.com/54521023/100444973-56a74400-30d2-11eb-89d5-3408e760944b.png" width="100%">
 <br><br>
+<h2 align="center"> Lighthouse Audit </h2>
 <img src="https://user-images.githubusercontent.com/54521023/100444975-57d87100-30d2-11eb-908b-9ba1de033192.png" width="40%">
 </p>
 
@@ -32,7 +33,10 @@
 ## Comment
 ![comment](https://user-images.githubusercontent.com/54521023/100063381-2a33c380-2e57-11eb-9506-574d16b9c5ad.png)
 
+## Search Result
 ![Screenshot from 2020-11-27 16-51-04](https://user-images.githubusercontent.com/54521023/100444995-5eff7f00-30d2-11eb-967f-eb1467cd4cca.png)
+
+## User-Agent
 ![Screenshot from 2020-11-27 16-49-58](https://user-images.githubusercontent.com/54521023/100445024-6de63180-30d2-11eb-9921-b384a01a73ca.png)
 
 
@@ -70,3 +74,27 @@ python3 manage.py runserver
 | Pillow | 8.0.1  |
 | Workbox | 5.0.0  |
 | Tailwind | 2.0.4  |
+
+## 
+
+- [x] Tagging funtionality instead of static categories/sections
+- [x] Installable
+- [x] Cache and offline support with Workbox 5
+- [x] Custom error pages
+- [x] Responsive
+- [x] Markdown support
+- [x] RichText Support
+- [x] WYSIWYG Editor
+- [x] Sitemap
+- [x] SEO freindly URL
+- [x] RSS Feed 
+- [x] Rest_framework
+- [x] Unique visitor and generic views counter
+- [x] Parsing User-agent
+- [ ] Subscription newsletter
+- [ ] Migrate to Postgre
+- [ ] More natural frontend
+- [ ] Dark Mode
+- [ ] More ajax
+- [ ] Better lazy loading
+- [ ] Better comment system
