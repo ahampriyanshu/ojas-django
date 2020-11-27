@@ -20,3 +20,18 @@
 
 ## Comment
 ![comment](https://user-images.githubusercontent.com/54521023/100063381-2a33c380-2e57-11eb-9506-574d16b9c5ad.png)
+
+## Installation
+
+* [Download](https://github.com/ahampriyanshu/ojas/archive/main.zip) or gitclone the repository
+* Create a virtual env and install the requirement.txt file
+* Reset the super user by clicking [here](https://djangowaves.com/tips-tricks/how-to-reset-the-django-admin-password/)
+* Run ``python3 manage.py runserver``
+* Run ``python3 manage.py migrate``
+
+## Deployment
+
+* Set ``DEBUG = False`` 
+* Change the ``SECRET_KEY``
+* Run ``python3 manage.py collectstatic``
+

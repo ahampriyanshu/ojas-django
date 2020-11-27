@@ -153,3 +153,14 @@ function trimCache(cache, maxItems, cacheTimeInfos) {
         .then(() => console.log('[SW] Done trimming cache.'))
         .catch(() => console.log('[SW] Error while trimming cache.'));
 }
+
+function provideOfflineFallback(event) {
+    return caches.open(staticCacheName)
+        .then((cache) => {
+            if (event.request.headers.get('accept').includes('text/html')) {
+                return cache.match('/offline/');
+            }
+
+            return Promise.reject();
+        });
+}
