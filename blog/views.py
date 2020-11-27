@@ -192,7 +192,6 @@ def post_detail(request, year, month, day, post):
         else:
             view = Viewer.objects.filter(last_visited__lte=datetime.now(
                 tz=timezone.utc) - timedelta(hours=1))
-            print(view)
             if view:
                 view[0].last_visited = datetime.now(tz=timezone.utc)
                 view[0].save()
