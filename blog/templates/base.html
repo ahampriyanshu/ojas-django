@@ -18,13 +18,14 @@
     <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,django3,workbox,tailwind2,ahampriyanshu,github" />
 
     {% else %}
-    
+
     <title>{%  get_title  %}</title>
     <meta name="author" content="ahampriyanshu" />
-    <meta name="description" content="Open Source blog application in django and tailwind" />
+    <meta name="description" content="Open Sources blog application in django and tailwind" />
     <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,Django3,Tailwind2,ahampriyanshu,github" />
 
     {% endif %}
+
 
 
     <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
@@ -52,14 +53,14 @@
 
 <body class="bg-gray-50">
 
-    {% block sw_script %}
+     {% block sw_script %}
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('{% url "blog:sw.js" %}', { scope: '/' }).then(function (reg) {
- 
+                // registration worked
                 console.log('Registration succeeded. Scope is ' + reg.scope);
             }).catch(function (error) {
-  
+                // registration failed
                 console.log('Registration failed with ' + error);
             });
         }

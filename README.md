@@ -61,7 +61,7 @@ python3 manage.py runserver
 
 | Dependency | Version |
 | --- | --- | 
-| Django | 3.1.3 | 
+| Django | 3.2.4 | 
 | django-ckeditor | 6.0.0 |
 | django-crispy-forms | 1.10.0  |
 | django-embed-video | 1.3.3  |
@@ -71,15 +71,19 @@ python3 manage.py runserver
 | django-user-visit | 0.4.1  |
 | djangorestframework | 3.12.2  |
 | Markdown | 3.3.3  |
-| Pillow | 8.0.1  |
-| Workbox | 5.0.0  |
+| Pillow | 8.0.1  | 
 | Tailwind | 2.0.4  |
+
+## Special thanks to
+.
+* [FlatIcon](http://www.flaticon.com/) for all the wonderfull svg icons.
+* [PythonAnywhere](https://www.pythonanywhere.com/) for hosting this project.
 
 ## 
 
 - [x] Tagging funtionality instead of static categories/sections
 - [x] Installable
-- [x] Cache and offline support with Workbox 5
+- [x] Cache and offline support with PWA
 - [x] Custom error pages
 - [x] Responsive
 - [x] Markdown support

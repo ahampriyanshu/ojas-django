@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Post, Comment, Author, Viewer, Contact, About
-import string 
-from django.utils.text import slugify 
+from django.utils.text import slugify
 
 admin.site.site_header = "OJAS Adminstration"
 admin.site.site_title = "OJAS"
@@ -22,6 +21,15 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = ('author', 'joined')
     date_hierarchy = 'joined'
     ordering = ['joined']
+
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(author=request.user)
+
+
 admin.site.register(Author, AuthorAdmin)
 
 
@@ -58,4 +66,13 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'post', 'created', 'active')
     list_filter = ('active', 'created', 'updated')
     search_fields = ('name', 'body')
+
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(post__author=request.user.author)
+
+
 admin.site.register(Comment, CommentAdmin)
