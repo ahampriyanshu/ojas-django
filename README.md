@@ -96,9 +96,9 @@ python3 manage.py runserver
 - [x] Unique visitor and generic views counter
 - [x] Parsing User-agent
 - [ ] Subscription newsletter
-- [ ] Migrate to Postgre
 - [ ] More natural frontend
 - [ ] Dark Mode
 - [ ] More ajax
 - [ ] Better lazy loading
 - [ ] Better comment system
+- [ ] Migrate to Postgre
