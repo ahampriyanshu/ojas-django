@@ -9,7 +9,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-
     {% if post %}
 
     <title> {{ post.title }}</title>
@@ -51,8 +50,9 @@
     <meta name="theme-color" content="#f9fafb">
 </head>
 
-<body class="bg-gray-50">
-
+<body>
+    <div x-data="{ darkMode: true, mobileMenu: false }" :class="{ 'dark': darkMode }" class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
      {% block sw_script %}
     <script>
         if ('serviceWorker' in navigator) {
@@ -71,7 +71,8 @@
     {% block content %}
     {% endblock content %}
     {% include 'footer.html' %}
-
+</div>
+</div>
 </body>
 <script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/alpine.min.js' %}" defer></script>

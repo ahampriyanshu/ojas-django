@@ -26,7 +26,7 @@ def get_title():
 @register.filter
 def highlight_search(text, search):
     text = text.lower()
-    highlighted = text.replace(search, '<span class="text-green-500">{}</span>'.format(search))
+    highlighted = text.replace(search, '<span class="text-indigo-500">{}</span>'.format(search))
     return mark_safe(highlighted)
 
 

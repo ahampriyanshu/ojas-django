@@ -1,7 +1,7 @@
 {% load static %}
 {% load custom_tags %}
 <div class="container w-full md:mt-4 mx-auto py-4 md:px-12">
-  <p class="font-sans font-bold text-3xl mb-5 leading-none text-center text-green-500">Most Discussed</p>
+  <p class="font-sans font-bold text-3xl mb-5 leading-none text-center text-indigo-500">Most Discussed</p>
   <div class="max-w-full flex flex-wrap justify-center">
 
     {% for post in commented_posts %}
@@ -34,7 +34,7 @@
             </div>
           </a>
           <a href="{{ post.get_absolute_url }}"
-            class="bg-green-500 hover:bg-green-600 text-white rounded-full px-8 py-2">
+            class="bg-indigo-500 hover:bg-indigo-600 text-white rounded-full px-8 py-2">
             Read More
           </a>
         </div>

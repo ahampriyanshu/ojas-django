@@ -4,7 +4,7 @@
 {% block content %}
 
 <p class="font-sans font-bold text-2xl md:text-3xl leading-none mt-24 text-center text-gray-700">
-Search results for <span class="text-green-500" >{{ query }}</span></p>
+Search results for <span class="text-indigo-500" >{{ query }}</span></p>
 
 
   {% for post in queryset %}
@@ -38,7 +38,7 @@ Search results for <span class="text-green-500" >{{ query }}</span></p>
             </div>
           </a>
           <a href="{{ post.get_absolute_url }}"
-            class="bg-green-500 hover:bg-green-600 text-white rounded-full px-8 py-2">
+            class="bg-indigo-500 hover:bg-indigo-600 text-white rounded-full px-8 py-2">
             Read More
           </a>
         </div>
