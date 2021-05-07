@@ -1,6 +1,6 @@
 {% load custom_tags %}
 {% for abt in about %}
-<h3 class="font-bold text-gray-100">{{ abt.title }}<span style="color: #FF7F50;">.</span></h3>
+<h3 class="font-bold text-gray-900 dark:text-gray-100">{{ abt.title }}<span style="color: #FF7F50;">.</span></h3>
 <p class="py-4 text-gray-700 text-sm">
     {{ abt.description|safe|truncatewords_html:15 }}
 </p>

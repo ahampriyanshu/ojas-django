@@ -28,18 +28,32 @@
     <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link rel="manifest" href="{% static 'manifest.json' %}">
-    <link rel="shortcut-icon" href="{% static 'favicon.ico' %}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'img/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+    <meta name="msapplication-TileImage" content="{% static 'img/ms-icon-144x144.png' %}">
+    <link rel="shortcut-icon" href="{% static 'img/favicon.ico' %}">
     <meta name="msapplication-TileColor" content="#f9fafb">
     <meta name="theme-color" content="#f9fafb">
     <meta name="theme-color" content="#f9fafb">
     <style>
 
-.spinner{
+/* .spinner{
 position: absolute;
 top: 40%;
 left: 45%;
 }
-
+*/
 .spinner-wrapper {
 position: fixed;
 top: 0;
@@ -48,7 +62,7 @@ right: 0;
 bottom: 0;
 z-index: 999999;
 background-color: #111827;
-}
+} 
 
 
 .a {
@@ -57,23 +71,28 @@ background-color: #111827;
 }
 
 @keyframes pulse {
-	0% {
+    0% {
 		transform: scale(0.95);
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
 	}
 
+	25% {
+		transform: scale(0.90);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
 	50% {
-		transform: scale(1);
+		transform: scale(.95);
 		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
 	}
 
 	75% {
-		transform: scale(0.95);
+		transform: scale(1);
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	}
 
     100% {
-		transform: scale(1);
+		transform: scale(1.05);
 		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
 	}
 }
@@ -84,13 +103,11 @@ background-color: #111827;
 <body>
 
     
-    <div class="spinner-wrapper bg-white dark:bg-gray-900 text-teal-600">
-        <div class="spinner">
-          
-<img class="rounded a" src="{% static 'logo.svg' %}" />
-          
+    <div class="flex h-screen spinner-wrapper">
+        <div class="m-auto text-center spinner">
+                    <img class="mx-auto my-auto a" width="48" src="{% static 'img/logo.png' %}" alt="404 contact image"> 
+          </div>  
         </div>
-      </div>
 
     <div x-data="{ darkMode: false, mobileMenu: false }" :class="{ 'dark': darkMode }" class="font-sans antialiased">
         <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
