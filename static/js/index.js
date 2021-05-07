@@ -8,7 +8,7 @@ $(document).ready(function () {
     hidePreloader();
 });
 
-var searchText = [
+let searchText = [
     "How to sign raw bitcoin transaction",
     "Using trezor-firmware",
     "Switching from bootstrap to tailwind",
@@ -16,6 +16,5 @@ var searchText = [
     "Understanding Shamir Secret Sharing algorithm",
 ];
 
-var generate = document.getElementById('searchBar'); 
-console.log(generate);
+var generate = document.getElementById('searchBar');
 generate.value = searchText[Math.floor(Math.random()*searchText.length)];

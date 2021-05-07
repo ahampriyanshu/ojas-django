@@ -8,40 +8,51 @@
 
     <div class="w-full md:w-1/2 md:my-4 lg:px-4 md:flex mb-8">
       <a href='{{ post.get_absolute_url }}'>
-        <div class="md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
+        <div class=" md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
+          <div class="p-2 md:p-0">
           {% if post.image %}
-          <img class="md:border md:border-r-0 md:h-64 h-auto" src="{{ post.image.url }}" alt="uploaded cover image" />
+          <img class="md:border md:border-r-0 md:dark:border-gray-600 h-auto  md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
           {% else %}
-          <img class="md:border md:border-r-0 md:h-64 h-auto" src="{% static 'default/blog.png'  %}"
+          <img class="md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{% static 'default/blog.png'  %}"
             alt="default cover image" />
           {% endif %}
+          </div>
         </div>
       </a>
       <div
-        class="overflow-hidden h-48 md:h-64 md:w-full md:border md:border  md:border-l-0 border-grey-light bg-gray-50 md:bg-white rounded-b md:rounded-b-none md:rounded-r p-4 flex flex-col justify-between leading-normal">
-        <div class="overflow-hidden mb-8 h-32 md:h-48">
-          <div class="truncate text-black font-bold text-xl mb-2">{{ post.title }}</div>
-          <p class="break-words text-grey-800 "> {{ post.body|truncatewords_html:20|markdown }} </p>
+        class="overflow-hidden md:border md:border-l-0 md:dark:border-gray-600 rounded-r h-auto md:h-64 md:w-full p-2 flex flex-col 
+        justify-between leading-normal bg-gray-50 md:bg-white dark:bg-gray-900 md:dark:bg-gray-800">
+        <div class="overflow-hidden mb-4 h-auto md:h-48">
+          <a href="{{ post.get_absolute_url }}">
+          <div class="truncate text-black font-bold text-gray-600 dark:text-gray-200 text-xl mb-2">{{ post.title }}</div>
+          <div class="hidden md:block break-words text-sm text-gray-600 dark:text-gray-400">
+            <p>{{ post.body|markdown|truncatewords_html:50 }} </p>
+          </div>
+          <div class="block md:hidden break-words text-sm text-gray-600 dark:text-gray-400">
+            <p>{{ post.body|markdown|truncatewords_html:40 }} </p>
+          </div>
+        </a>
         </div>
         <div class="flex items-center justify-between leading-none mx-3">
           <a href='{% url "blog:post_author" post.author %}'>
-            <div class="flex items-center">
-              <img class="w-10 h-10 rounded-full" src="{{ post.author.image.url }}" alt="autor image">
-              <div class="text-sm ml-2">
-                <p class="text-black leading-none">{{ post.author }}</p>
-                <p class="text-gray-600">{{ post.publish|date:"d M, Y" }}</p>
+            <div class="flex items-center ml-2">
+              <img class="w-10 h-10 rounded p-1" src="{{ post.author.image.url }}" alt="{{ post.author }} image">
+              <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
+                <p>{{ post.author }}</p>
+                <p>{{ post.publish|date:"d M, Y" }}</p>
               </div>
             </div>
-          </a>
-          <a href="{{ post.get_absolute_url }}"
-            class="bg-teal-500 hover:bg-teal-600 text-white rounded-full px-8 py-2">
-            Read More
-          </a>
+          </a> 
+          <div  class="text-sm text-left text-gray-600 dark:text-gray-400 px-8 py-2">
+            <p> {{ post.body|safe|read}} </p>
+        </div>
         </div>
       </div>
     </div>
+ 
+
     {% empty %}
-    <h2 class="leading-none my-10 text-gray-600 dark:text-gray-400 text-center">We may need some more articles</h2>
+    <p class="leading-none my-10 text-sm text-gray-600 dark:text-gray-400 text-center">We may need some more articles</p>
     {% endfor %}
   </div>
 </div>
