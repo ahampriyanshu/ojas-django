@@ -4,6 +4,7 @@ from django.utils.safestring import mark_safe
 import markdown
 from taggit.models import Tag
 import time
+import readtime
 from django.utils import timezone
 from datetime import datetime, timedelta
 
@@ -17,6 +18,11 @@ def total_posts(author):
     return Post.published.filter(author = author).count()
 
 
+@register.filter
+def read(html):
+    return readtime.of_html(html)
+
+
 @register.simple_tag
 def get_title():
     about = About.objects.order_by('pk')[:1]
@@ -26,7 +32,7 @@ def get_title():
 @register.filter
 def highlight_search(text, search):
     text = text.lower()
-    highlighted = text.replace(search, '<span class="text-indigo-500">{}</span>'.format(search))
+    highlighted = text.replace(search, '<span class="text-teal-500">{}</span>'.format(search))
     return mark_safe(highlighted)
 
 

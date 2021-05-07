@@ -98,7 +98,7 @@ background-color: #111827;
 <body>
 
     
-    <div class="spinner-wrapper bg-gray-100 dark:bg-gray-900 text-indigo-600">
+    <div class="spinner-wrapper bg-white dark:bg-gray-900 text-teal-600">
         <div class="spinner">
           
 <img class="rounded a" src="{% static 'logo.svg' %}" />
@@ -106,8 +106,8 @@ background-color: #111827;
         </div>
       </div>
 
-    <div x-data="{ darkMode: true, mobileMenu: false }" :class="{ 'dark': darkMode }" class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div x-data="{ darkMode: false, mobileMenu: false }" :class="{ 'dark': darkMode }" class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
 
 
      {% block sw_script %}
@@ -132,7 +132,7 @@ background-color: #111827;
 </div>
 </body>
 <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/scripts.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/index.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/alpine.min.js' %}" defer></script>
 
 </html>
