@@ -11,11 +11,11 @@ body::-webkit-scrollbar {
 }
 
 ::-moz-selection {
-    color: white;
-    background: #6366F1
+    color: black;
+    background: #81e6d9
 }
 
 ::selection {
-    color: white;
-    background: #6366F1
+    color: black;
+    background: #81e6d9
 }

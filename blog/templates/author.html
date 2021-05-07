@@ -3,99 +3,98 @@
 {% load custom_tags %}
 {% block content %}
 
-
-<!--Container-->
-<div class="container w-full md:max-w-3xl mx-auto sm:pt-10">
- 
-  <div class="p-4 pt-32">
-    <div class="shadow-sm md:shadow-xl rounded-lg">
-
+<div class="container w-full md:max-w-3xl mx-auto">
+  <div class="p-4 md:pt-32">
+    <div class="md:shadow-xl md:rounded-lg">
       {% for auth in author %}
-      <div class="bg-white rounded-b-lg px-8">
+      <div class="bg-gray-50 md:bg-white md:shadow-lg dark:bg-gray-900 md:dark:bg-gray-800 px-8">
         {% if auth.image %}
-        <div class="relative">
-              <img class="right-0 sm:w-32 sm:h-32 h-16 w-16 rounded-full mr-4 shadow-lg absolute sm:-mt-16 -mt-8" src="{{ auth.image.url }}" alt="image of Jonathan Reinink">
+        <div class="relative hidden md:block">
+              <img class="right-0 sm:w-32 sm:h-32 rounded-full mr-4 shadow-lg absolute sm:-mt-16 -mt-8" src="{{ auth.image.url }}" alt="author's image">
+        </div>
+        <div class="block md:hidden flex justify-center">
+          <img class="w-32 h-32 rounded-full mr-4 shadow-sm " src="{{ auth.image.url }}" alt="author's image">
         </div>
         {% endif %}
         <div class="pt-8 pb-2">
-          <h1 class="text-2xl font-bold text-gray-700">{{ auth.full_name }}</h1>
-          <p class="text-sm text-gray-600">Contribututing since {{ auth.joined|date:"d M, Y" }}</p>
-          
-          <p class="mt-6 text-gray-700"> 
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ auth.full_name }}</h1>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Contribututing since {{ auth.joined|date:"d M, Y" }}</p>
+          <div class="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
+          <p class="mt-6"> 
             {{ auth.bio|safe|linebreaks }}
           </p>
-          
-          <div class="my-6">
-            {% if auth.github %}
-            <a   href="{{auth.github}}"
-              class="h-8 w-8 rounded-full outline-none focus:outline-none" 
-              type="button">
-              <svg class="fill-current cursor-pointer text-teal-500 hover:text-teal-600" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-            </a>
-            {% endif %}
-            {% if auth.linkedin %}
-            <a  
-              class="h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.linkedin}}'
-              type="button">
-              <svg class="fill-current cursor-pointer text-teal-500 hover:text-teal-600" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
-              </svg>
-            </a>
-            {% endif %}
-            {% if auth.telegram %}
-            <a  
-              class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.telegram}}'
-              type="button">
-              <svg class="fill-current cursor-pointer text-teal-500 hover:text-teal-600" width="24" height="24" viewBox="0 0 24 24">
-                <path id="telegram-1"
-                  d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z" />
-              </svg>
-            </a>
-            {% endif %}
-            {% if auth.email %}
-            <a  
-              class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.email}}'
-              type="button">
-              <svg class="fill-current cursor-pointer text-teal-500 hover:text-teal-600" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z" />
-              </svg>
-            </a>
-            {% endif %}
-            {% if auth.twitter %}
-            <a  
-              class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.twitter}}'
-              type="button">
-              <svg class="fill-current cursor-pointer text-teal-500 hover:text-teal-600" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-              </svg>
-            </a>
-            {% endif %}
-            {% if auth.instagram %}
-            <a  
-              class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.instagram}}'
-              type="button">
-              <svg class="fill-current cursor-pointer text-teal-500 hover:text-teal-600" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
-            </a>
-            {% endif %}
-            {% if auth.reddit %}
-            <a  
-              class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.reddit}}'
-              type="button">
-              <svg class="fill-current cursor-pointer text-teal-500 hover:text-teal-600" width="24" height="24" viewBox="0 0 24 24">
-                <path
-                  d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z" />
-              </svg>
-            </a>
-            {% endif %}
+        </div>
+        <div class="my-6">
+          {% if auth.github %}
+        <a   href="{{auth.github}}"
+          class="h-8 w-8 rounded-full outline-none focus:outline-none" 
+          type="button">
+          <svg class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-black" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
+        </a>
+        {% endif %}
+        {% if auth.linkedin %}
+        <a  
+          class="h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.linkedin}}'
+          type="button">
+          <svg class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-blue-600" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
+          </svg>
+        </a>
+        {% endif %}
+        {% if auth.telegram %}
+        <a  
+          class="h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.telegram}}'
+          type="button">
+          <svg class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-blue-500" width="24" height="24" viewBox="0 0 24 24">
+            <path id="telegram-1"
+              d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z" />
+          </svg>
+        </a>
+        {% endif %}
+        {% if auth.email %}
+        <a  
+          class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.email}}'
+          type="button">
+          <svg class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-400" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z" />
+          </svg>
+        </a>
+        {% endif %}
+        {% if auth.twitter %}
+        <a  
+          class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.twitter}}'
+          type="button">
+          <svg class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-blue-400" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+          </svg>
+        </a>
+        {% endif %}
+        {% if auth.instagram %}
+        <a  
+          class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.instagram}}'
+          type="button">
+          <svg class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-pink-400" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+        </a>
+        {% endif %}
+        {% if auth.reddit %}
+        <a  
+          class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{auth.reddit}}'
+          type="button">
+          <svg class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-red-600" width="24" height="24" viewBox="0 0 24 24">
+            <path
+              d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645-.715 0-1.363.286-1.84.746-1.81-1.191-4.259-1.949-6.971-2.046l1.483-4.669 4.016.941-.006.058c0 1.193.975 2.163 2.174 2.163 1.198 0 2.172-.97 2.172-2.163s-.975-2.164-2.172-2.164c-.92 0-1.704.574-2.021 1.379l-4.329-1.015c-.189-.046-.381.063-.44.249l-1.654 5.207c-2.838.034-5.409.798-7.3 2.025-.474-.438-1.103-.712-1.799-.712-1.465 0-2.656 1.187-2.656 2.646 0 .97.533 1.811 1.317 2.271-.052.282-.086.567-.086.857 0 3.911 4.808 7.093 10.719 7.093s10.72-3.182 10.72-7.093c0-.274-.029-.544-.075-.81.832-.447 1.405-1.312 1.405-2.318zm-17.224 1.816c0-.868.71-1.575 1.582-1.575.872 0 1.581.707 1.581 1.575s-.709 1.574-1.581 1.574-1.582-.706-1.582-1.574zm9.061 4.669c-.797.793-2.048 1.179-3.824 1.179l-.013-.003-.013.003c-1.777 0-3.028-.386-3.824-1.179-.145-.144-.145-.379 0-.523.145-.145.381-.145.526 0 .65.647 1.729.961 3.298.961l.013.003.013-.003c1.569 0 2.648-.315 3.298-.962.145-.145.381-.144.526 0 .145.145.145.379 0 .524zm-.189-3.095c-.872 0-1.581-.706-1.581-1.574 0-.868.709-1.575 1.581-1.575s1.581.707 1.581 1.575-.709 1.574-1.581 1.574z" />
+          </svg>
+        </a>
+        {% endif %}
       </div>
       </div>
       </div>
@@ -105,7 +104,7 @@
 
 
   {% for auth in author %}
-  <p class="font-sans mb-5 font-bold text-2xl md:text-3xl leading-none mt-5 text-center text-teal-500">
+  <p class="font-sans mb-5 font-bold text-lg md:text-3xl mt-5 text-center text-gray-900 dark:text-white">
     More from {{ auth.full_name }}</p>  
     {% endfor %}
 
@@ -115,35 +114,38 @@
   <div class="mx-auto px-4 py-4 max-w-xl my-auto">
     <div class="bg-gray-50 md:bg-white md:shadow-xl rounded-lg mb-6 ">
       <a href='{{ post.get_absolute_url }}'>
-        <div class="p-4 md:flex-shrink-0">
+        <div class="">
         {% if post.image %}
           <img src="{{post.image.url}}" alt="uploaded cover image"
-            class="object-cover h-full w-full rounded-lg rounded-b-none"> 
+            class="object-cover h-full w-full rounded-lg md:rounded-b-none"> 
         {% else %}      
           <img src="{% static 'default/blog.png' %}" alt="default cover image"
-            class="object-cover h-full w-full rounded-lg rounded-b-none">        
+            class="object-cover h-full w-full rounded-lg md:rounded-b-none">        
         {% endif %}
       </div>
       </a>
-      <div class="py-1">
+      <div class="bg-gray-50 md:bg-white md:shadow-lg dark:bg-gray-900 md:dark:bg-gray-800">
+        <a href='{{ post.get_absolute_url }}'>
         <div class="p-4">
-          <h2 class="truncate font-bold mb-2 md:mt-4 text-2xl text-gray-800 tracking-normal">{{ post.title }}</h2>
-          <p class="break-words text-sm text-gray-700 px-2 mr-1">{{ post.body|markdown|truncatewords_html:30 }}</p>
+          <p class="truncate font-bold mb-2 md:mt-2 text-2xl text-gray-600 dark:text-gray-200 tracking-normal">{{ post.title }}</p>
+          <div class="break-words text-sm text-gray-600 dark:text-gray-400 ">
+          <p>{{ post.body|markdown|truncatewords_html:40 }}</p>
         </div>
+        </div>
+        </a>
         <div class="flex items-center justify-between p-2 md:p-4 md:mx-4">
           <a   href='{% url "blog:post_author" post.author %}'>
-            <div class="flex items-center">
-              <img class="w-12 h-12 object-cover rounded-full" src="{{ post.author.image.url }}" alt="author image">
-              <div class="text-sm ml-2">
-                <p class="text-black leading-none">{{ post.author.author.username }}</p>
-                <p class="text-gray-700">{{ post.publish|date:"d M, Y" }}</p>
+            <div class="flex items-center ml-2">
+              <img class="w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">
+              <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
+                <p>{{ post.author }}</p>
+                <p>{{ post.publish|date:"d M, Y" }}</p>
               </div>
             </div>
           </a>
-          <a href="{{ post.get_absolute_url }}"
-            class="bg-teal-500 hover:bg-teal-600 text-white rounded-full px-8 py-2">
-            Read More
-          </a>
+          <div class="text-sm md:text-base text-left text-gray-600 dark:text-gray-400 px-8 py-2">
+            <p> {{ post.body|safe|read}} </p>
+        </div>
         </div>
       </div>
     </div>

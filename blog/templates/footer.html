@@ -1,5 +1,6 @@
 {% load custom_tags %}
 {% load static %}
+{% block content %}
 
 <footer class="font-sans relative pt-5 pb-3 md:pb-6">
   <div class="container mx-auto px-4">
@@ -15,7 +16,7 @@
       <div class="flex w-full md:w-5/12 px-4">
         <div class="text-2xl">
           <p class="font-bold text-gray-900 dark:text-gray-100">Subsrcibe</p>
-<p class="py-4 text-gray-700 text-sm">
+<p class="py-4 text-gray-600 dark:text-gray-400 text-sm">
 Get the latest posts delivered right to your inbox
 </p>
 <div class="my-3"> 
@@ -36,7 +37,7 @@ Get the latest posts delivered right to your inbox
       <div class="flex w-full md:w-2/12 px-4">
         <div class="flex flex-wrap items-top">
           <div class="w-full  ml-auto">
-            <p class="font-semibold text-sm text-gray-900 mb-2">Popular Tags</p>
+            <p class="font-semibold text-sm text-gray-900 dark:text-white mb-2">Popular Tags</p>
             <ul class="list-unstyled">
 
               {% common_tags 4 %}
@@ -133,11 +134,13 @@ Get the latest posts delivered right to your inbox
     <hr class="my-3 md:my-6 border-gray-400" />
     <div class="flex flex-wrap items-center md:justify-between justify-center">
       <div class="w-full md:w-4/12 px-4 mx-auto text-center">
-        <div class="text-sm text-gray-600  py-1">
-          MIT Licensed © 2021 by
-          <a href="https://github.com/ahampriyanshu" class="text-gray-600 hover:text-gray-900">ahampriyanshu</a>.
+        <div class="text-sm text-gray-600 dark:text-gray-400 py-1">
+          © 2021 by
+          <a href="https://github.com/ahampriyanshu" class="hover:underline hover:text-gray-900">ahampriyanshu</a>.
         </div>
       </div>
     </div>
   </div>
 </footer>
+
+{% endblock content %}
