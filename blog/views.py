@@ -36,6 +36,9 @@ import requests
 from django.template.loader import get_template
 from django.utils.html import strip_tags
 from django.conf import settings
+from django.template import Context
+from django.template.loader import render_to_string, get_template
+from django.core.mail import EmailMessage
 import secrets
 import string
 
@@ -53,48 +56,6 @@ def must_not_cache(request):
     return render(request, 'must_not_cache.html', context={'requested_at': timezone.now()})
 
 
-def send_confirmation_mail(reciever):
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Please Confirm Your Subscription"
-    msg['From'] = "contactahampriyanshu@gmail.com"
-    msg['To'] = reciever
-    html_text = '<div style="border:1px solid black">This is your message body in HTML format.</div>'
-    html_mime = MIMEText(html_text, 'html')
-    msg.attach(html_mime)
-    host = "smtp.gmail.com"
-    port = 587
-    mail = smtplib.SMTP(host, port, timeout=60)
-    mail.ehlo()
-    mail.starttls()
-    recepient = [msg["To"]]
-
-    # mail.login(username, password)
-    try:
-        # status =  mail.sendmail(msg["From"], recepient, msg.as_string())
-        # mail.quit()
-        print("\nSent\n")
-        return True
-    except Exception as e:
-        mail.quit()
-        print(e)
-        return False
-
-def save_email(email):
-    try:
-        subscribe_model_instance = Subscriber.objects.get(email=email)
-    except Subscriber.DoesNotExist as e:
-        subscribe_model_instance = Subscriber()
-        subscribe_model_instance.email = email
-        print('\n\n\nEmail exist\n\n\n')
-    except Exception as e: 
-        print(e)
-        return False
-
-    subscribe_model_instance.status = 'SUBSCRIBE_STATUS_SUBSCRIBED'
-    subscribe_model_instance.created_date = timezone.now()
-    subscribe_model_instance.updated_date = timezone.now()
-    subscribe_model_instance.save()
-    return True
 
 def validate_email(email):    
     if email is None:
@@ -104,25 +65,28 @@ def validate_email(email):
     else:
         return None
 
-def send_email(data):
+
+def send_confirmation_mail(email, confirmation_url, site_url):
+    print(confirmation_url)
+    ctx = {
+        'confirmation_url': confirmation_url,
+        'site_url':site_url,    
+    }
+    message = get_template('subscription.html').render(ctx)
+    msg = EmailMessage(
+        'Please Confirm Your Subscription',
+        message,
+        'contactahampriyanshu@gmail.com',
+        [email],
+    )
+    msg.content_subtype = "html"  # Main content is now text/html
     try:
-        status = send_confirmation_mail('ahampriyanshu@gmail.com')
-        return status
+        msg.send()
+        print("Mail successfully sent")
+        return True
     except Exception as e:
-        logging.getLogger("error").error(traceback.format_exc())
+        print(e)
         return False
-
-
-def send_subscription_email(email, subscription_confirmation_url):
-    data = dict()
-    data["confirmation_url"] = subscription_confirmation_url
-    data["subject"] = "Please Confirm The Subscription"
-    data["email"] = email
-    template = get_template("subscription.html")
-    data["html_text"] = template.render(data)
-    data["plain_text"] = strip_tags(data["html_text"])
-    return send_email(data)
-
 
 def subscription_confirmation(request):
     if "POST" == request.method:
@@ -187,30 +151,38 @@ def unsubscribe(request):
 
     return render(request, 'offline.html')
 
+    # This is the main subscription view
+
 def subscribe(request):
     post_data = request.POST.copy()
     email = post_data.get("email", None)
-    save_status = save_email(email)
-    secret = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(64))
-    if save_status:
-        token = str(secret)
-        print("\n\n")
-        print(token)
-        print("\n\n")
-        subscription_confirmation_url = request.build_absolute_uri(reverse('blog:subscription_confirmation')) + "?token=" + token
-        status = send_subscription_email(email, subscription_confirmation_url)
-        if not status:
-            pass
-            # Subscriber.objects.get(email=email).delete()
-        else:
+    token = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(128))
+    try:
+        subscribe_model_instance = Subscriber.objects.get(email=email)
+        print('\n\n\nEmail already exist\n\n\n')
+    except Subscriber.DoesNotExist:
+        site_url = request.build_absolute_uri
+        confirmation_url = request.build_absolute_uri(reverse('blog:subscription_confirmation')) + "?token=" + token
+        status = send_confirmation_mail(email, confirmation_url, site_url)
+        if status:
+            subscribe_model_instance = Subscriber()
+            subscribe_model_instance.email = email
+            subscribe_model_instance.token = str(token)
+            subscribe_model_instance.save()
+            print('\n\n\nEmail added\n\n\n')
             msg = "Mail sent to '" + email + "'. Please confirm your subscription by clicking on " \
                                                     "confirmation link provided in email. " \
                                                     "Please check your spam folder as well."
             messages.success(request, msg)
-    else:
-        msg = "Some error occurred. Please try in some time. Meanwhile we are looking into it."
+        else:
+            msg = "Error while sending confirmation mail"
+            messages.error(request, msg)
+            print(msg)
+    except Exception as e: 
+        msg = "Email already exist"
         messages.error(request, msg)
-
+        print(e)
+        return False
     return render(request, 'offline.html', {})
 
 

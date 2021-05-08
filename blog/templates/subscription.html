@@ -1,20 +1,37 @@
 <div style="padding: 20px; background: #fafafa;font-size:15px;">
-    Hi<br>
-    Thanks for subscribing to {{ project_name }} newsletter.<br>
-    We will be sending you latest published articles on <a href="{{ site_url }}">{{ site_url }}</a>. Mail frequency won't be more than twice a month.<br>
-    We hate spamming as much as you do.<br>
-    <br>
-    To confirm your subscription, please click on the link given below. If clicking doesn't work, copy paste the URL in browser.<br>
-    If you think this is a mistake, just ignore this email and we won't bother you again.
-    <br>
-    <br>
-    <a href="{{ confirmation_url }}">{{ confirmation_url }}</a>
+    <p style="color:#4fd1c5; font-size: 32px;"> Hi there,</p>
+    <p style="color:grey; font-size: 16px;">
+        Thanks for subscribing to my newsletter.<br>
+        I will be sending you latest published articles on <a
+            style="color:#4fd1c5; font-family:bolder; text-decoration: none;" href="{{ site_url }}">my blog</a>.
+        I hate spamming as much as you do.<br>
+        <br>
+        So, confirm your subscription by clicking on the link given below.
+        in
+        browser.<br>
+        If you think this is a mistake, just ignore this email and we won't bother you again.</p>
+    <p>
+        <a style="background-color: #4fd1c5;
+       border: none;
+       color: white;
+       padding: 15px 32px;
+       text-align: center;
+       text-decoration: none;
+       display: inline-block;
+       font-size: 16px;
+       margin: 4px 2px;
+       cursor: pointer;
+       -webkit-transition-duration: 0.4s;
+       transition-duration: 0.4s;" href="{{ confirmation_url }}">Confirm subscription</a></p><br>
+    <p style="color:grey; "> If clicking doesn't work, copy paste the URL <a
+            style="color:000; font-family:bolder; text-decoration: none;" href="{{ confirmation_url }}">
+            {{ confirmation_url }}
+        </a></p>
 
-    <br>
-    <br>
     <p>
         Note:<br>
         This is notification only email. Please do not reply on this email.<br>
-        You can <a href="{{ contact_us_url }}">contact us here</a>.
+        You can <a style="color:#4fd1c5; font-family:bolder; text-decoration: none;"
+            href="{{ site_url }}/author/admin">contact us here</a>.
     </p>
 </div>

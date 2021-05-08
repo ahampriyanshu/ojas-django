@@ -76,5 +76,5 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(Comment, CommentAdmin)
 
 class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ('email','status','created_date',)
+    list_display = ('email','confirmed','token','created_date',)
 admin.site.register(Subscriber, SubscriberAdmin)

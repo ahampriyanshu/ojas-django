@@ -141,10 +141,11 @@ class Comment(models.Model):
         return 'Comment by {} on {}'.format(self.name, self.post)
 
 class Subscriber(models.Model):
-    email = models.EmailField(null=False, blank=True, max_length=200, unique=True)
-    status = models.CharField(max_length=64, null=False, blank=True)
+    sub_id = models.AutoField(primary_key=True, null=False, blank=True)
+    email = models.EmailField(null=False, blank=False, max_length=200, unique=True)
+    confirmed = models.BooleanField(default=False)
+    token = models.CharField(max_length=128, null=True, blank=True)
     created_date = models.DateTimeField(default=timezone.now)
-    updated_date = models.DateTimeField(null=False, blank=True)
 
     class Meta:
         ordering = ('created_date',)
