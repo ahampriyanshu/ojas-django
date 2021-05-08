@@ -67,7 +67,6 @@ def validate_email(email):
 
 
 def send_confirmation_mail(email, confirmation_url, site_url):
-    print(confirmation_url)
     ctx = {
         'confirmation_url': confirmation_url,
         'site_url':site_url,    
@@ -90,25 +89,16 @@ def send_confirmation_mail(email, confirmation_url, site_url):
 
 def subscription_confirmation(request):
     if "POST" == request.method:
-        raise Http404
+        return render(request, 'offline.html', {})
 
     token = request.GET.get("token", None)
 
-    if not token:
-        logging.getLogger("warning").warning("Invalid Link ")
-        messages.error(request, "Invalid Link")
-        return HttpResponseRedirect(reverse('blog:subscribe'))
-
-    token = decrypt(token)
     if token:
-        token = token.split('+++++')
-        email = token[0]
-        print(email)
-        initiate_time = token[1]
         try:
-            subscribe_model_instance = Subscriber.objects.get(email=email)
-            subscribe_model_instance.status = constants.SUBSCRIBE_STATUS_CONFIRMED
-            subscribe_model_instance.updated_date = timezone.now()
+            subscribe_model_instance = Subscriber.objects.get(token=token)
+            new_token = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(128))
+            subscribe_model_instance.confirmed = True
+            subscribe_model_instance.token = str(new_token)
             subscribe_model_instance.save()
             messages.success(request, "Subscription Confirmed. Thank you.")
         except Subscriber.DoesNotExist as e:
@@ -118,38 +108,31 @@ def subscription_confirmation(request):
         logging.getLogger("warning").warning("Invalid token ")
         messages.error(request, "Invalid Link")
 
-    return HttpResponseRedirect(reverse('blog:subscribe'))
+    return render(request, 'offline.html', {})
+
 
 def unsubscribe(request):
     if "POST" == request.method:
-        raise Http404
-
+        return render(request, 'offline.html', {})
+        
     token = request.GET.get("token", None)
+    email = request.GET.get("email", None)
 
-    if not token:
-        logging.getLogger("warning").warning("Invalid Link ")
-        messages.error(request, "Invalid Link")
-        return HttpResponseRedirect(reverse('blog:subscribe'))
+    print(token, email)
 
-    if token:
-        token = token.split('+++++')
-        email = token[0]
-        print(email)
-        initiate_time = token[1]  # time when email was sent , in epoch format. can be used for later calculations
+    if token and email:
         try:
-            subscribe_model_instance = Subscriber.objects.get(email=email)
-            subscribe_model_instance.status = constants.SUBSCRIBE_STATUS_CONFIRMED
-            subscribe_model_instance.updated_date = timezone.now()
-            subscribe_model_instance.save()
-            messages.success(request, "Subscription Confirmed. Thank you.")
+            subscribe_model_instance = Subscriber.objects.get(token=token,email=email)
+            subscribe_model_instance.delete()
+            messages.success(request, "Unsubscribed successfully.Sorry to see you go.")
         except Subscriber.DoesNotExist as e:
             logging.getLogger("warning").warning(traceback.format_exc())
             messages.error(request, "Invalid Link")
     else:
-        logging.getLogger("warning").warning("Invalid token ")
+        logging.getLogger("warning").warning("Invalid token or email")
         messages.error(request, "Invalid Link")
 
-    return render(request, 'offline.html')
+    return render(request, 'offline.html', {})
 
     # This is the main subscription view
 
