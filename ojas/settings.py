@@ -45,10 +45,9 @@ INSTALLED_APPS = [
     'taggit',
     'embed_video',
     'ckeditor',
-    'crispy_forms',
-    'crispy_tailwind',
     'user_visit',
     'django_user_agents',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -136,8 +135,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 SITE_ID=1
-CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-CRISPY_TEMPLATE_PACK = "tailwind"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 

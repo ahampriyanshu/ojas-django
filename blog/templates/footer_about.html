@@ -27,7 +27,7 @@
   {% endif %}
   {% if abt.telegram %}
   <a  
-    class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.telegram}}'
+    class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='https://t.me/{{abt.telegram}}'
     type="button">
     <svg class=" transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-blue-500" width="24" height="24" viewBox="0 0 24 24">
       <path id="telegram-1"
@@ -37,11 +37,10 @@
   {% endif %}
   {% if abt.email %}
   <a  
-    class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='{{abt.email}}'
+    class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='mailto: {{abt.email}} ?subject = Greeting&body = Hi there'
     type="button">
-    <svg class=" transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-gray-400" width="24" height="24" viewBox="0 0 24 24">
-      <path
-        d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z" />
+    <svg class=" transition duration-700 ease-in-out fill-current cursor-pointer text-gray-500 dark:text-gray-400 hover:text-teal-400" width="24" height="24" viewBox="0 0 24 24">
+      <path d="M19 4H5a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm0 2l-6.5 4.47a1 1 0 0 1-1 0L5 6z"></path>
     </svg>
   </a>
   {% endif %}

@@ -3,6 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
 import time
+from django.http import HttpResponseRedirect
 from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count, Q
@@ -203,7 +204,6 @@ def post_detail(request, year, month, day, post):
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
-
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
             new_comment.save()

@@ -8,6 +8,7 @@ from django.conf.urls import handler404, handler500
 from django.conf import settings
 from django.conf.urls.static import static
 from blog import views 
+import captcha
 
 
 handler404 = blog.error_404
@@ -22,6 +23,7 @@ sitemaps = {
 urlpatterns = [
     path('', include('blog.urls', namespace='blog')),
     path('admin/', admin.site.urls),
+    path('captcha/', include('captcha.urls')),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
 

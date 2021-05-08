@@ -5,7 +5,7 @@ from .feeds import LatestPostsFeed
 from .views import search, PostViewSet
 from rest_framework import routers 
 from django.views.generic import TemplateView
-
+import captcha
 
 router = routers.DefaultRouter() 
 router.register(r'api', PostViewSet) 
@@ -23,7 +23,8 @@ urlpatterns = [
     url(r'^author/(?P<post_author>[-\w]+)/$',views.post_author, name='post_author'),
     path('search', search, name='search'),
     path('me/', views.me, name='me'),
-    path('', include(router.urls)), 
+    path('', include(router.urls)),
+    path('captcha/', include('captcha.urls')), 
     path('api-auth/', include('rest_framework.urls')),
     path('offline/', views.offline, name='offline'),
     path('fill-dynamic-cache/<int:id>', views.fill_dynamic_cache, name='fill_dynamic_cache'),
