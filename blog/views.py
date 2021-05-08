@@ -8,7 +8,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count, Q
 from taggit.models import Tag
-from .models import Post, Comment, Author, Viewer, Contact, About
+from .models import Post, Comment, Author, Viewer, Contact, About, Subscriber
 from .forms import CommentForm
 from rest_framework import viewsets
 from .serializers import PostSerializer
@@ -18,6 +18,26 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 from django.templatetags.static import static
 from ojas import version
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import email
+import email.mime.application
+from django.utils.html import strip_tags
+import re
+from django.contrib import messages
+import base64
+import logging
+import traceback
+from django.conf import settings
+import logging, traceback
+from django.urls import reverse
+import requests
+from django.template.loader import get_template
+from django.utils.html import strip_tags
+from django.conf import settings
+import secrets
+import string
 
 logger = logging.getLogger('ojas.pwa.views')
 
@@ -31,6 +51,167 @@ def fill_dynamic_cache(request, id):
 @never_cache
 def must_not_cache(request):
     return render(request, 'must_not_cache.html', context={'requested_at': timezone.now()})
+
+
+def send_confirmation_mail(reciever):
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = "Please Confirm Your Subscription"
+    msg['From'] = "contactahampriyanshu@gmail.com"
+    msg['To'] = reciever
+    html_text = '<div style="border:1px solid black">This is your message body in HTML format.</div>'
+    html_mime = MIMEText(html_text, 'html')
+    msg.attach(html_mime)
+    host = "smtp.gmail.com"
+    port = 587
+    mail = smtplib.SMTP(host, port, timeout=60)
+    mail.ehlo()
+    mail.starttls()
+    recepient = [msg["To"]]
+
+    # mail.login(username, password)
+    try:
+        # status =  mail.sendmail(msg["From"], recepient, msg.as_string())
+        # mail.quit()
+        print("\nSent\n")
+        return True
+    except Exception as e:
+        mail.quit()
+        print(e)
+        return False
+
+def save_email(email):
+    try:
+        subscribe_model_instance = Subscriber.objects.get(email=email)
+    except Subscriber.DoesNotExist as e:
+        subscribe_model_instance = Subscriber()
+        subscribe_model_instance.email = email
+        print('\n\n\nEmail exist\n\n\n')
+    except Exception as e: 
+        print(e)
+        return False
+
+    subscribe_model_instance.status = 'SUBSCRIBE_STATUS_SUBSCRIBED'
+    subscribe_model_instance.created_date = timezone.now()
+    subscribe_model_instance.updated_date = timezone.now()
+    subscribe_model_instance.save()
+    return True
+
+def validate_email(email):    
+    if email is None:
+        return "Email is required."
+    elif not re.match(r"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", email):
+        return "Invalid Email Address !"
+    else:
+        return None
+
+def send_email(data):
+    try:
+        status = send_confirmation_mail('ahampriyanshu@gmail.com')
+        return status
+    except Exception as e:
+        logging.getLogger("error").error(traceback.format_exc())
+        return False
+
+
+def send_subscription_email(email, subscription_confirmation_url):
+    data = dict()
+    data["confirmation_url"] = subscription_confirmation_url
+    data["subject"] = "Please Confirm The Subscription"
+    data["email"] = email
+    template = get_template("subscription.html")
+    data["html_text"] = template.render(data)
+    data["plain_text"] = strip_tags(data["html_text"])
+    return send_email(data)
+
+
+def subscription_confirmation(request):
+    if "POST" == request.method:
+        raise Http404
+
+    token = request.GET.get("token", None)
+
+    if not token:
+        logging.getLogger("warning").warning("Invalid Link ")
+        messages.error(request, "Invalid Link")
+        return HttpResponseRedirect(reverse('blog:subscribe'))
+
+    token = decrypt(token)
+    if token:
+        token = token.split('+++++')
+        email = token[0]
+        print(email)
+        initiate_time = token[1]
+        try:
+            subscribe_model_instance = Subscriber.objects.get(email=email)
+            subscribe_model_instance.status = constants.SUBSCRIBE_STATUS_CONFIRMED
+            subscribe_model_instance.updated_date = timezone.now()
+            subscribe_model_instance.save()
+            messages.success(request, "Subscription Confirmed. Thank you.")
+        except Subscriber.DoesNotExist as e:
+            logging.getLogger("warning").warning(traceback.format_exc())
+            messages.error(request, "Invalid Link")
+    else:
+        logging.getLogger("warning").warning("Invalid token ")
+        messages.error(request, "Invalid Link")
+
+    return HttpResponseRedirect(reverse('blog:subscribe'))
+
+def unsubscribe(request):
+    if "POST" == request.method:
+        raise Http404
+
+    token = request.GET.get("token", None)
+
+    if not token:
+        logging.getLogger("warning").warning("Invalid Link ")
+        messages.error(request, "Invalid Link")
+        return HttpResponseRedirect(reverse('blog:subscribe'))
+
+    if token:
+        token = token.split('+++++')
+        email = token[0]
+        print(email)
+        initiate_time = token[1]  # time when email was sent , in epoch format. can be used for later calculations
+        try:
+            subscribe_model_instance = Subscriber.objects.get(email=email)
+            subscribe_model_instance.status = constants.SUBSCRIBE_STATUS_CONFIRMED
+            subscribe_model_instance.updated_date = timezone.now()
+            subscribe_model_instance.save()
+            messages.success(request, "Subscription Confirmed. Thank you.")
+        except Subscriber.DoesNotExist as e:
+            logging.getLogger("warning").warning(traceback.format_exc())
+            messages.error(request, "Invalid Link")
+    else:
+        logging.getLogger("warning").warning("Invalid token ")
+        messages.error(request, "Invalid Link")
+
+    return render(request, 'offline.html')
+
+def subscribe(request):
+    post_data = request.POST.copy()
+    email = post_data.get("email", None)
+    save_status = save_email(email)
+    secret = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(64))
+    if save_status:
+        token = str(secret)
+        print("\n\n")
+        print(token)
+        print("\n\n")
+        subscription_confirmation_url = request.build_absolute_uri(reverse('blog:subscription_confirmation')) + "?token=" + token
+        status = send_subscription_email(email, subscription_confirmation_url)
+        if not status:
+            pass
+            # Subscriber.objects.get(email=email).delete()
+        else:
+            msg = "Mail sent to '" + email + "'. Please confirm your subscription by clicking on " \
+                                                    "confirmation link provided in email. " \
+                                                    "Please check your spam folder as well."
+            messages.success(request, msg)
+    else:
+        msg = "Some error occurred. Please try in some time. Meanwhile we are looking into it."
+        messages.error(request, msg)
+
+    return render(request, 'offline.html', {})
 
 
 class ServiceWorkerView(TemplateView):

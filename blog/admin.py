@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment, Author, Viewer, Contact, About
+from .models import Post, Comment, Author, Viewer, Contact, About, Subscriber
 from django.utils.text import slugify
 
 admin.site.site_header = "OJAS Adminstration"
@@ -73,6 +73,8 @@ class CommentAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return qs.filter(post__author=request.user.author)
-
-
 admin.site.register(Comment, CommentAdmin)
+
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email','status','created_date',)
+admin.site.register(Subscriber, SubscriberAdmin)

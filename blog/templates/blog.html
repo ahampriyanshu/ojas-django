@@ -4,7 +4,7 @@
 {% load embed_video_tags %}
 {% block content %}
 <style>
-  p { 
+.commentForm  p { 
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -260,7 +260,7 @@ border-radius: .3em;
        </div>
       </div>
        {% else %}
-       <div class="w-full md:w-1/4">
+       <div class="w-full md:w-1/4 commentForm">
        <p class="text-gray-600 dark:text-gray-400">Leave a comment</p>
        <form method="post" class="mt-2 md:mt-4">
         <div class="text-gray-600 dark:text-gray-400">
