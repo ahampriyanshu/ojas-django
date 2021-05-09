@@ -14,7 +14,7 @@ router.register(r'api', PostViewSet)
 app_name = 'blog'
 urlpatterns = [
     path('', views.most_viewed, name='most_viewed'),
-    path('article/', views.post_list, name='post_list'),
+    path('articles/', views.post_list, name='post_list'),
     path('subscribe/', views.subscribe, name='subscribe'),
     path('subscribe/confirm/', views.subscription_confirmation, name='subscription_confirmation'),
     path('unsubscribe/', views.unsubscribe, name='unsubscribe'),

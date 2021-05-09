@@ -1,31 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 <script src="https://kit.fontawesome.com/77f6dfd46f.js" crossorigin="anonymous"></script>
-{% for abt in about %}
-
-<div class="text-gray-800 antialiased">
-    <section class="header pt-20 ml-5 md:ml-20 md:mb-20 md:pt-40 relative items-center flex">
-        <div class="container mx-auto items-center flex flex-wrap">
-            <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
-
-                <div class="font-semibold text-4xl text-gray-900 dark:text-white ">
-                    <p>{{abt.title}}<span style="color: #FF7F50;">.</span></p>
-                </div>
-                <p class="mt-4 text-lg leading-relaxed text-gray-600">{{ abt.description }}
-                </p>
-                <div class="mt-12"><a
-                        class="transition duration-500 ease-in-out bg-teal-500 hover:bg-teal-600 transform hover:-translate-y-1 hover:scale-110 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1  uppercase text-sm shadow hover:shadow-lg"
-                        href="{{abt.button1_url}}">{{ abt.button1_title }}</a><a href="{{abt.button2_url}}"
-                        class="transition duration-500 ease-in-out bg-teal-500 hover:bg-teal-600 transform hover:-translate-y-1 hover:scale-110 ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1  uppercase text-sm shadow hover:shadow-lg">
-                        {{ abt.button2_title }}</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-{% empty %}
-
-
 <div class="text-gray-800 antialiased">
     <section class="header pt-20 ml-5 md:ml-20 md:pt-40 relative items-center flex">
         <div class="container mx-auto items-center flex flex-wrap">
@@ -298,5 +273,4 @@
         </div>
     </section>
 </div>
-{% endfor %}
 {% endblock content %}
