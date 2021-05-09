@@ -66,10 +66,10 @@ def validate_email(email):
         return None
 
 
-def send_confirmation_mail(email, confirmation_url, site_url):
+def send_subscription_mail(email, confirmation_url, request):
     ctx = {
         'confirmation_url': confirmation_url,
-        'site_url':site_url,    
+        'request':request,    
     }
     message = get_template('subscription.html').render(ctx)
     msg = EmailMessage(
@@ -78,7 +78,48 @@ def send_confirmation_mail(email, confirmation_url, site_url):
         'contactahampriyanshu@gmail.com',
         [email],
     )
-    msg.content_subtype = "html"  # Main content is now text/html
+    msg.content_subtype = "html"
+    try:
+        msg.send()
+        print("Mail successfully sent")
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+def send_confirmation_mail(email, unsubsrcibe_url, request):
+    ctx = {
+        'unsubsrcibe_url': unsubsrcibe_url, 
+        'request':request,    
+    }
+    message = get_template('confirmation.html').render(ctx)
+    msg = EmailMessage(
+        'Thank you for the confirmation',
+        message,
+        'contactahampriyanshu@gmail.com',
+        [email],
+    )
+    msg.content_subtype = "html"
+    try:
+        msg.send()
+        print("Mail successfully sent")
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+def send_unsubscribe_mail(email, request):
+    ctx = {  
+         'request':request,    
+    }
+    message = get_template('unsubscribe.html').render(ctx)
+    msg = EmailMessage(
+        'Unsubscribed Successfully',
+        message,
+        'contactahampriyanshu@gmail.com',
+        [email],
+    )
+    msg.content_subtype = "html"
     try:
         msg.send()
         print("Mail successfully sent")
@@ -89,7 +130,7 @@ def send_confirmation_mail(email, confirmation_url, site_url):
 
 def subscription_confirmation(request):
     if "POST" == request.method:
-        return render(request, 'offline.html', {})
+        return render(request, 'status.html', {'message': message})
 
     token = request.GET.get("token", None)
 
@@ -99,6 +140,10 @@ def subscription_confirmation(request):
             new_token = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(128))
             subscribe_model_instance.confirmed = True
             subscribe_model_instance.token = str(new_token)
+            email = subscribe_model_instance.email
+            site_url = request.get_host
+            unsubsrcibe_url = request.build_absolute_uri(reverse('blog:unsubscribe')) + "?token=" + new_token + "&email=" + email
+            send_confirmation_mail(email, unsubsrcibe_url, request )
             subscribe_model_instance.save()
             messages.success(request, "Subscription Confirmed. Thank you.")
         except Subscriber.DoesNotExist as e:
@@ -108,12 +153,18 @@ def subscription_confirmation(request):
         logging.getLogger("warning").warning("Invalid token ")
         messages.error(request, "Invalid Link")
 
-    return render(request, 'offline.html', {})
+    return render(request, 'status.html', {'message': message})
 
 
 def unsubscribe(request):
+    message = {
+        'status': '',
+        'msg': '',
+        'instruction': '',
+    }
+
     if "POST" == request.method:
-        return render(request, 'offline.html', {})
+        return render(request, 'status.html', {'message': message})
         
     token = request.GET.get("token", None)
     email = request.GET.get("email", None)
@@ -124,7 +175,9 @@ def unsubscribe(request):
         try:
             subscribe_model_instance = Subscriber.objects.get(token=token,email=email)
             subscribe_model_instance.delete()
-            messages.success(request, "Unsubscribed successfully.Sorry to see you go.")
+            site_url = request.get_host
+            send_unsubscribe_mail(email, request)
+            messages.success(request, "Unsubscribed successfully. Sorry to see you go.")
         except Subscriber.DoesNotExist as e:
             logging.getLogger("warning").warning(traceback.format_exc())
             messages.error(request, "Invalid Link")
@@ -132,27 +185,32 @@ def unsubscribe(request):
         logging.getLogger("warning").warning("Invalid token or email")
         messages.error(request, "Invalid Link")
 
-    return render(request, 'offline.html', {})
+    return render(request, 'status.html', {'message': message})
 
     # This is the main subscription view
 
 def subscribe(request):
+    message = dict()
     post_data = request.POST.copy()
     email = post_data.get("email", None)
     token = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(128))
     try:
         subscribe_model_instance = Subscriber.objects.get(email=email)
-        print('\n\n\nEmail already exist\n\n\n')
+        message['status'] = 'Email entered already exist'
+        message['msg'] = 'Search your inbox for confirmation mail'
+        message['instruction'] = 'You may also contact the admin'
     except Subscriber.DoesNotExist:
-        site_url = request.build_absolute_uri
+        site_url = request.get_host
         confirmation_url = request.build_absolute_uri(reverse('blog:subscription_confirmation')) + "?token=" + token
-        status = send_confirmation_mail(email, confirmation_url, site_url)
+        status = send_subscription_mail(email, confirmation_url, request)
         if status:
             subscribe_model_instance = Subscriber()
             subscribe_model_instance.email = email
             subscribe_model_instance.token = str(token)
             subscribe_model_instance.save()
-            print('\n\n\nEmail added\n\n\n')
+            message['status'] = "Mail sent to '" + email + "'"
+            message['msg'] = 'Please confirm your subscription'
+            message['instruction'] = 'Please check your spam folder as well'
             msg = "Mail sent to '" + email + "'. Please confirm your subscription by clicking on " \
                                                     "confirmation link provided in email. " \
                                                     "Please check your spam folder as well."
@@ -160,13 +218,17 @@ def subscribe(request):
         else:
             msg = "Error while sending confirmation mail"
             messages.error(request, msg)
-            print(msg)
+            message['status'] = "Error while sending confirmation mail"
+            message['msg'] = 'Please check your input for typo'
+            message['instruction'] = 'And then try again'
     except Exception as e: 
-        msg = "Email already exist"
+        msg = e
         messages.error(request, msg)
-        print(e)
+        message['status'] = 'Some unknown error occured'
+        message['msg'] = ' Please try after some time'
+        message['instruction'] = 'Meanwhile we are looking into it'
         return False
-    return render(request, 'offline.html', {})
+    return render(request, 'status.html', {'message': message})
 
 
 class ServiceWorkerView(TemplateView):
@@ -226,7 +288,6 @@ def error_500(request):
 
 def about_page(request):
     about = About.objects.order_by('pk')[:1]
-
     if about[0].default_page:
         data = {}
     else:
