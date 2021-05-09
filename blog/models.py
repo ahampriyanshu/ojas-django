@@ -13,15 +13,15 @@ class PublishedManager(models.Manager):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
 class Admin(models.Model):
+    title = models.CharField(max_length=15, blank=True, null=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='admin/', blank=True, null=True, default='default/admin.png')
-    title = models.CharField(max_length=15, blank=True, null=True)
-    description = models.TextField(max_length=100, blank=True, null=True)
-    location = models.CharField(max_length=100,  blank=True, null=True)
-    bio = models.TextField(max_length=300, blank=True, null=True)
-    number = models.PositiveIntegerField(default=919917956610)
-    greeting = models.CharField(max_length=100,  blank=True, null=True, default='Hi%20Priyanshu')
+    bio = models.TextField(max_length=200, blank=True, null=True)
+    address = models.CharField(max_length=100,  blank=True, null=True)
+    number = models.PositiveIntegerField(blank=True, null=True)
+    greeting = models.CharField(max_length=100,  blank=True, null=True, default='Hi%20there')
     email = models.EmailField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
     youtube = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)
     twitter = models.URLField(blank=True, null=True)
@@ -78,16 +78,13 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=100, unique_for_date='publish')
-    author = models.ForeignKey(
-        Author, editable=False, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, editable=False, on_delete=models.CASCADE)
     body = RichTextField(max_length=2000, blank=True, null=True)
-    image = models.ImageField(
-        upload_to='blog/%Y/%m/%d/', blank=True, null=True)
+    image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(
-        max_length=10, choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     objects = models.Manager()
     published = PublishedManager()
     tags = TaggableManager()
@@ -102,10 +99,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog:post_detail', args=[self.publish.year,
-                                                 self.publish.strftime('%m'),
-                                                 self.publish.strftime('%d'),
-                                                 self.slug])
+        return reverse('blog:post_detail', args=[self.publish.year, self.publish.strftime('%m'), self.publish.strftime('%d'), self.slug])
 
 
 class Comment(models.Model):
