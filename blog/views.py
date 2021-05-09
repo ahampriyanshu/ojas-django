@@ -8,7 +8,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count, Q
 from taggit.models import Tag
-from .models import Post, Comment, Author, Viewer, About, Subscriber
+from .models import Post, Comment, Author, Viewer, Admin, Subscriber
 from .forms import CommentForm
 from rest_framework import viewsets
 from .serializers import PostSerializer
@@ -288,13 +288,12 @@ def error_500(request):
 
 
 def about_page(request):
-    about = About.objects.order_by('pk')[:1]
-    if about[0].default_page:
-        data = {}
-    else:
-        data = {'about': about}
-
+    data = {}
     return render(request, 'about.html', data)
+
+def contact_page(request):
+    admin = Admin.objects.first()
+    return render(request, 'contact.html', {'admin': admin})
 
 
 def me(request):

@@ -12,44 +12,50 @@ class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
-
-class About(models.Model):
-    Yes_NO = ((True, 'Yes'), (False, 'No'))
-
+class Admin(models.Model):
+    full_name = models.CharField(max_length=100, blank=True, null=True)
+    image = models.ImageField(upload_to='admin/', blank=True, null=True, default='default/admin.png')
     title = models.CharField(max_length=15, blank=True, null=True)
     description = models.TextField(max_length=100, blank=True, null=True)
-    button1_title = models.CharField(max_length=10, blank=True, null=True)
-    button1_url = models.URLField(blank=True, null=True, unique=True)
-    button2_title = models.CharField(max_length=10, blank=True, null=True)
-    button2_url = models.URLField(blank=True, null=True, unique=True)
+    location = models.CharField(max_length=100,  blank=True, null=True)
+    bio = models.TextField(max_length=300, blank=True, null=True)
+    number = models.PositiveIntegerField(default=919917956610)
+    greeting = models.CharField(max_length=100,  blank=True, null=True, default='Hi%20Priyanshu')
     email = models.EmailField(blank=True, null=True)
-    instagram = models.URLField(blank=True, null=True, unique=True)
-    twitter = models.URLField(blank=True, null=True, unique=True)
-    reddit = models.URLField(blank=True, null=True, unique=True)
-    telegram = models.CharField(
-        max_length=50, blank=True, null=True, unique=True)
-    github = models.URLField(blank=True, null=True, unique=True)
-    linkedin = models.URLField(blank=True, null=True, unique=True)
-    default_page = models.BooleanField(choices=Yes_NO, default='Yes')
+    youtube = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    reddit = models.URLField(blank=True, null=True)
+    telegram = models.URLField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+    gitlab = models.URLField(blank=True, null=True)
+    quora = models.URLField(blank=True, null=True)
+    dribble = models.URLField(blank=True, null=True)
+    unsplash = models.URLField(blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.full_name
 
 
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(
-        upload_to='author', blank=True, null=True, default='default/author.png')
+    image = models.ImageField(upload_to='author', blank=True, null=True, default='default/author.png')
     joined = models.DateTimeField(auto_now_add=True)
     bio = models.TextField(max_length=200, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True, unique=True)
+    youtube = models.URLField(blank=True, null=True)
     twitter = models.URLField(blank=True, null=True, unique=True)
     reddit = models.URLField(blank=True, null=True, unique=True)
     telegram = models.URLField(blank=True, null=True, unique=True)
     github = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
+    gitlab = models.URLField(blank=True, unique=True, null=True)
+    quora = models.URLField(blank=True, unique=True, null=True)
+    dribble = models.URLField(blank=True, unique=True, null=True)
+    unsplash = models.URLField(blank=True, unique=True, null=True)
 
     def __str__(self):
         return self.author.username
@@ -103,8 +109,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(
-        Post, related_name='comments', on_delete=models.CASCADE,)
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE,editable=False)
     name = models.CharField(max_length=80, null=True, blank=True)
     body = models.TextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)

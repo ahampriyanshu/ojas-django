@@ -1,15 +1,10 @@
 from django.contrib import admin
-from .models import Post, Comment, Author, Viewer, About, Subscriber
+from .models import Post, Comment, Author, Viewer, Admin, Subscriber
 from django.utils.text import slugify
 
 admin.site.site_header = "OJAS Adminstration"
 admin.site.site_title = "OJAS"
 admin.site.index_title = "Home"
-
-
-class AboutAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(About, AboutAdmin)
 
 
 class AuthorAdmin(admin.ModelAdmin):
@@ -41,7 +36,7 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
     ordering = ['status', '-publish']
 
-
+    
     def save_model(self, request, obj, form, change):
         obj.author = request.user.author
         super().save_model(request, obj, form, change)
@@ -55,10 +50,8 @@ class PostAdmin(admin.ModelAdmin):
 
 admin.site.register(Post, PostAdmin)
 
-
-
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'post', 'created', 'active')
+    list_display = ('name','created', 'active')
     list_filter = ('active', 'created', 'updated')
     search_fields = ('name', 'body')
 
@@ -71,5 +64,9 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(Comment, CommentAdmin)
 
 class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ('email','confirmed','created_date','token',)
+    list_display = ('email','confirmed','created_date',)
 admin.site.register(Subscriber, SubscriberAdmin)
+
+class AdminAdmin(admin.ModelAdmin):
+    list_display = ('title','full_name',)
+admin.site.register(Admin, AdminAdmin)

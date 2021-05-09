@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 register = template.Library()
 
-from ..models import Post, About
+from ..models import Post, Admin
 
 
 @register.simple_tag
@@ -25,8 +25,8 @@ def read(html):
 
 @register.simple_tag
 def get_title():
-    about = About.objects.order_by('pk')[:1]
-    return about[0].title
+    admin = Admin.objects.order_by('pk')[:1]
+    return admin[0].title
 
 
 @register.filter
@@ -50,8 +50,8 @@ def show_latest_posts(count=4):
 
 @register.inclusion_tag('footer_about.html')
 def get_about():
-    about = About.objects.order_by('pk')[:1]
-    return {'about': about}
+    admin = Admin.objects.order_by('pk')[:1]
+    return {'admin': admin}
 
 
 @register.inclusion_tag('common_tags.html')
