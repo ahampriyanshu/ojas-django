@@ -129,7 +129,10 @@ def send_unsubscribe_mail(email, request):
         return False
 
 def subscription_confirmation(request):
+    message = dict()
     if "POST" == request.method:
+        message['status'] = 'Invalid request'
+        message['instruction'] = 'Please send appropriate request'
         return render(request, 'status.html', {'message': message})
 
     token = request.GET.get("token", None)
@@ -146,10 +149,19 @@ def subscription_confirmation(request):
             send_confirmation_mail(email, unsubsrcibe_url, request )
             subscribe_model_instance.save()
             messages.success(request, "Subscription Confirmed. Thank you.")
+            message['status'] = 'Yeah! Subscription Confirmed'
+            message['msg'] = 'I will be sending you latest published articles once or twice a month.'
+            message['instruction'] = 'Thank you'
         except Subscriber.DoesNotExist as e:
+            message['status'] = 'Unknown error occured'
+            message['msg'] = 'Check your internet connection'
+            message['instruction'] = 'Please try reopening the link'
             logging.getLogger("warning").warning(traceback.format_exc())
             messages.error(request, "Invalid Link")
     else:
+        message['status'] = 'Invalid token'
+        message['msg'] = 'Check your internet connection'
+        message['instruction'] = 'Please try reopening the link'
         logging.getLogger("warning").warning("Invalid token ")
         messages.error(request, "Invalid Link")
 
@@ -157,13 +169,11 @@ def subscription_confirmation(request):
 
 
 def unsubscribe(request):
-    message = {
-        'status': '',
-        'msg': '',
-        'instruction': '',
-    }
+    message = dict()
 
     if "POST" == request.method:
+        message['status'] = 'Invalid request'
+        message['instruction'] = 'Please send appropriate request'
         return render(request, 'status.html', {'message': message})
         
     token = request.GET.get("token", None)
@@ -177,13 +187,22 @@ def unsubscribe(request):
             subscribe_model_instance.delete()
             site_url = request.get_host
             send_unsubscribe_mail(email, request)
+            message['status'] = 'Unsubscribed successfully'
+            message['msg'] = 'Sorry to see you go :('
+            message['instruction'] = 'Bye'
             messages.success(request, "Unsubscribed successfully. Sorry to see you go.")
         except Subscriber.DoesNotExist as e:
+            message['status'] = 'Unknown error occured'
+            message['msg'] = 'Check your internet connection'
+            message['instruction'] = 'Please try reopening the link'
             logging.getLogger("warning").warning(traceback.format_exc())
             messages.error(request, "Invalid Link")
     else:
         logging.getLogger("warning").warning("Invalid token or email")
         messages.error(request, "Invalid Link")
+        message['status'] = 'Invalid token or email'
+        message['msg'] = 'Check your internet connection'
+        message['instruction'] = 'Please try reopening the link'
 
     return render(request, 'status.html', {'message': message})
 
@@ -210,7 +229,7 @@ def subscribe(request):
             subscribe_model_instance.save()
             message['status'] = "Mail sent to '" + email + "'"
             message['msg'] = 'Please confirm your subscription'
-            message['instruction'] = 'Please check your spam folder as well'
+            message['instruction'] = 'Check your spam folder as well'
             msg = "Mail sent to '" + email + "'. Please confirm your subscription by clicking on " \
                                                     "confirmation link provided in email. " \
                                                     "Please check your spam folder as well."
@@ -218,7 +237,7 @@ def subscribe(request):
         else:
             msg = "Error while sending confirmation mail"
             messages.error(request, msg)
-            message['status'] = "Error while sending confirmation mail"
+            message['status'] = "Error occured while sending confirmation mail"
             message['msg'] = 'Please check your input for typo'
             message['instruction'] = 'And then try again'
     except Exception as e: 

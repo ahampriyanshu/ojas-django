@@ -1,4 +1,4 @@
-<div style="padding: 20px; text-align: center; margin: auto; background: #fafafa;font-size:15px;">
+<div style="padding: 20px; text-align: center; margin: auto; background: #fafafa; font-size:15px;">
     <p style="color:grey; font-size: 24px;">
         Thanks for subscribing.</p>
     <p style="color:grey; font-size: 16px;">
@@ -17,12 +17,11 @@
        cursor: pointer;
        -webkit-transition-duration: 0.4s;
        transition-duration: 0.4s;" href="{{ confirmation_url }}">Confirm subscription</a></p>
-    <p style="color:grey; font-size: 16px;"> <span style="color: #4fd1c5;"></span>If clicking doesn't work, copy paste the URL 
+    <p style="color:grey; font-size: 16px;"> <span style="color: #4fd1c5;"></span>Unable to click on the above button?  Copy paste the URL 
             {{ confirmation_url }}
     </span></p>
 
     <p style="color:grey; font-size: 16px;">
-        Please do not reply on this email.You can <a style="color: #4fd1c5;"
-            href="{{ request.get_host }}/author/admin">contact us here</a>.
+        For any further queries, click <a style="color: #4fd1c5;" href="http://{{ request.get_host }}/about">here</a> to contact.
     </p>
 </div>

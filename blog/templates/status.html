@@ -23,21 +23,16 @@
 
         {% if msg.status %}
         <p class="pb-1">{{ msg.status }}</p>
-        {% else %}
-        <p class="pb-1">This device doesn't support touch controls</p>
         {% endif %}
 
         {% if msg.msg %}
         <p class="pb-1">{{ msg.msg }}</p>
-        {% else %}
-        <p class="pb-1">msg have been identified as a human</p>
         {% endif %}
 
         {% if msg.instruction %}
         <p class="pb-1">{{ msg.instruction }}</p>
-        {% else %}
-        <p class="pb-1">This device doesn't support touch controls</p>
         {% endif %}
+        
       </div>
     </div> 
   </div>
