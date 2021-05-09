@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 register = template.Library()
 
-from ..models import Post, Contact, About
+from ..models import Post, About
 
 
 @register.simple_tag

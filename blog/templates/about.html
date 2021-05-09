@@ -8,8 +8,9 @@
         <div class="container mx-auto items-center flex flex-wrap">
             <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
 
-                <h2 class="font-semibold text-4xl text-gray-700">{{abt.title}}<span style="color: #FF7F50;">.</span>
-                </h2>
+                <div class="font-semibold text-4xl text-gray-900 dark:text-white ">
+                    <p>{{abt.title}}<span style="color: #FF7F50;">.</span></p>
+                </div>
                 <p class="mt-4 text-lg leading-relaxed text-gray-600">{{ abt.description }}
                 </p>
                 <div class="mt-12"><a
@@ -30,7 +31,8 @@
         <div class="container mx-auto items-center flex flex-wrap">
             <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
 
-                <h2 class="font-semibold text-4xl text-gray-700">Ojas<span style="color: #FF7F50;">.</span></h2>
+                <h2 class="font-semibold text-4xl text-gray-900 dark:text-white">Ojas<span
+                        style="color: #FF7F50;">.</span></h2>
                 <p class="mt-4 text-lg leading-relaxed text-gray-600">Open-Source progressive web application powered by
                     Django3 styled
                     with Tailwind2
@@ -50,7 +52,8 @@
 
         <div class="justify-center text-center flex flex-wrap mt-12 md:mt-24">
             <div class="w-full px-12 md:px-4">
-                <h2 class="font-semibold md:text-4xl">Special thanks to these wonderfull open-soure frameworks and libraries</h2>
+                <h2 class="font-semibold md:text-4xl text-gray-900 dark:text-white">Special thanks to these wonderfull
+                    open-soure frameworks and libraries</h2>
             </div>
         </div>
         <div class="pb-6 md:pb-24 md:pt-10">
@@ -58,14 +61,14 @@
                 <div class="absolute inset-0 h-1/2 bg-code"></div>
                 <div class="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="">
-                        <div class="rounded-lg md:bg-white md:shadow-lg sm:grid sm:grid-cols-5">
+                        <div class="rounded-lg md:bg-white md:shadow-lg md:dark:bg-gray-800 sm:grid sm:grid-cols-5">
                             <a href="https://www.djangoproject.com/" class="group hover:bg-gray-300 rounded-lg">
-                                <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                                <div class="p-6 text-center">
                                     <p class="text-5xl leading-none font-extrabold">
-                                        <svg class="mx-auto" aria-hidden="true"
-                                            focusable="false" width="1em" height="1em"
+                                        <svg class="mx-auto" aria-hidden="true" focusable="false" width="1em"
+                                            height="1em"
                                             style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
-                                             viewBox="0 0 32 32">
+                                            viewBox="0 0 32 32">
                                             <path
                                                 d="M14.135 4H18.1v18.169a26.218 26.218 0 0 1-5.143.535c-4.842-.005-7.362-2.168-7.362-6.322c0-4 2.673-6.6 6.816-6.6a6.448 6.448 0 0 1 1.724.2V4zm0 9.142a3.992 3.992 0 0 0-1.337-.2c-2 0-3.163 1.223-3.163 3.366c0 2.087 1.107 3.239 3.138 3.239a9.355 9.355 0 0 0 1.362-.1v-6.3z"
                                                 fill="#44b78b" />
@@ -75,67 +78,71 @@
                                             <path fill="#44b78b" d="M20.441 4.02h3.964v4.028h-3.964z" />
                                             <rect x="0" y="0" width="32" height="32" fill="rgba(0, 0, 0, 0)" /></svg>
                                     </p>
-                                    <p
-                                        class="mt-2 text-lg leading-6 font-medium text-cool-gray-500 group-hover:text-gray-700">
+                                    <p class="mt-2 text-lg leading-6 font-medium text-gray-600 dark:text-gray-400">
                                         Django
                                     </p>
                                 </div>
                             </a>
-                            <a href="https://tailwindcss.com/docs/text-color" class="group hover:bg-gray-300 rounded-lg">
-                                <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                            <a href="https://tailwindcss.com/docs/text-color"
+                                class="group hover:bg-gray-300 rounded-lg">
+                                <div class="p-6 text-center">
                                     <p class="text-5xl leading-none font-extrabold">
-                                        <svg class="mx-auto" aria-hidden="true"
-                                            focusable="false" width="1em" height="1em"
+                                        <svg class="mx-auto" aria-hidden="true" focusable="false" width="1em"
+                                            height="1em"
                                             style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
-                                             viewBox="0 0 32 32">
+                                            viewBox="0 0 32 32">
                                             <path
                                                 d="M9 13.7q1.4-5.6 7-5.6c5.6 0 6.3 4.2 9.1 4.9q2.8.7 4.9-2.1q-1.4 5.6-7 5.6c-5.6 0-6.3-4.2-9.1-4.9q-2.8-.7-4.9 2.1zm-7 8.4q1.4-5.6 7-5.6c5.6 0 6.3 4.2 9.1 4.9q2.8.7 4.9-2.1q-1.4 5.6-7 5.6c-5.6 0-6.3-4.2-9.1-4.9q-2.8-.7-4.9 2.1z"
                                                 fill="#44a8b3" />
                                             <rect x="0" y="0" width="32" height="32" fill="rgba(0, 0, 0, 0)" /></svg>
                                     </p>
-                                    <p
-                                        class="mt-2 text-lg leading-6 font-medium text-cool-gray-500 group-hover:text-gray-700">
+                                    <p class="mt-2 text-lg leading-6 font-medium text-gray-600 dark:text-gray-400">
                                         Tailwind
                                     </p>
                                 </div>
                             </a>
                             <a href="https://github.com/alpinejs/alpine" class="group hover:bg-gray-300 rounded-lg">
-                                <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                                <div class="p-6 text-center">
                                     <p class="text-5xl leading-none font-extrabold">
-                                        <svg class="mx-auto" viewBox="0 0 45.116 22.806" focusable="false"  xmlns="http://www.w3.org/2000/svg" width="48" height="48"><g opacity=".8"><path d="M33.71 0L11.207 22.693l.113.113h22.586l11.21-11.304z" fill="#d8dee9"/><path d="M11.405 0l22.578 22.769-.039.037H11.209L0 11.502z" fill="#8ac0cf"/></g></svg>
+                                        <svg class="mx-auto" viewBox="0 0 45.116 22.806" focusable="false"
+                                            xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+                                            <g opacity=".8">
+                                                <path d="M33.71 0L11.207 22.693l.113.113h22.586l11.21-11.304z"
+                                                    fill="#d8dee9" />
+                                                <path d="M11.405 0l22.578 22.769-.039.037H11.209L0 11.502z"
+                                                    fill="#8ac0cf" />
+                                            </g>
+                                        </svg>
                                     </p>
-                                    <p
-                                        class="mt-2 text-lg leading-6 font-medium text-cool-gray-500 group-hover:text-gray-700">
+                                    <p class="mt-2 text-lg leading-6 font-medium text-gray-600 dark:text-gray-400">
                                         Alpine JS
                                     </p>
                                 </div>
                             </a>
                             <a href="https://ckeditor.com/" class="group hover:bg-gray-300">
-                                <div
-                                    class="border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+                                <div class="p-6 text-center">
                                     <p class="text-5xl leading-none font-extrabold text-teal-600">
-                                        <svg class="mx-auto" aria-hidden="true"
-                                            focusable="false" width="0.91em" height="1em"
+                                        <svg class="mx-auto" aria-hidden="true" focusable="false" width="0.91em"
+                                            height="1em"
                                             style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
-                                             viewBox="0 0 464 512">
+                                            viewBox="0 0 464 512">
                                             <path
                                                 d="M462.455 384.045L365.42 24.505C354.93-.09 336.625-4.29 314.095 1.046L28.353 78.64c-29.246 9.176-30.901 30.37-26.557 56.178l96.013 351.368c9.053 22.637 22.064 30.006 57.599 21.197l279.98-74.566c23.527-8.89 31.48-25.69 27.067-48.773zM330.338 98.519c3.082 12.52-15.763 17.158-18.844 4.638c-3.454-12.528-10.361-25.095-32.088-18.498c-12.044 4.724-19.132-13.342-7.087-18.067c28.667-9.013 51.351 3.495 58.02 31.927zM225.752 217.046L304.979 352.8c6.354 10.888-10.408 20.669-16.761 9.781l-78.953-135.283c-44.544-69.948 4.882-105.17 45.334-46.918c24.826 31.479 82.5 142.143 86.172 149.206c19.615 34.057 8.881 58.03-16.506 69.838l-138.379 37.468c-22.953 6.064-44.246-8.14-50.992-30.028L69.81 166.89c-5.218-21.215 5.074-40.953 24.512-46.779l135.03-39.854c14.944-3.985 26.975 2.755 31.993 18.093l5.174 15.082c3.245 9.982 13.796 15.907 23.984 13.39l14.693-3.629c12.719-3.136 25.864 4.59 29.305 17.231l53.108 192.758c3.428 12.441-15.283 17.596-18.71 5.154l-53.117-192.787c-.715-2.63-3.32-4.16-5.934-3.514c-9.894 2.644-18.746 4.7-24.09 4.773c-16.722.001-32.245-10.727-37.645-27.222l-5.174-15.083c-2.127-6.543-4.595-6.547-8.343-5.56l-134.74 39.77c-9.422 2.824-13.951 12.195-11.255 23.328l65.01 239.704c3.306 11.979 15.377 19.149 27.506 16.335l136.386-36.875c14.082-7.756 21.023-16.45 6.146-42.476c-.605-1.166-60.833-116.926-84.565-146.679c-32.189-43.134-38.902-16.543-13.333 24.997z"
                                                 fill="#0086CB" />
                                             <rect x="0" y="0" width="464" height="512" fill="rgba(0, 0, 0, 0)" /></svg>
                                     </p>
-                                    <p
-                                        class="mt-2 text-lg leading-6 font-medium text-cool-gray-500 group-hover:text-gray-700">
+                                    <p class="mt-2 text-lg leading-6 font-medium text-gray-600 dark:text-gray-400">
                                         Ckeditor
                                     </p>
                                 </div>
                             </a>
-                            <a href="https://www.django-rest-framework.org/" class="group hover:bg-gray-300 rounded-tr-lg rounded-br-lg">
-                                <div class="border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
-                                    <p class="text-5xl leading-none font-extrabold text-teal-600"><svg
-                                            class="mx-auto" aria-hidden="true"
-                                            focusable="false" width="1em" height="1em"
+                            <a href="https://www.django-rest-framework.org/"
+                                class="group hover:bg-gray-300 rounded-tr-lg rounded-br-lg">
+                                <div class="p-6 text-center">
+                                    <p class="text-5xl leading-none font-extrabold text-teal-600"><svg class="mx-auto"
+                                            aria-hidden="true" focusable="false" width="1em" height="1em"
                                             style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);"
-                                             viewBox="0 0 32 32">
+                                            viewBox="0 0 32 32">
                                             <path d="M8 9H4a2 2 0 0 0-2 2v12h2v-5h4v5h2V11a2 2 0 0 0-2-2zm-4 7v-5h4v5z"
                                                 fill="#F34B43" />
                                             <path d="M22 11h3v10h-3v2h8v-2h-3V11h3V9h-8v2z" fill="#F34B43" />
@@ -143,8 +150,7 @@
                                                 fill="#F34B43" />
                                             <rect x="0" y="0" width="32" height="32" fill="rgba(0, 0, 0, 0)" /></svg>
                                     </p>
-                                    <p
-                                        class="mt-2 text-lg leading-6 font-medium text-cool-gray-500 group-hover:text-gray-700">
+                                    <p class="mt-2 text-lg leading-6 font-medium text-gray-600 dark:text-gray-400">
                                         Rest_framework
                                     </p>
                                 </div>
@@ -160,11 +166,12 @@
             <div class="items-center flex flex-wrap">
                 <div class="w-full md:w-5/12 ml-auto px-12 md:px-4">
                     <div class="md:pr-12">
-                        <h3 class="text-3xl font-semibold">Future Ready</h3>
+                        <h3 class="text-3xl font-semibold text-gray-900 dark:text-white">Future Ready</h3>
                         <p class="mt-4  text-sm md:text-lg leading-relaxed text-gray-600">Ojas has been specifically
                             designed for SEO and cross screen/device/browser support.
-                            It includes best URL patterns,tagging functionality,support for embedded videos, generic
-                            views & unique visitor counter and costs just 4 mB.
+                            It includes best URL patterns,tagging functionality,support for embedded videos,views,unique
+                            visitor counter,
+                            powerful admin panel and costs just 4 mB.
                         </p>
                         <ul class="list-none mt-6">
                             <li class="py-1 md:py-2">
@@ -173,7 +180,7 @@
                                             class="text-xs font-semibold inline-block py-0 md:py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-100 mr-3">
                                             <i class="fas fa-user-shield"></i></span></div>
                                     <div>
-                                        <h4 class="text-gray-600">Powerfull admin panel</h4>
+                                        <h4 class="text-gray-600">Captcha verification and newsletter subscription</h4>
                                     </div>
                                 </div>
                             </li>
@@ -183,7 +190,7 @@
                                             class="text-xs font-semibold inline-block py-0 md:py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-100 mr-3">
                                             <i class="fas fa-rss"></i></span></div>
                                     <div>
-                                        <h4 class="text-gray-600">Inbuilt sitemap,RSS Feed and rest_framework api</h4>
+                                        <h4 class="text-gray-600">Sitemap,RSS Feed and Rest_Rramework API included</h4>
                                     </div>
                                 </div>
                             </li>
@@ -193,7 +200,7 @@
                                             class="text-xs font-semibold inline-block py-0 md:py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-100 mr-3">
                                             <i class="far fa-plus-square"></i></span></div>
                                     <div>
-                                        <h4 class="text-gray-600">Offline serviceWorker with custom error pages</h4>
+                                        <h4 class="text-gray-600">Offline ServiceWorker with Custom Error Pages</h4>
                                     </div>
                                 </div>
                             </li>
@@ -212,10 +219,10 @@
 
         <div class="justify-center text-center flex flex-wrap mt-24">
             <div class="w-full md:w-6/12 px-12 md:px-4">
-                <h2 class="font-semibold text-4xl">Minimal and elegant</h2>
+                <h2 class="font-semibold text-4xl text-gray-900 dark:text-white">Minimal and elegant</h2>
                 <p class="text-sm md:text-lg leading-relaxed mt-4 mb-4 text-gray-600">
-                    With mainly two colors used throughout the website, no unecessary transitions/elements results in
-                    faster loading, better compatibility between screen sizes and user-friendly experience.
+                    With mainly two colors used throughout the website and no unecessary transitions/elements results in
+                    faster loading, better compatibility between screen sizes and a more user-friendly experience.
                 </p>
             </div>
         </div>
@@ -227,25 +234,31 @@
                 <div class="w-full lg:w-12/12 px-4  -mt-24">
                     <div class="flex flex-wrap">
                         <div class="w-full lg:w-4/12 px-4">
-                            <h5 class="text-xl font-semibold pb-4 text-center">Comment Section</h5>
-                            <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg"
-                                style="transition:all .45s ease"><img alt="Footer"
+                            <h5 class="text-xl font-semibold pb-4 text-center text-gray-900 dark:text-white">Comment
+                                Section</h5>
+                            <div
+                                class="hover:-mt-4 transition duration-700 ease-in-out relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg">
+                                <img alt="Footer"
                                     class="md:transform hover:-translate-y-16 align-middle border-none max-w-full h-auto rounded-lg"
                                     src="https://user-images.githubusercontent.com/54521023/100063381-2a33c380-2e57-11eb-9506-574d16b9c5ad.png" />
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
-                            <h5 class="text-xl font-semibold pb-4 text-white md:text-black text-center">Blog Post</h5>
-                            <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg"
-                                style="transition:all .45s ease"><img alt="User"
+                            <h5 class="text-xl font-semibold pb-4 text-center text-gray-900 dark:text-white">Blog Post
+                            </h5>
+                            <div
+                                class="hover:-mt-4 transition duration-700 ease-in-out relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg">
+                                <img alt="User"
                                     class="md:transform hover:-translate-y-16 align-middle border-none max-w-full h-auto rounded-lg"
                                     src="https://user-images.githubusercontent.com/54521023/100063377-27d16980-2e57-11eb-862f-c9469967a182.png" />
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
-                            <h5 class="text-xl font-semibold pb-4 text-white md:text-black text-center">User Profile</h5>
-                            <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg"
-                                style="transition:all .45s ease"><img alt="Contact"
+                            <h5 class="text-xl font-semibold pb-4 text-center text-gray-900 dark:text-white">User
+                                Profile</h5>
+                            <div
+                                class="hover:-mt-4 transition duration-700 ease-in-out relative flex flex-col min-w-0 break-words w-full mb-6 rounded-lg">
+                                <img alt="Contact"
                                     class="md:transform hover:-translate-y-16 align-middle border-none max-w-full h-auto rounded-lg"
                                     src="https://user-images.githubusercontent.com/54521023/100063366-23a54c00-2e57-11eb-8d20-c31c0bf3d4ec.png" />
                             </div>

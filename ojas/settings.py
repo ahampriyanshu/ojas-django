@@ -119,25 +119,20 @@ REST_FRAMEWORK = {
     )
 }
 
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
 SITE_ID=1
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 CKEDITOR_CONFIGS = {
 'default': {
     'width': 'auto',
@@ -147,7 +142,7 @@ CKEDITOR_CONFIGS = {
 # EMAIL_USE_TLS = True
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_PASSWORD='*****'
-# EMAIL_HOST_USER='******@gmail.com'
+# EMAIL_HOST_PASSWORD='****'
+# EMAIL_HOST_USER='****@gmail.com'
 # EMAIL_PORT = 587
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

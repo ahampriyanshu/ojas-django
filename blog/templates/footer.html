@@ -22,7 +22,7 @@ Get the latest posts delivered right to your inbox
 <div class="my-3"> 
   <form id="footerForm" action="{% url 'blog:subscribe' %}" method="POST" class="form-horizontal">
      {% csrf_token %}
-    <input type="email" name="email" class="p-2 border border-grey-light rounded text-black placeholder-gray-400 text-sm h-auto
+    <input type="email" name="email" size="14" class="p-2 border border-grey-light rounded text-black placeholder-gray-400 text-sm h-auto
     focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
     placeholder="Enter Email Address" required>
     <input type="submit" id="emailBtn" value="Subscribe"  class="bg-teal-500 text-white active:bg-teal-400 

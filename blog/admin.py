@@ -1,15 +1,10 @@
 from django.contrib import admin
-from .models import Post, Comment, Author, Viewer, Contact, About, Subscriber
+from .models import Post, Comment, Author, Viewer, About, Subscriber
 from django.utils.text import slugify
 
 admin.site.site_header = "OJAS Adminstration"
 admin.site.site_title = "OJAS"
 admin.site.index_title = "Home"
-
-
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'location', 'status')
-admin.site.register(Contact, ContactAdmin)
 
 
 class AboutAdmin(admin.ModelAdmin):

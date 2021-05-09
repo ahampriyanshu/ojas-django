@@ -8,28 +8,19 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db.models import Count, Q
 from taggit.models import Tag
-from .models import Post, Comment, Author, Viewer, Contact, About, Subscriber
+from .models import Post, Comment, Author, Viewer, About, Subscriber
 from .forms import CommentForm
 from rest_framework import viewsets
 from .serializers import PostSerializer
 import logging
 from django.urls import reverse
-from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 from django.templatetags.static import static
 from ojas import version
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import email
-import email.mime.application
 from django.utils.html import strip_tags
 import re
 from django.contrib import messages
-import base64
-import logging
-import traceback
-from django.conf import settings
+import traceback 
 import logging, traceback
 from django.urls import reverse
 import requests
@@ -46,15 +37,6 @@ logger = logging.getLogger('ojas.pwa.views')
 
 def offline(request):
     return render(request, 'offline.html')
-
-def fill_dynamic_cache(request, id):
-    return render(request, 'fill_dynamic_cache.html', context={'id': id})
-
-
-@never_cache
-def must_not_cache(request):
-    return render(request, 'must_not_cache.html', context={'requested_at': timezone.now()})
-
 
 
 def validate_email(email):    
@@ -150,7 +132,7 @@ def subscription_confirmation(request):
             subscribe_model_instance.save()
             messages.success(request, "Subscription Confirmed. Thank you.")
             message['status'] = 'Yeah! Subscription Confirmed'
-            message['msg'] = 'I will be sending you latest published articles once or twice a month.'
+            message['msg'] = 'I will be sending you the latest articles once or twice a month.'
             message['instruction'] = 'Thank you'
         except Subscriber.DoesNotExist as e:
             message['status'] = 'Unknown error occured'
@@ -336,11 +318,6 @@ def me(request):
     }
 
     return render(request, 'me.html', {'me': me})
-
-
-def contact_page(request):
-    contacts = Contact.objects.all()
-    return render(request, 'contact.html', {'contacts': contacts})
 
 
 def most_viewed(request):
