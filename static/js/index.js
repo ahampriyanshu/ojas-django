@@ -7,16 +7,14 @@ if (localStorage.theme === 'dark' || (!'theme' in localStorage && window.matchMe
 
 setTimeout(function(){
     document.getElementById('preloader').style.display = 'none';
-    console.log('function called')
    }, 5);
 
 
 function toggleTheme() {
-
     let htmlClasses = document.querySelector('html').classList;
     if(localStorage.theme == 'dark') {
         htmlClasses.remove('dark');
-        localStorage.removeItem('theme')
+        localStorage.theme = 'light';
     } else {
         htmlClasses.add('dark');
         localStorage.theme = 'dark';

@@ -8,23 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
-    {% if post %}
-
-    <title> {{ post.title }}</title>
-    <meta name="author" content="{{ post.author.author.username }}" />
-    <meta name="description" content=" {{ post.body|safe|truncatewords_html:20 }} " />
-    <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,django3,workbox,tailwind2,ahampriyanshu,github" />
-
-    {% else %}
-
     <title>{%  get_title  %}</title>
     <meta name="author" content="ahampriyanshu" />
     <meta name="description" content="Open Sources blog application in django and tailwind" />
-    <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,Django3,Tailwind2,ahampriyanshu,github" />
-
-    {% endif %}
-
+    <meta name="keywords" content="Ojas,ojas,Open-Source,priyanshu tiwari,Django3,Tailwind2,ahampriyanshu,github" />
     <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
     <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -49,7 +36,6 @@
 </head>
 
 <body x-data="{ mobileMenu: false }">
-
 
     <div id="preloader" class="flex h-screen preloader text-center"> 
         <div>

@@ -20,22 +20,20 @@
       </div>
       <div class="pl-1 pt-1 h-auto md:m-2 text-white font-mono text-xs bg-black">
         <p class="pb-1">Last login: {{ you.time }}</p>
-        <p class="pb-1">You are using a {{ you.device }}</p>
-
-        {% if you.touch %}
-        <p class="pb-1">This device thankfully supports touch controls</p>
-        {% else %}
-        <p class="pb-1">This device doesn't support touch controls</p>
-        {% endif %}
-
+        <p class="pb-1">You are using a {{ you.device }}
+          {% if you.touch %}
+          which thankfully supports touch controls
+          {% else %}
+          which doesn't support touch controls
+          {% endif %}
+        </p>
+        <p class="pb-1">{{ you.device_name }}</p>
         {% if you.bot %}
         <p class="pb-1">You have been identified as a bot</p>
         {% else %}
         <p class="pb-1">You have been identified as a human</p>
         {% endif %}
-
-        <p class="pb-1">You are viewing this website on {{ you.browser }} {{ you.browser_version }} </p>
-        <p class="pb-1">Your {{ you.device }} is running on {{ you.os }}</p>
+        <p class="pb-1">You are viewing this website on {{ you.browser }} {{ you.browser_version }} on {{ you.os }}</p>
         <p class="pb-1">Your IP is {{ you.ip }}</p>
       </div>
     </div> 

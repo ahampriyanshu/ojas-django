@@ -297,7 +297,7 @@ def contact_page(request):
 
 
 def me(request):
-
+    
     if request.user_agent.is_mobile:
         device = 'mobile'
     if request.user_agent.is_tablet:
@@ -313,7 +313,8 @@ def me(request):
         'browser_version': request.user_agent.browser.version_string,
         'ip': get_ip(request),
         'os': request.user_agent.os.family,
-        'time': datetime.now(),
+        'time': timezone.now(),
+        'device_name': request.user_agent.device ,
     }
 
     return render(request, 'me.html', {'me': me})
