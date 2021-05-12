@@ -22,6 +22,7 @@ def send_mail(sender, instance, created, **kwargs):
                 'body': instance.body,
                 'unsubsrcibe_url': unsubsrcibe_url,
                 'domain' : domain,
+                'logo_url': settings.LOGO_URL,
             }
             message = get_template('newsletter.html').render(ctx)
             msg = EmailMessage(

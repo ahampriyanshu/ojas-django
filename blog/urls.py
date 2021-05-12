@@ -30,6 +30,5 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')), 
     path('api-auth/', include('rest_framework.urls')),
     path('offline/', views.offline, name='offline'),
-    path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name,),
-
+    path('sw.js', views.ServiceWorkerView.as_view(), name=views.ServiceWorkerView.name,)
 ]

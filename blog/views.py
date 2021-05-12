@@ -18,6 +18,7 @@ from django.urls import reverse
 from ojas import version
 from django.contrib import messages
 import logging, traceback
+from django.conf import settings
 from django.urls import reverse
 import requests
 import secrets
@@ -25,15 +26,17 @@ import string
 import re
 
 logger = logging.getLogger('ojas.pwa.views')
+domain = settings.ALLOWED_HOSTS[0]
+logo_url = settings.LOGO_URL
 
 def offline(request):
     return render(request, 'offline.html')
 
-
 def send_subscription_mail(email, confirmation_url, request):
     ctx = {
         'confirmation_url': confirmation_url,
-        'request':request,    
+        'logo_url': logo_url,
+        'domain': domain,      
     }
     message = get_template('subscription.html').render(ctx)
     msg = EmailMessage(
@@ -52,9 +55,11 @@ def send_subscription_mail(email, confirmation_url, request):
         return False
 
 def send_confirmation_mail(email, unsubsrcibe_url, request):
+    
     ctx = {
         'unsubsrcibe_url': unsubsrcibe_url, 
-        'request':request,    
+        'logo_url': logo_url,
+        'domain': domain,    
     }
     message = get_template('confirmation.html').render(ctx)
     msg = EmailMessage(
@@ -74,7 +79,8 @@ def send_confirmation_mail(email, unsubsrcibe_url, request):
 
 def send_unsubscribe_mail(email, request):
     ctx = {  
-         'request':request,    
+         'logo_url': logo_url,
+         'domain': domain,    
     }
     message = get_template('unsubscribe.html').render(ctx)
     msg = EmailMessage(

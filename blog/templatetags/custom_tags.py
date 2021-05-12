@@ -7,10 +7,8 @@ import time
 import readtime
 from django.utils import timezone
 from datetime import datetime, timedelta
-
-register = template.Library()
-
 from ..models import Post, Admin
+register = template.Library()
 
 
 @register.simple_tag
@@ -32,14 +30,12 @@ def get_title():
 @register.simple_tag
 def get_desc():
     admin = Admin.objects.first()
-    print(admin.bio)
     return admin.bio
 
 
 @register.simple_tag
 def get_author():
     admin = Admin.objects.first()
-    print(admin.full_name)
     return admin.full_name
 
 
