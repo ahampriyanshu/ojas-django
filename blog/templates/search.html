@@ -10,15 +10,15 @@ Search results for <span class="text-teal-500" >{{ query }}</span></p>
   {% for post in queryset %}
 
   <div class="mx-auto px-4 py-4 max-w-xl my-auto">
-    <div class="bg-gray-50 md:bg-white md:shadow-xl rounded-lg mb-6 ">
+    <div class="bg-gray-50 md:bg-white md:shadow-xl md:rounded-lg mb-6">
       <a href='{{ post.get_absolute_url }}'>
         <div class="">
         {% if post.image %}
           <img src="{{post.image.url}}" alt="uploaded cover image"
-            class="object-cover h-full w-full rounded-lg md:rounded-b-none"> 
+            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none"> 
         {% else %}      
           <img src="{% static 'default/blog.png' %}" alt="default cover image"
-            class="object-cover h-full w-full rounded-lg md:rounded-b-none">        
+            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none">        
         {% endif %}
       </div>
       </a>
@@ -31,7 +31,7 @@ Search results for <span class="text-teal-500" >{{ query }}</span></p>
         </div>
         </div>
         </a>
-        <div class="flex items-center justify-between p-2 md:p-4 md:mx-4">
+        <div class="flex items-center justify-between p-2 md:p-4 mx-2 md:mx-4">
           <a   href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center ml-2">
               <img class="w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">

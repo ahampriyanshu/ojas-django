@@ -8,21 +8,19 @@
 
     <div class="w-full md:w-1/2 md:my-4 lg:px-4 md:flex mb-8">
       <a href='{{ post.get_absolute_url }}'>
-        <div class=" md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
-          <div class="p-2 md:p-0">
+        <div class="md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
+          <div class="p-4 md:p-0">
           {% if post.image %}
-          <img class="md:border md:border-r-0 md:dark:border-gray-600 h-auto  md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
+          <img class="rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
           {% else %}
-          <img class="md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{% static 'default/blog.png'  %}"
-            alt="default cover image" />
+          <img class="rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{% static 'default/blog.png'  %}" alt="default cover image" />
           {% endif %}
           </div>
         </div>
       </a>
-      <div
-        class="overflow-hidden md:border md:border-l-0 md:dark:border-gray-600 rounded-r h-auto md:h-64 md:w-full p-2 flex flex-col 
+      <div class="overflow-hidden md:border md:border-l-0 md:dark:border-gray-600 rounded-r h-auto md:h-64 md:w-full p-2 flex flex-col 
         justify-between leading-normal bg-gray-50 md:bg-white dark:bg-gray-900 md:dark:bg-gray-800">
-        <div class="overflow-hidden mb-4 h-auto md:h-48">
+        <div class="overflow-hidden mb-4 h-auto md:h-48 px-4 md:px-0">
           <a href="{{ post.get_absolute_url }}">
           <div class="truncate text-black font-bold text-gray-600 dark:text-gray-200 text-xl mb-2">{{ post.title }}</div>
           <div class="hidden md:block break-words text-sm text-gray-600 dark:text-gray-400">
@@ -49,8 +47,7 @@
         </div>
       </div>
     </div>
- 
-
+    
     {% empty %}
     <p class="leading-none my-10 text-sm text-gray-600 dark:text-gray-400 text-center">We may need some more articles</p>
     {% endfor %}

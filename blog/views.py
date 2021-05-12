@@ -1,51 +1,33 @@
-from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import ListView
-from django.core.mail import send_mail
-import time
-from django.http import HttpResponseRedirect
-from django.utils import timezone
-from datetime import datetime, timedelta
-from django.db.models import Count, Q
-from taggit.models import Tag
 from .models import Post, Comment, Author, Viewer, Admin, Subscriber
-from .forms import CommentForm
-from rest_framework import viewsets
-from .serializers import PostSerializer
-import logging
-from django.urls import reverse
+from django.shortcuts import render, get_object_or_404
+from django.template.loader import get_template
+from django.core.mail import EmailMessage
 from django.views.generic import TemplateView
 from django.templatetags.static import static
-from ojas import version
+from datetime import datetime, timedelta
+from rest_framework import viewsets
+from .serializers import PostSerializer
+from django.utils import timezone
+from django.db.models import Count, Q
 from django.utils.html import strip_tags
-import re
+from django.conf import settings
+from taggit.models import Tag
+from .forms import CommentForm
+from django.urls import reverse
+from ojas import version
 from django.contrib import messages
-import traceback 
 import logging, traceback
 from django.urls import reverse
 import requests
-from django.template.loader import get_template
-from django.utils.html import strip_tags
-from django.conf import settings
-from django.template import Context
-from django.template.loader import render_to_string, get_template
-from django.core.mail import EmailMessage
 import secrets
 import string
+import re
 
 logger = logging.getLogger('ojas.pwa.views')
 
 def offline(request):
     return render(request, 'offline.html')
-
-
-def validate_email(email):    
-    if email is None:
-        return "Email is required."
-    elif not re.match(r"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", email):
-        return "Invalid Email Address !"
-    else:
-        return None
 
 
 def send_subscription_mail(email, confirmation_url, request):
@@ -126,7 +108,6 @@ def subscription_confirmation(request):
             subscribe_model_instance.confirmed = True
             subscribe_model_instance.token = str(new_token)
             email = subscribe_model_instance.email
-            site_url = request.get_host
             unsubsrcibe_url = request.build_absolute_uri(reverse('blog:unsubscribe')) + "?token=" + new_token + "&email=" + email
             send_confirmation_mail(email, unsubsrcibe_url, request )
             subscribe_model_instance.save()
@@ -139,7 +120,7 @@ def subscription_confirmation(request):
             message['msg'] = 'Check your internet connection'
             message['instruction'] = 'Please try reopening the link'
             logging.getLogger("warning").warning(traceback.format_exc())
-            messages.error(request, "Invalid Link")
+            messages.error(request, e)
     else:
         message['status'] = 'Invalid token'
         message['msg'] = 'Check your internet connection'
@@ -161,13 +142,10 @@ def unsubscribe(request):
     token = request.GET.get("token", None)
     email = request.GET.get("email", None)
 
-    print(token, email)
-
     if token and email:
         try:
             subscribe_model_instance = Subscriber.objects.get(token=token,email=email)
             subscribe_model_instance.delete()
-            site_url = request.get_host
             send_unsubscribe_mail(email, request)
             message['status'] = 'Unsubscribed successfully'
             message['msg'] = 'Sorry to see you go :('
@@ -185,10 +163,7 @@ def unsubscribe(request):
         message['status'] = 'Invalid token or email'
         message['msg'] = 'Check your internet connection'
         message['instruction'] = 'Please try reopening the link'
-
     return render(request, 'status.html', {'message': message})
-
-    # This is the main subscription view
 
 def subscribe(request):
     message = dict()
@@ -201,7 +176,6 @@ def subscribe(request):
         message['msg'] = 'Search your inbox for confirmation mail'
         message['instruction'] = 'You may also contact the admin'
     except Subscriber.DoesNotExist:
-        site_url = request.get_host
         confirmation_url = request.build_absolute_uri(reverse('blog:subscription_confirmation')) + "?token=" + token
         status = send_subscription_mail(email, confirmation_url, request)
         if status:
@@ -223,8 +197,7 @@ def subscribe(request):
             message['msg'] = 'Please check your input for typo'
             message['instruction'] = 'And then try again'
     except Exception as e: 
-        msg = e
-        messages.error(request, msg)
+        messages.error(request, e)
         message['status'] = 'Some unknown error occured'
         message['msg'] = ' Please try after some time'
         message['instruction'] = 'Meanwhile we are looking into it'
@@ -240,7 +213,7 @@ class ServiceWorkerView(TemplateView):
     def get_context_data(self, **kwargs):
         return {
             'version': version,
-            'icon_url': static('img/android-icon-512x512.png'),
+            'icon_url': static('img/logo.png'),
             'manifest_url': static('manifest.json'),
             'style_url': static('css/tailwind.min.css'),
             'home_url': reverse('blog:most_viewed'),
@@ -313,8 +286,8 @@ def me(request):
         'browser_version': request.user_agent.browser.version_string,
         'ip': get_ip(request),
         'os': request.user_agent.os.family,
-        'time': timezone.now(),
-        'device_name': request.user_agent.device ,
+        'time': datetime.now(),
+        'device_name': request.user_agent.device.family ,
     }
 
     return render(request, 'me.html', {'me': me})

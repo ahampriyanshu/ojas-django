@@ -25,8 +25,22 @@ def read(html):
 
 @register.simple_tag
 def get_title():
-    admin = Admin.objects.order_by('pk')[:1]
-    return admin[0].title
+    admin = Admin.objects.first()
+    return admin.title
+
+
+@register.simple_tag
+def get_desc():
+    admin = Admin.objects.first()
+    print(admin.bio)
+    return admin.bio
+
+
+@register.simple_tag
+def get_author():
+    admin = Admin.objects.first()
+    print(admin.full_name)
+    return admin.full_name
 
 
 @register.filter

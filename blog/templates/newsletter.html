@@ -1,0 +1,32 @@
+<div style="padding: 20px; text-align: left; margin: auto; background: #fafafa; font-size:15px;">
+    <p style="color:grey; font-size: 24px;">
+    Hello reader, a brand new article is here.</p>
+    <p style="color:grey; font-size: 16px;">
+    {{ title }}
+    </p>
+    <p style="color:grey; font-size: 16px;">
+        {{ body|safe|truncatewords_html:40 }}
+    </p>
+    <p>
+    <a style="background-color: #4fd1c5;
+       border: none;
+       color: white;
+       padding: 15px 32px;
+       text-align: center;
+       text-decoration: none;
+       display: inline-block;
+       font-size: 16px;
+       margin: 4px 2px;
+       cursor: pointer;
+       -webkit-transition-duration: 0.4s;
+       transition-duration: 0.4s;" href="{{ post_url }}">Read Full Article</a></p>
+
+    <p style="color:grey; font-size: 16px;">
+        For any further queries, click <a style="color: #4fd1c5;"
+         href="{{ domain }}/contact">
+         here</a> to contact.
+    </p>
+    <p style="color:grey; font-size: 16px;">To unsubscribe, click 
+        <a style="color: #4fd1c5;" href="{{ unsubsrcibe_url }}">here</a>.
+   </p>
+</div>

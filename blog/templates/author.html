@@ -13,18 +13,18 @@
               <img class="right-0 sm:w-32 sm:h-32 rounded-full mr-4 absolute sm:-mt-16 -mt-8" src="{{ auth.image.url }}" alt="author's image">
         </div>
         <div class="block md:hidden flex justify-center">
-          <img class="w-32 h-32 rounded-full mr-4" src="{{ auth.image.url }}" alt="author's image">
+          <img class="w-32 h-32 rounded mr-4" src="{{ auth.image.url }}" alt="author's image">
         </div>
         {% endif %}
-        <div class="pt-8 pb-2">
+        <div class="pt-8 md:pb-2">
           <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ auth.full_name }}</h1>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Contribututing since {{ auth.joined|date:"d M, Y" }}</p>
+          <p class="text-sm mt-2 text-gray-600 dark:text-gray-400">Contribututing since {{ auth.joined|date:"d M, Y" }}</p>
           <div class="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
-          <p class="mt-6"> 
+          <p class="mt-2"> 
             {{ auth.bio|safe|linebreaks }}
           </p>
         </div>
-        <div class="my-6">
+        <div class="my-3">
 
           {% if auth.email %}
           <a  
@@ -172,8 +172,6 @@
                width="24px" height="24px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"><title>Unsplash</title><path d="M7.5 6.75V0h9v6.75h-9zm9 3.75H24V24H0V10.5h7.5v6.75h9V10.5z"/></svg>
           </a>
           {% endif %}
-
-          
       </div>
       </div>
       </div>
@@ -183,7 +181,7 @@
 
 
   {% for auth in author %}
-  <p class="font-sans mb-5 font-bold text-lg md:text-3xl mt-5 text-center text-gray-900 dark:text-white">
+  <p class="font-sans mb-5 font-bold text-lg md:text-3xl md:mt-6 text-center text-gray-900 dark:text-white">
     More from {{ auth.full_name }}</p>  
     {% endfor %}
 
@@ -191,15 +189,15 @@
   {% for post in posts %}
 
   <div class="mx-auto px-4 py-4 max-w-xl my-auto">
-    <div class="bg-gray-50 md:bg-white md:shadow-xl rounded-lg mb-6 ">
+    <div class="bg-gray-50 md:bg-white md:shadow-xl md:rounded-lg mb-6">
       <a href='{{ post.get_absolute_url }}'>
         <div class="">
         {% if post.image %}
           <img src="{{post.image.url}}" alt="uploaded cover image"
-            class="object-cover h-full w-full rounded-lg md:rounded-b-none"> 
+            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none"> 
         {% else %}      
           <img src="{% static 'default/blog.png' %}" alt="default cover image"
-            class="object-cover h-full w-full rounded-lg md:rounded-b-none">        
+            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none">        
         {% endif %}
       </div>
       </a>
@@ -212,7 +210,7 @@
         </div>
         </div>
         </a>
-        <div class="flex items-center justify-between p-2 md:p-4 md:mx-4">
+        <div class="flex items-center justify-between p-2 md:p-4 mx-2 md:mx-4">
           <a   href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center ml-2">
               <img class="w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">
