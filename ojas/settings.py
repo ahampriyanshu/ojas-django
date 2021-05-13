@@ -26,8 +26,7 @@ SECRET_KEY = 'nr34p*=3aap!3j6us%@@vgdjnwe6qsnm9m@vxheb41gzq5+#0i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 
-    'ahampriyanshu.pythonanywhere.com',
+ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
@@ -84,19 +83,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ojas.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -145,6 +137,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_PASSWORD='****'
 EMAIL_HOST_USER='****@gmail.com'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL='****@gmail.com'
 
 LOGO_URL = 'https://github.com/ahampriyanshu/ojas/raw/main/static/img/logo.png'

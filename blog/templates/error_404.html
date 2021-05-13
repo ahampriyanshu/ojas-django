@@ -9,9 +9,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>404 Error</title>
-  <meta name="author" content="{{ post.author.author.username }}" />
-  <meta name="description" content=" {{ post.body|safe|truncatewords_html:20 }} " />
-  <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,django3,workbox,tailwind2,ahampriyanshu,github" />
+  <meta name="author" content="{%  get_author %}" />
+  <meta name="description" content="{%  get_desc  %}" />
+  <meta name="keywords" content="Ojas,ojas,open,source,priyanshu,tiwari,Django3,Tailwind2,ahampriyanshu,github,blog,website"/>
   <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -53,10 +53,10 @@
   </script>
   {% endblock %}
 
-  <div class="h-screen w-screen bg-gray-100 flex items-center">
+  <div class="h-screen w-screen bg-gray-50 dark:bg-gray-900 flex items-center">
     <div class="container flex flex-col  items-center justify-center px-5 text-gray-700">
 
-      <div class="text-5xl py-2 md:py-4 font-dark font-bold">No Such Page</div>
+      <div class="text-5xl py-2 md:py-4 text-gray-900 dark:text-gray-100 font-bold">No Such Page</div>
       <div class="hidden lg:block p-4">
  <svg height="256" width="256" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">

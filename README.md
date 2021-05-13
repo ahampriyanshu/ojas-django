@@ -6,99 +6,72 @@
 [![size](https://img.shields.io/github/repo-size/ahampriyanshu/ojas?style=flat-square)](https://ahampriyanshu.pythonanywhere.com)
 [![Website status](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://ahampriyanshu.pythonanywhere.com)
 
-<p align="center" >
-<img src="https://user-images.githubusercontent.com/54521023/100444973-56a74400-30d2-11eb-89d5-3408e760944b.png" width="100%">
-<br><br>
-<h2 align="center"> Lighthouse Audit </h2>
-<img src="https://user-images.githubusercontent.com/54521023/100444975-57d87100-30d2-11eb-908b-9ba1de033192.png" width="40%">
-</p>
-
-
-* [Home](https://ahampriyanshu.pythonanywhere.com/admin)
-* [Admin Panel](https://ahampriyanshu.pythonanywhere.com/admin)
-* [Api](https://ahampriyanshu.pythonanywhere.com/api)
-* [Sitemap](https://ahampriyanshu.pythonanywhere.com/sitemap.xml)
-* [RSS Feed](https://ahampriyanshu.pythonanywhere.com/feed)
-* [User Agent](https://ahampriyanshu.pythonanywhere.com/me)
-
-## Home
-![home](https://user-images.githubusercontent.com/54521023/100063392-2c961d80-2e57-11eb-8840-2b4320b49f70.png)
-
-## Blog
-![blog](https://user-images.githubusercontent.com/54521023/100063377-27d16980-2e57-11eb-862f-c9469967a182.png)
-
-## Author
-![author](https://user-images.githubusercontent.com/54521023/100063366-23a54c00-2e57-11eb-8d20-c31c0bf3d4ec.png)
-
-## Comment
-![comment](https://user-images.githubusercontent.com/54521023/100063381-2a33c380-2e57-11eb-9506-574d16b9c5ad.png)
-
-## Search Result
-![Screenshot from 2020-11-27 16-51-04](https://user-images.githubusercontent.com/54521023/100444995-5eff7f00-30d2-11eb-967f-eb1467cd4cca.png)
-
-## User-Agent
-![Screenshot from 2020-11-27 16-49-58](https://user-images.githubusercontent.com/54521023/100445024-6de63180-30d2-11eb-9921-b384a01a73ca.png)
-
-
-## Installation
-
-```bash
-
-git clone https://github.com/ahampriyanshu/ojas.git
-pip install -r requirements.txt
-python3 manage.py migrate
-python3 manage.py runserver
-
-```
-
-## Deployment
-
-* Set ``DEBUG = False`` 
-* Change the ``SECRET_KEY``
-* Run ``python3 manage.py collectstatic``
-
 ## Dependencies
 
-| Dependency | Version |
-| --- | --- | 
-| Django | 3.2.4 | 
-| django-ckeditor | 6.0.0 |
-| django-crispy-forms | 1.10.0  |
-| django-embed-video | 1.3.3  |
-| django-richtextfield | 1.6  |
-| django-taggit | 1.3.0  |
-| django-user-agents | 0.4.0  |
-| django-user-visit | 0.4.1  |
-| djangorestframework | 3.12.2  |
-| Markdown | 3.3.3  |
-| Pillow | 8.0.1  | 
-| Tailwind | 2.0.4  |
+* [Django](https://www.djangoproject.com/)
+* [Tailwind](https://tailwindcss.com/docs/text-color)
+* [CKEditor](https://ckeditor.com/)
+* [AlpineJS](https://github.com/alpinejs/alpine)
+* [https://jquery.com/](https://jquery.com/)
 
-## Special thanks to
-.
-* [FlatIcon](http://www.flaticon.com/) for all the wonderfull svg icons.
-* [PythonAnywhere](https://www.pythonanywhere.com/) for hosting this project.
+## Setup
 
-## 
+* Activate your virtual env
+
+```bash
+git clone https://github.com/ahampriyanshu/ojas.git
+pip install -r requirements.txt
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py createsuperuser
+python3 manage.py collectstatic
+python3 manage.py runserver
+```
+
+* Update all the favicons in  `staticfiles/img`
+
+* Go to the admin panel
+    * Create an admin record
+    * Create a new author
+
+* Open settings.py
+    * Set ``DEBUG = False`` 
+    * Update ``SECRET_KEY``, ``LOGO_URL``, ``ALLOWED_HOSTS``, ``LANGUAGE_CODE``, ``TIME_ZONE``, ``EMAIL_HOST_PASSWORD``, ``EMAIL_HOST_USER``, ``DEFAULT_FROM_EMAIL``
+
+## Roadmap
 
 - [x] Tagging funtionality instead of static categories/sections
-- [x] Installable
-- [x] Cache and offline support with PWA
+- [x] Installable PWA with offline support
 - [x] Custom error pages
-- [x] Responsive
+- [x] Responsive for all (sm, md, lg, xl)
 - [x] Markdown support
 - [x] RichText Support
 - [x] WYSIWYG Editor
 - [x] Sitemap
 - [x] SEO freindly URL
 - [x] RSS Feed 
-- [x] Rest_framework
-- [x] Unique visitor and generic views counter
+- [x] Rest API
+- [x] Unique visitor and views counter (which doesn't rely on ctrl + r)
 - [x] Parsing User-agent
-- [ ] Subscription newsletter
-- [ ] More natural frontend
-- [ ] Dark Mode
-- [ ] More ajax
-- [ ] Better lazy loading
-- [ ] Better comment system
+- [x] replace datetime and time with timezone
+- [x] Subscription newsletter
+- [x] HTML templates for emails
+- [x] Simpler frontend
+- [x] Dark Mode which respects both user's and os's preferences
+- [x] Better commenting system with captcha verification
+- [x] Make all the important details dynamic (blog title,desc,author,keywords,contacts)
 - [ ] Migrate to Postgre
+- [ ] More robust ServiceWorker
+- [ ] Get rid of alpine JS
+- [ ] Provide a better API
+
+## Attribution
+
+* [https://www.packtpub.com/product/django-by-example/9781784391911](https://www.packtpub.com/product/django-by-example/9781784391911)
+* [https://www.dyspatch.io/resources/templates/](https://www.dyspatch.io/resources/templates/)
+* [http://www.flaticon.com/](http://www.flaticon.com/)
+* [http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.](http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.)
+* [https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/](https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/)
+* [https://www.youtube.com/watch?v=Y4c4ickks2A](https://www.youtube.com/watch?v=Y4c4ickks2A)
+* [https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/](https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/)
+* [https://stackoverflow.com/questions/61848207/sending-email-notification-in-django](https://stackoverflow.com/questions/61848207/sending-email-notification-in-django)

@@ -9,9 +9,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>500 Error</title>
-  <meta name="author" content="{{ post.author.author.username }}" />
-  <meta name="description" content=" {{ post.body|safe|truncatewords_html:20 }} " />
-  <meta name="keywords" content="Ojas,ojas,Open-Source,pwa,django3,workbox,tailwind2,ahampriyanshu,github" />
+  <meta name="author" content="{%  get_author %}" />
+  <meta name="description" content="{%  get_desc  %}" />
+  <meta name="keywords" content="Ojas,ojas,open,source,priyanshu,tiwari,Django3,Tailwind2,ahampriyanshu,github,blog,website"/>
   <link href="{% static 'css/tailwind.min.css' %}" rel="stylesheet" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <link rel="manifest" href="{% static 'manifest.json' %}">
@@ -53,10 +53,10 @@
   </script>
   {% endblock %}
 
-  <div class="h-screen w-screen bg-gray-100 flex items-center">
+  <div class="h-screen w-screen bg-gray-50 dark:bg-gray-900 flex items-center">
     <div class="container flex flex-col  items-center justify-center px-5 text-gray-700">
 
-      <div class="text-5xl py-2 md:py-4 font-dark font-bold">Internal Error</div>
+      <div class="text-5xl py-2 md:py-4 text-gray-900 dark:text-gray-100 font-bold">Internal Error</div>
       <div class="hidden lg:block p-4">
         <svg height="256" viewBox="0 0 512 512" width="256" xmlns="http://www.w3.org/2000/svg"><g id="Filled_outline" data-name="Filled outline"><rect fill="#348ed8" height="344" rx="32" width="464" x="24" y="40"/><path d="m24 280v72a32 32 0 0 0 32 32h400a32 32 0 0 0 32-32v-248z" fill="#3289d1"/><path d="m456 384h-400a32 32 0 0 1 -32-32v-24h464v24a32 32 0 0 1 -32 32z" fill="#dfdfdd"/><path d="m328 472h-144l24-88h96z" fill="#d5d5d3"/><path d="m349.036 280h-186.072a18.963 18.963 0 0 1 -18.964-18.964 18.961 18.961 0 0 1 2.5-9.409l85.563-149.735a27.57 27.57 0 0 1 23.937-13.892 27.57 27.57 0 0 1 23.938 13.892l85.562 149.735a18.961 18.961 0 0 1 2.5 9.409 18.963 18.963 0 0 1 -18.964 18.964z" fill="#d65246"/><path d="m480 320h-448v-216h-16v248a40.045 40.045 0 0 0 40 40h141.526l-19.636 72h-25.89v16h208v-16h-25.89l-15.846-58.1-15.436 4.21 14.698 53.89h-123.052l19.636-72h241.89a40.045 40.045 0 0 0 40-40v-64h-16zm-24 56h-400a24.028 24.028 0 0 1 -24-24v-16h448v16a24.028 24.028 0 0 1 -24 24zm40-304v200h-16v-200a24.028 24.028 0 0 0 -24-24h-400a24.028 24.028 0 0 0 -24 24v16h-16v-16a40.045 40.045 0 0 1 40-40h400a40.045 40.045 0 0 1 40 40zm-342.555 183.6a10.963 10.963 0 0 0 9.519 16.4h186.072a10.964 10.964 0 0 0 9.52-16.4l-85.564-149.739a19.57 19.57 0 0 0 -33.984 0l-14.919 26.108-13.889-7.938 14.919-26.108a35.572 35.572 0 0 1 61.77 0l85.562 149.735a26.964 26.964 0 0 1 -23.415 40.342h-186.072a26.962 26.962 0 0 1 -23.41-40.342l61.5-107.627 13.892 7.938zm110.555-31.6h-16v-88h16zm-16 16h16v16h-16zm-184-144h-16v-16h16zm-16 16h16v80h-16z"/></g></svg>
       </div>
