@@ -9,7 +9,7 @@ from django.conf import settings
 
 @receiver(signals.post_save, sender=Post)
 def send_mail(sender, instance, created, **kwargs):
-    if  instance.status.lower() == "published":
+    if  created and instance.status.lower() == "published":
         domain = settings.ALLOWED_HOSTS[0]
         subscribers = Subscriber.objects.filter(confirmed = True)
         for subscriber in subscribers.iterator():

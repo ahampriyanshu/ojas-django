@@ -12,7 +12,7 @@
 * [Tailwind](https://tailwindcss.com/docs/text-color)
 * [CKEditor](https://ckeditor.com/)
 * [AlpineJS](https://github.com/alpinejs/alpine)
-* [https://jquery.com/](https://jquery.com/)
+* [Jquery](https://jquery.com/)
 
 ## Setup
 
@@ -30,13 +30,15 @@ python3 manage.py runserver
 
 * Update all the favicons in  `staticfiles/img`
 
-* Go to the admin panel
+* Go to the admin panel(_default url is domain/admin_)
     * Create an admin record
     * Create a new author
 
 * Open settings.py
     * Set ``DEBUG = False`` 
-    * Update ``SECRET_KEY``, ``LOGO_URL``, ``ALLOWED_HOSTS``, ``LANGUAGE_CODE``, ``TIME_ZONE``, ``EMAIL_HOST_PASSWORD``, ``EMAIL_HOST_USER``, ``DEFAULT_FROM_EMAIL``
+    * Update ``SECRET_KEY``, ``LOGO_URL``, ``ALLOWED_HOSTS``,
+    * Update language and timezone setting : ``LANGUAGE_CODE``, ``TIME_ZONE``
+    * Update SMTP setting : ``EMAIL_HOST_PASSWORD``, ``EMAIL_HOST_USER``, ``DEFAULT_FROM_EMAIL``
 
 ## Roadmap
 
@@ -69,9 +71,13 @@ python3 manage.py runserver
 
 * [https://www.packtpub.com/product/django-by-example/9781784391911](https://www.packtpub.com/product/django-by-example/9781784391911)
 * [https://www.dyspatch.io/resources/templates/](https://www.dyspatch.io/resources/templates/)
-* [http://www.flaticon.com/](http://www.flaticon.com/)
 * [http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.](http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.)
 * [https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/](https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/)
 * [https://www.youtube.com/watch?v=Y4c4ickks2A](https://www.youtube.com/watch?v=Y4c4ickks2A)
 * [https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/](https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/)
 * [https://stackoverflow.com/questions/61848207/sending-email-notification-in-django](https://stackoverflow.com/questions/61848207/sending-email-notification-in-django)
+
+## Special thanks to
+
+* [FlatIcon](http://www.flaticon.com/) for all the wonderfull svg icons.
+* [PythonAnywhere](https://www.pythonanywhere.com/) for hosting this project.

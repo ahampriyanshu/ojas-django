@@ -63,7 +63,7 @@
   </style>
 </head>
 
-<body>
+<body ononline="redirect()">
   <div style="position: relative; text-align: center;">
     <div id="content-desktop" style="position: relative; margin-top: 10%; text-align: center;">
       <h1 class="title"
@@ -146,16 +146,14 @@
     </div>
   </div>
   <script>
-    setTimeout(function () {
+    function redirect() {
       window.location.href = '/';
-    }, 5000);
-
+    }
     if (localStorage.theme == 'dark') {
       document.body.style.background = "#111827";
     } else {
       document.body.style.background = "#ffffff";
     }
-    
   </script>
 </body>
 
