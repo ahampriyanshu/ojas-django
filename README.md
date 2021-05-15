@@ -42,30 +42,34 @@ python3 manage.py runserver
 
 ## Roadmap
 
-- [x] Tagging funtionality instead of static categories/sections
-- [x] Installable PWA with offline support
-- [x] Custom error pages
-- [x] Responsive for all (sm, md, lg, xl)
-- [x] Markdown support
-- [x] RichText Support
-- [x] WYSIWYG Editor
-- [x] Sitemap
-- [x] SEO freindly URL
-- [x] RSS Feed 
-- [x] Rest API
-- [x] Unique visitor and views counter (which doesn't rely on ctrl + r)
-- [x] Parsing User-agent
-- [x] replace datetime and time with timezone
-- [x] Subscription newsletter
-- [x] HTML templates for emails
-- [x] Simpler frontend
-- [x] Dark Mode which respects both user's and os's preferences
-- [x] Better commenting system with captcha verification
-- [x] Make all the important details dynamic (blog title,desc,author,keywords,contacts)
-- [ ] Migrate to Postgre
-- [ ] More robust ServiceWorker
-- [ ] Get rid of alpine JS
-- [ ] Provide a better API
+* [x] Tagging funtionality instead of static categories/sections
+* [x] Installable PWA with offline support
+* [x] Custom error pages
+* [x] Responsive for all (sm, md, lg, xl)
+* [x] Markdown support
+* [x] RichText Support
+* [x] WYSIWYG Editor
+* [x] Sitemap
+* [x] SEO freindly URL
+* [x] RSS Feed 
+* [x] Rest API
+* [x] Unique visitor and views counter (which doesn't rely on ctrl + r)
+* [x] Parsing User Agent
+* [x] replace datetime and time with timezone
+* [x] Subscription newsletter
+* [x] HTML templates for emails
+* [x] Simpler frontend
+* [x] Dark Mode which respects both user's and os's preferences
+* [x] Better commenting system with captcha verification
+* [x] Make all the important details dynamic (blog title,desc,author,keywords,contacts)
+* [ ] Migrate to Postgre
+* [ ] More robust ServiceWorker
+* [ ] Get rid of alpine JS
+* [ ] Provide a better API
+* [ ] Live preview of post in Admin panel
+* [ ] Additional options for author at user-end
+* [ ] Better support for images and code snippets
+
 
 ## Attribution
 

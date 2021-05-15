@@ -10,10 +10,10 @@
       <div class="bg-gray-50 md:bg-white md:shadow-lg dark:bg-gray-900 md:dark:bg-gray-800 px-8">
         {% if auth.image %}
         <div class="relative hidden md:block">
-              <img class="right-0 sm:w-32 sm:h-32 rounded-full mr-4 absolute sm:-mt-16 -mt-8" src="{{ auth.image.url }}" alt="author's image">
+              <img class="overflow-hidden right-0 sm:w-32 sm:h-32 rounded-full mr-4 absolute sm:-mt-16 -mt-8" src="{{ auth.image.url }}" alt="author's image">
         </div>
         <div class="block md:hidden flex justify-center">
-          <img class="w-32 h-32 rounded mr-4" src="{{ auth.image.url }}" alt="author's image">
+          <img class="overflow-hidden w-32 h-32 rounded mr-4" src="{{ auth.image.url }}" alt="author's image">
         </div>
         {% endif %}
         <div class="pt-8 md:pb-2">
@@ -194,10 +194,10 @@
         <div class="">
         {% if post.image %}
           <img src="{{post.image.url}}" alt="uploaded cover image"
-            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none"> 
+            class="overflow-hidden object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none"> 
         {% else %}      
           <img src="{% static 'default/blog.png' %}" alt="default cover image"
-            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none">        
+            class="overflow-hidden object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none">        
         {% endif %}
       </div>
       </a>
@@ -213,7 +213,7 @@
         <div class="flex items-center justify-between p-2 md:p-4 mx-2 md:mx-4">
           <a   href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center ml-2">
-              <img class="w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">
+              <img class="overflow-hidden w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">
               <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
                 <p>{{ post.author }}</p>
                 <p>{{ post.publish|date:"d M, Y" }}</p>

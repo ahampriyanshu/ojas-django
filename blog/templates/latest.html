@@ -11,9 +11,9 @@
         <div class="md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
           <div class="p-4 md:p-0">
           {% if post.image %}
-          <img class="rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
+          <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
           {% else %}
-          <img class="rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64" src="{% static 'default/blog.png'  %}" alt="default cover image" />
+          <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64" src="{% static 'default/blog.png'  %}" alt="default cover image" />
           {% endif %}
           </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="flex items-center justify-between leading-none mx-3">
           <a href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center ml-2">
-              <img class="w-10 h-10 rounded p-1" src="{{ post.author.image.url }}" alt="{{ post.author }} image">
+              <img class="overflow-hidden w-10 h-10 rounded p-1" src="{{ post.author.image.url }}" alt="{{ post.author }} image">
               <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
                 <p>{{ post.author }}</p>
                 <p>{{ post.publish|date:"d M, Y" }}</p>

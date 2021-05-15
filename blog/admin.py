@@ -10,7 +10,14 @@ admin.site.index_title = "Home"
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('author', 'joined')
     date_hierarchy = 'joined'
-    ordering = ['joined']
+    readonly_fields = ["author",]
+
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ["author",]
+        else:
+            return []
 
 
     def get_queryset(self, request):
@@ -35,6 +42,17 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': (slugify('title'),)}
     date_hierarchy = 'publish'
     ordering = ['status', '-publish']
+    actions = ['delete_selected', 'draft_selected', 'publish_selected']
+
+    def publish_selected(self, request, queryset):
+        queryset.update(status='published')
+
+    publish_selected.short_description = "Publish the selected posts"
+
+    def draft_selected(self, request, queryset):
+        queryset.update(status='draft')
+
+    draft_selected.short_description = "Save them as drafts"
 
     
     def save_model(self, request, obj, form, change):

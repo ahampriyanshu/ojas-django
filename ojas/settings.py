@@ -132,8 +132,8 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_PASSWORD='****'
-EMAIL_HOST_USER='****@gmail.com'
+EMAIL_HOST_USER='contactahampriyanshu@gmail.com'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL='****@gmail.com'
+DEFAULT_FROM_EMAIL = 'ahampriyanshu <noreply@mydomain.com>'
 
 LOGO_URL = 'https://github.com/ahampriyanshu/ojas/raw/main/static/img/logo.png'

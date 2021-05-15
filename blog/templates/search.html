@@ -15,10 +15,10 @@ Search results for <span class="text-teal-500" >{{ query }}</span></p>
         <div class="">
         {% if post.image %}
           <img src="{{post.image.url}}" alt="uploaded cover image"
-            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none"> 
+            class="overflow-hidden object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none"> 
         {% else %}      
           <img src="{% static 'default/blog.png' %}" alt="default cover image"
-            class="object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none">        
+            class="overflow-hidden object-cover h-48 w-full md:h-full rounded-lg md:rounded-b-none">        
         {% endif %}
       </div>
       </a>
@@ -34,7 +34,7 @@ Search results for <span class="text-teal-500" >{{ query }}</span></p>
         <div class="flex items-center justify-between p-2 md:p-4 mx-2 md:mx-4">
           <a   href='{% url "blog:post_author" post.author %}'>
             <div class="flex items-center ml-2">
-              <img class="w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">
+              <img class="overflow-hidden w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">
               <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
                 <p>{{ post.author }}</p>
                 <p>{{ post.publish|date:"d M, Y" }}</p>

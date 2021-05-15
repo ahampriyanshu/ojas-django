@@ -14,9 +14,9 @@
         <div class="p-2 md:p-0">
           <a href="{{ post.get_absolute_url }}">
             {% if post.image %}
-            <img alt="Post Image" class="object-cover rounded-lg md:rounded-none h-48 w-full" src="{{post.image.url}}">
+            <img alt="Post Image" class="overflow-hidden object-cover rounded-lg md:rounded-none h-48 w-full" src="{{post.image.url}}">
             {% else %}
-            <img alt="Post Image" class="object-cover rounded-lg md:rounded-none h-48 w-full" src="{% static 'default/blog.png' %}">
+            <img alt="Post Image" class="overflow-hidden object-cover rounded-lg md:rounded-none h-48 w-full" src="{% static 'default/blog.png' %}">
             {% endif %}
           </a>
         </div>
@@ -32,7 +32,7 @@
           <div class="mb-5 flex items-center justify-between leading-none mx-3">
             <a href='{% url "blog:post_author" post.author %}'>
               <div class="flex items-center ml-2">
-                <img class="w-10 h-10 rounded p-1" src="{{ post.author.image.url }}" alt="autor image">
+                <img class="overflow-hidden w-10 h-10 rounded p-1" src="{{ post.author.image.url }}" alt="autor image">
                 <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
                   <p>{{ post.author }}</p>
                   <p>{{ post.publish|date:"d M, Y" }}</p>
