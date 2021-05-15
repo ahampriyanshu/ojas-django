@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% with me as you %}
 
 <div class="mt-24 mb-12 md:my-24 overflow-hidden flex items-center justify-center">
 <div class="w-full mx-4 md:w-1/2 md:mx-auto">
@@ -18,25 +17,24 @@
         </div>
       </div>
       <div class="pl-1 pt-1 h-auto md:m-2 text-white font-mono text-xs bg-black">
-        <p class="pb-1">Last login: {{ you.time }} UTC</p>
-        <p class="pb-1">You are using a {{ you.device }} ({{ you.device_name }})
-          {% if you.touch %}
+        <p class="pb-1">Last login: {{ me.time }} UTC</p>
+        <p class="pb-1">You are using a {{ me.device }} ({{ me.device_name }})
+          {% if me.touch %}
           which thankfully supports touch controls
           {% else %}
           which doesn't support touch controls
           {% endif %}
         </p>
-        {% if you.bot %}
+        {% if me.bot %}
         <p class="pb-1">You have been identified as a bot</p>
         {% else %}
         <p class="pb-1">You have been identified as a human</p>
         {% endif %}
-        <p class="pb-1">You are viewing this website on {{ you.browser }} {{ you.browser_version }} on {{ you.os }}</p>
-        <p class="pb-1">Your IP is {{ you.ip }}</p>
+        <p class="pb-1">You are viewing this website on {{ me.browser }} {{ me.browser_version }} on {{ me.os }}</p>
+        <p class="pb-1">Your IP is {{ me.ip }}</p>
       </div>
     </div> 
   </div>
 </div>
 
-{% endwith %}
 {% endblock content %}

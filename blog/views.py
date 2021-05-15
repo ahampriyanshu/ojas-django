@@ -19,7 +19,8 @@ from ojas import version
 from django.contrib import messages
 import logging, traceback
 from django.conf import settings
-from django.urls import reverse
+from django.core.exceptions import PermissionDenied
+from django.core.exceptions import BadRequest
 import requests
 import secrets
 import string
@@ -220,10 +221,7 @@ class ServiceWorkerView(TemplateView):
         return {
             'version': version,
             'icon_url': static('img/logo.png'),
-            'manifest_url': static('manifest.json'),
-            'style_url': static('css/tailwind.min.css'),
-            'home_url': reverse('blog:most_viewed'),
-            'offline_url': reverse('blog:offline'),
+            'manifest_url': static('manifest.json')
         }
 
 
@@ -255,15 +253,32 @@ def get_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
+def error_400(request, exception):
+    err = {
+        'code': 'Error 400',
+        'msg': exception,
+    }
+    return render(request, 'error.html', {'err': err})
 
 def error_404(request, exception):
     data = {}
     return render(request, 'error_404.html', data)
 
+def error_403(request, exception):
+    err = {
+        'code': 'Error 403',
+        'msg': 'Permission Denied',
+    }
+    return render(request, 'error.html', {'err': err})
 
 def error_500(request):
-    data = {}
-    return render(request, 'error_500.html', data)
+    err = {
+        'code': 'Error 500',
+        'msg': 'Server Error',
+    }
+    return render(request, 'error.html', {'err': err})
+
+
 
 
 def about_page(request):
@@ -388,3 +403,13 @@ def post_detail(request, year, month, day, post):
     similar_posts = similar_posts.annotate(same_tags=Count(
         'tags')).order_by('-same_tags', '-publish')[:4]
     return render(request, 'blog.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form, 'similar_posts': similar_posts})
+
+
+def preview(request, id):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    post = get_object_or_404(Post, pk=id)
+    if not post.author == request.user.author:
+        raise BadRequest('You must be the author of this post')
+    return render(request, 'preview.html', {'post': post})
+

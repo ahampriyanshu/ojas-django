@@ -73,7 +73,6 @@
         </script>
         {% endblock %}
         {% include 'navbar.html' %}
-        {% with admin as owner %}
         <div class="font-sans overflow-hidden antialiased text-gray-900 leading-normal tracking-wider bg-cover">
             <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
 
@@ -248,8 +247,7 @@
         </div>
     </div>
 </div>
-{% endwith %}
-    </div>
+</div>
 </body>
 <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/alpine.min.js' %}" defer></script>

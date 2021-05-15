@@ -64,11 +64,14 @@ python3 manage.py runserver
 * [x] Make all the important details dynamic (blog title,desc,author,keywords,contacts)
 * [ ] Migrate to Postgre
 * [ ] More robust ServiceWorker
-* [ ] Get rid of alpine JS
-* [ ] Provide a better API
-* [ ] Live preview of post in Admin panel
-* [ ] Additional options for author at user-end
-* [ ] Better support for images and code snippets
+* [ ] Get rid of alpine-js
+* [ ] Provide a better POST API
+* [x] Provide a better GET API
+* [x] Live preview of post in Admin panel
+* [x] Additional options for author at user-end
+* [ ] Improve support for images and code snippets
+* [ ] Better Admin Panel
+* [x] A method to export the db data to a csv/xls file.
 
 
 ## Attribution
@@ -77,6 +80,8 @@ python3 manage.py runserver
 * [https://www.dyspatch.io/resources/templates/](https://www.dyspatch.io/resources/templates/)
 * [http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.](http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.)
 * [https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/](https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/)
+* [https://books.agiliq.com/](https://books.agiliq.com/)
+* [http://twitter.com/khatabwedaa](http://twitter.com/khatabwedaa)
 * [https://www.youtube.com/watch?v=Y4c4ickks2A](https://www.youtube.com/watch?v=Y4c4ickks2A)
 * [https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/](https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/)
 * [https://stackoverflow.com/questions/61848207/sending-email-notification-in-django](https://stackoverflow.com/questions/61848207/sending-email-notification-in-django)

@@ -4,15 +4,16 @@ from django.conf.urls import url
 from blog.sitemaps import PostSitemap
 from django.contrib import admin
 from blog import views as blog
-from django.conf.urls import handler404, handler500
 from django.conf import settings
 from django.conf.urls.static import static
 from blog import views 
 import captcha
 
 
-handler404 = blog.error_404
-handler500 = blog.error_500
+handler404 = 'blog.views.error_404'
+handler500 = 'blog.views.error_500'
+handler403 = 'blog.views.error_403'
+handler400 = 'blog.views.error_400'
 
 
 sitemaps = {

@@ -41,7 +41,7 @@ class Admin(models.Model):
 class Author(models.Model):
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='author', blank=True, null=True, default='default/author.png')
+    image = models.ImageField(help_text = "image preview in admin panel might look either condensed or pixelated, ignore that",upload_to='author', blank=True, null=True, default='default/author.png')
     joined = models.DateTimeField(auto_now_add=True)
     bio = models.TextField(max_length=200, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
@@ -77,11 +77,11 @@ class Post(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=200)
     slug = models.SlugField(help_text = "don't edit this, if you don't know what you are doing",max_length=100, unique_for_date='publish')
     author = models.ForeignKey(Author, editable=False, on_delete=models.CASCADE)
-    body = RichTextField(max_length=2000, blank=True, null=True)
-    image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True, null=True)
+    body = RichTextField(max_length=10000, blank=True, null=True)
+    image = models.ImageField(help_text = "image preview in admin panel might look either condensed or pixelated, ignore that", upload_to='blog/%Y/%m/%d/', blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -98,7 +98,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
+    
     def get_absolute_url(self):
         return reverse('blog:post_detail', args=[self.publish.year, self.publish.strftime('%m'), self.publish.strftime('%d'), self.slug])
 
