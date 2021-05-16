@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
-{% with message as msg %}
-
 <div class="mt-24 md:my-24 overflow-hidden flex items-center justify-center">
 <div class="w-full mx-1 md:w-1/2 md:mx-auto">
     <div class="w-full shadow-2xl subpixel-antialiased rounded h-64 bg-black border-black mx-auto">
@@ -21,21 +18,20 @@
       <div class="pl-1 pt-1 h-auto md:m-2 text-white font-mono text-xs bg-black"> 
         <p class="pb-1">Hello user, </p>
 
-        {% if msg.status %}
-        <p class="pb-1">{{ msg.status }}</p>
+        {% if message.status %}
+        <p class="pb-1">{{ message.status }}</p>
         {% endif %}
 
-        {% if msg.msg %}
-        <p class="pb-1">{{ msg.msg }}</p>
+        {% if message.msg %}
+        <p class="pb-1">{{ message.msg }}</p>
         {% endif %}
 
-        {% if msg.instruction %}
-        <p class="pb-1">{{ msg.instruction }}</p>
+        {% if message.instruction %}
+        <p class="pb-1">{{ message.instruction }}</p>
         {% endif %}
         
       </div>
     </div> 
   </div>
 </div>
-{% endwith %}
 {% endblock content %}

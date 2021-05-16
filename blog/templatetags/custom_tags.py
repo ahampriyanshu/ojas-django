@@ -24,19 +24,25 @@ def read(html):
 @register.simple_tag
 def get_title():
     admin = Admin.objects.first()
-    return admin.title
+    if admin.title:
+        return admin.title
+    return "ahampriyanshu"
 
 
 @register.simple_tag
 def get_desc():
     admin = Admin.objects.first()
-    return admin.bio
+    if admin.desc:
+        return admin.desc
+    return "Language is humanity's most spectacular open-source project"
 
 
 @register.simple_tag
 def get_author():
     admin = Admin.objects.first()
-    return admin.full_name
+    if admin.owner:
+        return admin.owner
+    return "Priyanshu Tiwari"
 
 
 @register.filter

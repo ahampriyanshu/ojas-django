@@ -14,9 +14,9 @@ class PublishedManager(models.Manager):
 
 class Admin(models.Model):
     title = models.CharField(help_text = "title of the blog",max_length=15, blank=True, null=True)
-    full_name = models.CharField(help_text = "full name of owner",max_length=100, blank=True, null=True)
-    image = models.ImageField(upload_to='admin/', blank=True, null=True, default='default/admin.png')
-    bio = models.TextField(max_length=200, blank=True, null=True)
+    owner = models.CharField(help_text = "full name of owner",max_length=100, blank=True, null=True)
+    image = models.ImageField(help_text = "image preview in admin panel might look either condensed or pixelated, ignore that",upload_to='admin/', blank=True, null=True, default='default/admin.png')
+    desc = models.TextField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=100,  blank=True, null=True)
     number = models.PositiveIntegerField(help_text = "append 91 infront of your number eg 919917956610",blank=True, null=True)
     greeting = models.CharField(max_length=100,  blank=True, null=True, default='Hi%20there')
@@ -35,7 +35,7 @@ class Admin(models.Model):
     linkedin = models.URLField(help_text = "URL of the profile",blank=True, null=True)
 
     def __str__(self):
-        return self.full_name
+        return self.owner
 
 
 class Author(models.Model):
@@ -89,6 +89,7 @@ class Post(models.Model):
     objects = models.Manager()
     published = PublishedManager()
     tags = TaggableManager()
+    notified = models.BooleanField(default=False)
     video = EmbedVideoField(blank=True, null=True)
     views = models.PositiveIntegerField(editable=False, default=0)
     unique_visitor = models.PositiveIntegerField(editable=False, default=0)
@@ -105,7 +106,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE,editable=False)
-    name = models.CharField(max_length=80, default='Anonymys')
+    name = models.CharField(max_length=80)
     body = models.TextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -9,8 +9,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 MAX_OBJECTS = 1
 
-AdminSite.site_header = "OJAS Adminstration"
-AdminSite.site_title = "OJAS"
+AdminSite.site_header = "Admin Panel"
+AdminSite.site_title = "Admin Panel"
 AdminSite.index_title = "Home"
 
 class ExportToCsvMixin:
@@ -68,7 +68,7 @@ admin.site.register(Viewer, ViewerAdmin)
 
 
 class PostAdmin(admin.ModelAdmin, ExportToCsvMixin):
-    list_display = ('title', 'views', 'unique_visitor', 'author', 'publish', 'status')
+    list_display = ('title', 'views', 'unique_visitor', 'notified', 'author', 'publish', 'status')
     list_filter = ('status', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
     prepopulated_fields = {'slug': (slugify('title'),)}
@@ -148,10 +148,29 @@ class SubscriberAdmin(admin.ModelAdmin, ExportToCsvMixin):
 admin.site.register(Subscriber, SubscriberAdmin)
 
 class AdminAdmin(admin.ModelAdmin):
-    list_display = ('title','full_name',)
+    list_display = ('title','owner',)
+    readonly_fields = ["Image_Preview"]
+
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return ["Image_Preview"]
+        else:
+            return []
+
+
+    def Image_Preview(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
+            url = obj.image.url,
+            width=200,
+            height=200,
+            )
+    )
+
 
     def has_add_permission(self, request):
         if self.model.objects.count() >= MAX_OBJECTS:
             return False
         return super().has_add_permission(request)
+
 admin.site.register(Admin, AdminAdmin)
