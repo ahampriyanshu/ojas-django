@@ -78,13 +78,14 @@ python3 manage.py runserver
 
 * [https://www.packtpub.com/product/django-by-example/9781784391911](https://www.packtpub.com/product/django-by-example/9781784391911)
 * [https://www.dyspatch.io/resources/templates/](https://www.dyspatch.io/resources/templates/)
-* [http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.](http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.)
+* [https://docs.djangoproject.com/en/3.2/topics/logging/#default-logging-configuration](https://docs.djangoproject.com/en/3.2/topics/logging/#default-logging-configuration)
 * [https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/](https://www.jujens.eu/posts/en/2020/Feb/29/django-pwa/)
 * [https://books.agiliq.com/](https://books.agiliq.com/)
 * [http://twitter.com/khatabwedaa](http://twitter.com/khatabwedaa)
 * [https://www.youtube.com/watch?v=Y4c4ickks2A](https://www.youtube.com/watch?v=Y4c4ickks2A)
 * [https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/](https://pythoncircle.com/post/657/adding-email-subscription-feature-in-django-application/)
 * [https://stackoverflow.com/questions/61848207/sending-email-notification-in-django](https://stackoverflow.com/questions/61848207/sending-email-notification-in-django)
+* [http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python](http://www.expertphp.in/article/django-how-to-send-text-and-html-emails-with-dynamic-data-in-python#:~:text=Email%20Configuration%20in%20Django&text=You%20can%20also%20configure%20the,django-smtp-ssl%20package.&text=In%20order%20to%20use%20the,template.)
 
 ## Special thanks to
 

@@ -7,15 +7,20 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib import messages
 import logging, traceback
+logger = logging.getLogger(__name__)
 
 
 @receiver(signals.post_save, sender=Post)
 def send_mail(sender, instance, created, **kwargs):
+    """
+    Notify all the subscribers(readers) when a new post is published
+    """
     reader_notified = 0
     domain = settings.ALLOWED_HOSTS[0]
     readers = Subscriber.objects.filter(confirmed = True)
     total_readers = readers.count()
     if not instance.notified and instance.status.lower() == "published":
+        logger.debug("Notiying " + str(total_readers) +" readers for the article : " +instance.title)
         for subscriber in readers.iterator():
             token = subscriber.token
             email = subscriber.email
@@ -41,10 +46,10 @@ def send_mail(sender, instance, created, **kwargs):
                 instance.notified = True
                 instance.save()
                 reader_notified += 1
-                print("Newsletter send to" + email)
+                logger.info("Notified " + email + " successfully")
             except Exception as e:
-                print(e)
-    if reader_notified == total_readers:
-        print("All " + str(total_readers) + " readers notified successfully")
-    else:
-        print("All " + str(total_readers) + " readers couldn't be notified")
+                logger.error("Error ocuured while notiying" + email + " : " + e)
+        if reader_notified == total_readers:
+            logger.info("All " + str(total_readers) + " readers have been notified successfully")
+        else:
+            logger.warn("All " + str(total_readers) + " readers couldn't be notified")

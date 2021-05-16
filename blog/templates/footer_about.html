@@ -2,7 +2,7 @@
 {% for data in admin %}
 <h3 class="font-bold text-gray-900 dark:text-gray-100">{{ data.title }}<span style="color: #FF7F50;">.</span></h3>
 <p class="mt-2 mb-4 text-gray-600 dark:text-gray-400 text-sm">
-    {{ data.bio|safe|truncatewords_html:15 }}
+    {{ data.desc|safe }}
 </p>
 <div class="my-4">
   {% if data.email %}

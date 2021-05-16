@@ -25,8 +25,8 @@ import requests
 import secrets
 import string
 import re
+logger = logging.getLogger(__name__)
 
-logger = logging.getLogger('ojas.pwa.views')
 domain = settings.ALLOWED_HOSTS[0]
 logo_url = settings.LOGO_URL
 
@@ -407,9 +407,11 @@ def post_detail(request, year, month, day, post):
 
 def preview(request, id):
     if not request.user.is_staff:
+        logger.warn("Unauthenticated User tried to preview post with ID : " + str(id))
         raise PermissionDenied
     post = get_object_or_404(Post, pk=id)
     if not post.author == request.user.author:
+        logger.warn(str(request.user.author) + " tried to preview post with ID : " + str(id))
         raise BadRequest('You must be the author of this post')
     return render(request, 'preview.html', {'post': post})
 

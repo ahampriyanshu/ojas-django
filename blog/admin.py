@@ -7,11 +7,13 @@ from django.utils.safestring import mark_safe
 from django.urls import reverse
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-MAX_OBJECTS = 1
+from django.contrib.admin import AdminSite
 
+max_admin = 1
 AdminSite.site_header = "Admin Panel"
 AdminSite.site_title = "Admin Panel"
 AdminSite.index_title = "Home"
+
 
 class ExportToCsvMixin:
     def export_to_csv(self, request, queryset):
@@ -116,7 +118,7 @@ class PostAdmin(admin.ModelAdmin, ExportToCsvMixin):
 
 
     def view_on_site(self, obj):
-        return reverse('blog:preview', kwargs={'id': obj.pk})
+        return reverse('admin:preview', kwargs={'id': obj.pk})
 
 admin.site.register(Post, PostAdmin)
 
@@ -169,7 +171,7 @@ class AdminAdmin(admin.ModelAdmin):
 
 
     def has_add_permission(self, request):
-        if self.model.objects.count() >= MAX_OBJECTS:
+        if self.model.objects.count() >= max_admin:
             return False
         return super().has_add_permission(request)
 
