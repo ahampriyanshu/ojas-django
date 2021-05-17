@@ -62,7 +62,7 @@ def error_404(request, exception):
     Returns the custom Not Found Error view
     """
     data = {}
-    return render(request, 'error_404.html', data)
+    return render(request, '404.html', data)
 
 
 def error_403(request, exception):
@@ -342,7 +342,7 @@ def subscribe(request):
 
 class ServiceWorkerView(TemplateView):
     """
-    Enabling the service worker for the PWA
+    Enabling the service worker
     """
     template_name = 'sw.js'
     content_type = 'application/javascript'
@@ -409,7 +409,7 @@ def post_list(request, tag_slug=None):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'article.html', {'page': page, 'posts': posts, 'tag': tag})
+    return render(request, 'list.html', {'page': page, 'posts': posts, 'tag': tag})
 
 
 def post_author(request, post_author):

@@ -1,4 +1,4 @@
-const OFFLINE_VERSION = 1.1,
+const OFFLINE_VERSION = 2.0,
     CACHE_NAME = "offline",
     OFFLINE_URL = "/offline/";
 

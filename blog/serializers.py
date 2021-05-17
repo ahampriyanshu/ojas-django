@@ -6,6 +6,9 @@ import readtime
 
 
 class PostSerializer(serializers.Serializer):
+    """
+    Base class for API
+    """
     title = serializers.CharField()
     slug = serializers.CharField()
     publish = serializers.CharField()

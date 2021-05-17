@@ -70,7 +70,7 @@
                 </svg>
             </div>
         </div>
-        <div class="font-sans antialiased min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div class="font-sans antialiased min-h-screen bg-gray-50 dark:bg-gray-900 overflow-x-hidden">
             {% block sw_script %}
                 <script>
                     if ('serviceWorker' in navigator) {
@@ -105,7 +105,7 @@
                             </p>
                         </div>
                         {% if post.image %}
-                            <img class="overflow-hidden object-cover shadow-xl rounded-lg mt-10 h-auto w-full" alt="cover image" src="{{ post.image.url }}">
+                            <img class="overflow-hidden object-fill mx-auto shadow-xl w-auto rounded-lg mt-10 max-h-72 md:max-h-96" alt="cover image" src="{{ post.image.url }}">
                         {% endif %}
                         <div class="break-words text-gray-600 dark:text-gray-200 pt-6 pb-3">
                             <p style="font-family: Georgia, serif break-words">
@@ -435,7 +435,7 @@
                         <div class="flex items-center justify-between p-2 md:p-4 mx-2 md:mx-4">
                             <a href='{% url "blog:post_author" post.author %}'>
                                 <div class="flex items-center ml-2">
-                                    <img class="overflow-hidden w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="autor image">
+                                    <img class="overflow-hidden w-10 h-10 md:w-12 md:h-12 rounded " src="{{ post.author.image.url }}" alt="author image">
                                     <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
                                         <p>{{ post.author }}</p>
                                         <p>{{ post.publish|date:"d M, Y" }}</p>
@@ -444,7 +444,7 @@
                             </a>
                             <div class="text-sm md:text-base text-left text-gray-600 dark:text-gray-400 px-8 py-2">
                                 <p>
-                                    {{ post.body|safe|read }}
+                                    {{ post.body|markdown|read }}
                                 </p>
                             </div>
                         </div>

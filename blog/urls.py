@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from .feeds import LatestPostsFeed
+from .feeds import RssBlogFeed, AtomBlogFeed
 from .views import search, PostViewSet
 from rest_framework import routers
 
@@ -21,7 +21,8 @@ urlpatterns = [
     path('blog/<int:year>/<int:month>/<int:day>/<str:post>/',
          views.post_detail, name='post_detail'),
     path('preview/<int:id>/', views.preview, name="preview"),
-    path('feed/', LatestPostsFeed(), name='post_feed'),
+    path('feed/rss/', RssBlogFeed(), name='rss_feed'),
+    path('feed/atom/', AtomBlogFeed(), name='atom_feed'),
     path('about/', views.about_page, name='about'),
     path('author/<str:post_author>/', views.post_author, name="post_author"),
     path('search', search, name='search'),

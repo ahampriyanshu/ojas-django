@@ -9,9 +9,9 @@
                     <div class="md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
                         <div class="p-4 md:p-0">
                             {% if post.image %}
-                                <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image"/>
+                                <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64 max-h-64" src="{{ post.image.url }}" alt="uploaded cover image"/>
                             {% else %}
-                                <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64" src="{% static 'default/blog.png' %}" alt="default cover image"/>
+                                <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto w-full md:rounded-l md:h-64 max-h-64" src="{% static 'default/blog.png' %}" alt="default cover image"/>
                             {% endif %}
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             </a>
                             <div class="text-sm text-left text-gray-600 dark:text-gray-400 px-8 py-2">
                                 <p>
-                                    {{ post.body|safe|read }}
+                                    {{ post.body|markdown|read }}
                                 </p>
                             </div>
                         </div>

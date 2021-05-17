@@ -4,7 +4,7 @@ from .models import Post
 
 class PostSitemap(sitemaps.Sitemap):
     changefreq = 'weekly'
-    priority = 0.9
+    priority = 1.0
 
     def items(self):
         return Post.published.all()

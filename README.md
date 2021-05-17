@@ -12,7 +12,6 @@
 * [Tailwind](https://tailwindcss.com/docs/text-color)
 * [CKEditor](https://ckeditor.com/)
 * [AlpineJS](https://github.com/alpinejs/alpine)
-* [Jquery](https://jquery.com/)
 
 ## Setup
 
@@ -38,7 +37,7 @@ python3 manage.py runserver
     * Set ``DEBUG = False`` 
     * Update ``SECRET_KEY``, ``LOGO_URL``, ``ALLOWED_HOSTS``,
     * Update language and timezone setting : ``LANGUAGE_CODE``, ``TIME_ZONE``
-    * Update SMTP setting : ``EMAIL_HOST_PASSWORD``, ``EMAIL_HOST_USER``, ``DEFAULT_FROM_EMAIL``
+    * Update SMTP setting : ``EMAIL_HOST_PASSWORD``, ``SERVER_EMAIL``
 
 ## Roadmap
 
@@ -51,7 +50,7 @@ python3 manage.py runserver
 * [x] WYSIWYG Editor
 * [x] Sitemap
 * [x] SEO freindly URL
-* [x] RSS Feed 
+* [x] RSS and Atom Feed 
 * [x] Rest API
 * [x] Unique visitor and views counter (which doesn't rely on ctrl + r)
 * [x] Parsing User Agent
@@ -62,18 +61,16 @@ python3 manage.py runserver
 * [x] Dark Mode which respects both user's and os's preferences
 * [x] Better commenting system with captcha verification
 * [x] Make all the important details dynamic (blog title,desc,author,keywords,contacts)
-* [ ] Migrate to Postgre
-* [ ] More robust ServiceWorker
-* [ ] Get rid of alpine-js
-* [ ] Provide a better POST API
+* [x] Document and prettify the repo
 * [x] Provide a better GET API
 * [x] Live preview of post in Admin panel
 * [x] Additional options for author at user-end
-* [ ] Improve support for images and code snippets
-* [ ] Better Admin Panel
+* [x] Improve support for images and code snippets
 * [x] A method to export the db data to a csv/xls file.
-* [ ] Better logger
-* [ ] Improve sitemap, RSS feed and SEO
+* [x] Better logging system
+* [ ] Migrate to Postgre
+* [ ] More robust ServiceWorker
+* [ ] A better POST API
 
 ## Attribution
 
