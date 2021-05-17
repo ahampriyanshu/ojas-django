@@ -52,7 +52,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',  
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -101,14 +101,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-SITE_ID=1
+SITE_ID = 1
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 CKEDITOR_CONFIGS = {
-'default': {
-    'width': 'auto',
-          },
-    }
+    'default': {
+        'width': 'auto',
+    },
+}
 
 SERVER_EMAIL = 'contactahampriyanshu@gmail.com'
 EMAIL_USE_TLS = True
@@ -118,7 +118,7 @@ EMAIL_HOST_PASSWORD = '****'
 EMAIL_HOST_USER = SERVER_EMAIL
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-ADMINS = [('Priyanshu', 'ahampriyanshu@gmail.com'),]
+ADMINS = [('Priyanshu', 'ahampriyanshu@gmail.com'), ]
 
 LOGO_URL = 'https://github.com/ahampriyanshu/ojas/raw/main/static/img/logo.png'
 
@@ -168,12 +168,12 @@ LOGGING = {
         'blog.views': {
             'level': 'DEBUG',
             'handlers': ['console', 'blog'],
-             'propagate': False,
+            'propagate': False,
         },
         'django.security': {
             'level': 'CRITICAL',
-            'handlers': ['mail_admins',],
-             'propagate': False,
+            'handlers': ['mail_admins', ],
+            'propagate': False,
         },
     }
 }

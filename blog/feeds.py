@@ -6,10 +6,10 @@ from .models import Post
 class LatestPostsFeed(Feed):
     title = 'My blog'
     link = '/blog/'
-    description = 'New posts of my blog.'
+    description = 'New posts of my blog'
 
     def items(self):
-        return Post.published.all()[:20]
+        return Post.published.all()
 
     def item_title(self, item):
         return item.title

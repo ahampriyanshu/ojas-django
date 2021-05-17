@@ -17,7 +17,8 @@ from .forms import CommentForm
 from django.urls import reverse
 from ojas import version
 from django.contrib import messages
-import logging, traceback
+import logging
+import traceback
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.exceptions import BadRequest
@@ -30,14 +31,16 @@ logger = logging.getLogger(__name__)
 domain = settings.ALLOWED_HOSTS[0]
 logo_url = settings.LOGO_URL
 
+
 def offline(request):
     return render(request, 'offline.html')
+
 
 def send_subscription_mail(email, confirmation_url, request):
     ctx = {
         'confirmation_url': confirmation_url,
         'logo_url': logo_url,
-        'domain': domain,      
+        'domain': domain,
     }
     message = get_template('subscription.html').render(ctx)
     msg = EmailMessage(
@@ -55,12 +58,13 @@ def send_subscription_mail(email, confirmation_url, request):
         print(e)
         return False
 
+
 def send_confirmation_mail(email, unsubsrcibe_url, request):
-    
+
     ctx = {
-        'unsubsrcibe_url': unsubsrcibe_url, 
+        'unsubsrcibe_url': unsubsrcibe_url,
         'logo_url': logo_url,
-        'domain': domain,    
+        'domain': domain,
     }
     message = get_template('confirmation.html').render(ctx)
     msg = EmailMessage(
@@ -78,10 +82,11 @@ def send_confirmation_mail(email, unsubsrcibe_url, request):
         print(e)
         return False
 
+
 def send_unsubscribe_mail(email, request):
-    ctx = {  
-         'logo_url': logo_url,
-         'domain': domain,    
+    ctx = {
+        'logo_url': logo_url,
+        'domain': domain,
     }
     message = get_template('unsubscribe.html').render(ctx)
     msg = EmailMessage(
@@ -99,6 +104,7 @@ def send_unsubscribe_mail(email, request):
         print(e)
         return False
 
+
 def subscription_confirmation(request):
     message = dict()
     if "POST" == request.method:
@@ -111,12 +117,14 @@ def subscription_confirmation(request):
     if token:
         try:
             subscribe_model_instance = Subscriber.objects.get(token=token)
-            new_token = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(128))
+            new_token = ''.join(secrets.choice(
+                string.ascii_uppercase + string.digits) for i in range(128))
             subscribe_model_instance.confirmed = True
             subscribe_model_instance.token = str(new_token)
             email = subscribe_model_instance.email
-            unsubsrcibe_url = request.build_absolute_uri(reverse('blog:unsubscribe')) + "?token=" + new_token + "&email=" + email
-            send_confirmation_mail(email, unsubsrcibe_url, request )
+            unsubsrcibe_url = request.build_absolute_uri(
+                reverse('blog:unsubscribe')) + "?token=" + new_token + "&email=" + email
+            send_confirmation_mail(email, unsubsrcibe_url, request)
             subscribe_model_instance.save()
             messages.success(request, "Subscription Confirmed. Thank you.")
             message['status'] = 'Yeah! Subscription Confirmed'
@@ -145,19 +153,21 @@ def unsubscribe(request):
         message['status'] = 'Invalid request'
         message['instruction'] = 'Please send appropriate request'
         return render(request, 'status.html', {'message': message})
-        
+
     token = request.GET.get("token", None)
     email = request.GET.get("email", None)
 
     if token and email:
         try:
-            subscribe_model_instance = Subscriber.objects.get(token=token,email=email)
+            subscribe_model_instance = Subscriber.objects.get(
+                token=token, email=email)
             subscribe_model_instance.delete()
             send_unsubscribe_mail(email, request)
             message['status'] = 'Unsubscribed successfully'
             message['msg'] = 'Sorry to see you go :('
             message['instruction'] = 'Bye'
-            messages.success(request, "Unsubscribed successfully. Sorry to see you go.")
+            messages.success(
+                request, "Unsubscribed successfully. Sorry to see you go.")
         except Subscriber.DoesNotExist as e:
             message['status'] = 'Unknown error occured'
             message['msg'] = 'Check your internet connection'
@@ -172,18 +182,21 @@ def unsubscribe(request):
         message['instruction'] = 'Please try reopening the link'
     return render(request, 'status.html', {'message': message})
 
+
 def subscribe(request):
     message = dict()
     post_data = request.POST.copy()
     email = post_data.get("email", None)
-    token = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(128))
+    token = ''.join(secrets.choice(string.ascii_uppercase +
+                    string.digits) for i in range(128))
     try:
         subscribe_model_instance = Subscriber.objects.get(email=email)
         message['status'] = 'Email entered already exist'
         message['msg'] = 'Search your inbox for confirmation mail'
         message['instruction'] = 'You may also contact the admin'
     except Subscriber.DoesNotExist:
-        confirmation_url = request.build_absolute_uri(reverse('blog:subscription_confirmation')) + "?token=" + token
+        confirmation_url = request.build_absolute_uri(
+            reverse('blog:subscription_confirmation')) + "?token=" + token
         status = send_subscription_mail(email, confirmation_url, request)
         if status:
             subscribe_model_instance = Subscriber()
@@ -194,8 +207,8 @@ def subscribe(request):
             message['msg'] = 'Please confirm your subscription'
             message['instruction'] = 'Check your spam folder as well'
             msg = "Mail sent to '" + email + "'. Please confirm your subscription by clicking on " \
-                                                    "confirmation link provided in email. " \
-                                                    "Please check your spam folder as well."
+                "confirmation link provided in email. " \
+                "Please check your spam folder as well."
             messages.success(request, msg)
         else:
             msg = "Error while sending confirmation mail"
@@ -203,7 +216,7 @@ def subscribe(request):
             message['status'] = "Error occured while sending confirmation mail"
             message['msg'] = 'Please check your input for typo'
             message['instruction'] = 'And then try again'
-    except Exception as e: 
+    except Exception as e:
         messages.error(request, e)
         message['status'] = 'Some unknown error occured'
         message['msg'] = ' Please try after some time'
@@ -253,6 +266,7 @@ def get_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
+
 def error_400(request, exception):
     err = {
         'code': 'Error 400',
@@ -260,9 +274,11 @@ def error_400(request, exception):
     }
     return render(request, 'error.html', {'err': err})
 
+
 def error_404(request, exception):
     data = {}
     return render(request, 'error_404.html', data)
+
 
 def error_403(request, exception):
     err = {
@@ -270,6 +286,7 @@ def error_403(request, exception):
         'msg': 'Permission Denied',
     }
     return render(request, 'error.html', {'err': err})
+
 
 def error_500(request):
     err = {
@@ -279,11 +296,10 @@ def error_500(request):
     return render(request, 'error.html', {'err': err})
 
 
-
-
 def about_page(request):
     data = {}
     return render(request, 'about.html', data)
+
 
 def contact_page(request):
     admin = Admin.objects.first()
@@ -291,7 +307,7 @@ def contact_page(request):
 
 
 def me(request):
-    
+
     if request.user_agent.is_mobile:
         device = 'mobile'
     if request.user_agent.is_tablet:
@@ -308,7 +324,7 @@ def me(request):
         'ip': get_ip(request),
         'os': request.user_agent.os.family,
         'time': datetime.now(),
-        'device_name': request.user_agent.device.family ,
+        'device_name': request.user_agent.device.family,
     }
 
     return render(request, 'me.html', {'me': me})
@@ -407,11 +423,12 @@ def post_detail(request, year, month, day, post):
 
 def preview(request, id):
     if not request.user.is_staff:
-        logger.warn("Unauthenticated User tried to preview post with ID : " + str(id))
+        logger.warn(
+            "Unauthenticated User tried to preview post with ID : " + str(id))
         raise PermissionDenied
     post = get_object_or_404(Post, pk=id)
     if not post.author == request.user.author:
-        logger.warn(str(request.user.author) + " tried to preview post with ID : " + str(id))
+        logger.warn(str(request.user.author) +
+                    " tried to preview post with ID : " + str(id))
         raise BadRequest('You must be the author of this post')
     return render(request, 'preview.html', {'post': post})
-

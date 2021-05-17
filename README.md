@@ -72,7 +72,8 @@ python3 manage.py runserver
 * [ ] Improve support for images and code snippets
 * [ ] Better Admin Panel
 * [x] A method to export the db data to a csv/xls file.
-* [ ] Build a more powerfull logger
+* [ ] Better logger
+* [ ] Improve sitemap, RSS feed and SEO
 
 ## Attribution
 

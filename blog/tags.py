@@ -6,6 +6,7 @@ from .models import Post
 
 register = template.Library()
 
+
 @register.simple_tag
 def total_posts(author):
     return Post.author.published.count()

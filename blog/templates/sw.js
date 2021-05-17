@@ -1,6 +1,6 @@
-const OFFLINE_VERSION = 2,
-CACHE_NAME = "offline",
-OFFLINE_URL = "/offline/";
+const OFFLINE_VERSION = 1.1,
+    CACHE_NAME = "offline",
+    OFFLINE_URL = "/offline/";
 
 self.addEventListener("install", e => {
     e.waitUntil((async () => {
