@@ -1,13 +1,10 @@
 from django.dispatch import receiver
 from django.db.models import signals
 from .models import Post, Subscriber
-from django.template import Context
-from django.template.loader import render_to_string, get_template
+from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.conf import settings
-from django.contrib import messages
 import logging
-import traceback
 logger = logging.getLogger(__name__)
 
 

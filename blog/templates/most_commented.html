@@ -1,55 +1,56 @@
 {% load static %}
 {% load custom_tags %}
 <div class="container w-full md:mt-4 mx-auto py-4 md:px-12">
-  <p class="font-sans font-bold text-3xl mb-5 leading-none text-center text-gray-700 dark:text-gray-200">Most Discussed</p>
-  <div class="max-w-full flex flex-wrap justify-center">
-
-    {% for post in commented_posts %}
-
-    <div class="w-full md:w-1/2 md:my-4 lg:px-4 md:flex mb-8">
-      <a href='{{ post.get_absolute_url }}'>
-        <div class="md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
-          <div class="p-4 md:p-0">
-          {% if post.image %}
-          <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image" />
-          {% else %}
-          <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{% static 'default/blog.png'  %}" alt="default cover image" />
-          {% endif %}
-          </div>
+    <p class="font-sans font-bold text-3xl mb-5 leading-none text-center text-gray-700 dark:text-gray-200">Most Discussed</p>
+    <div class="max-w-full flex flex-wrap justify-center">
+        {% for post in commented_posts %}
+            <div class="w-full md:w-1/2 md:my-4 lg:px-4 md:flex mb-8">
+                <a href='{{ post.get_absolute_url }}'>
+                    <div class="md:h-64 h-auto md:w-48 flex-none rounded-t md:rounded-t-none md:rounded-l text-center">
+                        <div class="p-4 md:p-0">
+                            {% if post.image %}
+                                <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{{ post.image.url }}" alt="uploaded cover image"/>
+                            {% else %}
+                                <img class="overflow-hidden rounded md:rounded-none md:border md:border-r-0 md:dark:border-gray-600 h-auto md:rounded-l md:h-64" src="{% static 'default/blog.png' %}" alt="default cover image"/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                <div class="overflow-hidden md:border md:border-l-0 md:dark:border-gray-600 rounded-r h-auto md:h-64 md:w-full p-2 flex flex-col
+                                                        justify-between leading-normal bg-gray-50 md:bg-white dark:bg-gray-900 md:dark:bg-gray-800">
+                    <div class="overflow-hidden mb-4 h-auto md:h-48 px-4 md:px-0">
+                        <a href="{{ post.get_absolute_url }}">
+                            <div class="truncate text-black font-bold text-gray-600 dark:text-gray-200 text-xl mb-2">{{ post.title }}</div>
+                            <div class="hidden md:block break-words text-sm text-gray-600 dark:text-gray-400">
+                                <p>{{ post.body|markdown|truncatewords_html:50 }}
+                                </p>
+                            </div>
+                            <div class="block md:hidden break-words text-sm text-gray-600 dark:text-gray-400">
+                                <p>{{ post.body|markdown|truncatewords_html:40 }}
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex items-center justify-between leading-none mx-3">
+                        <a href='{% url "blog:post_author" post.author %}'>
+                            <div class="flex items-center ml-2">
+                                <img class="overflow-hidden w-10 h-10 rounded p-1" src="{{ post.author.image.url }}" alt="{{ post.author }} image">
+                                    <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
+                                        <p>{{ post.author }}</p>
+                                        <p>{{ post.publish|date:"d M, Y" }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="text-sm text-left text-gray-600 dark:text-gray-400 px-8 py-2">
+                                <p>
+                                    {{ post.body|safe|read }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <h2 class="text-sm my-10 text-gray-600 dark:text-gray-400 text-center">We may need some more articles</h2>
+            {% endfor %}
         </div>
-      </a>
-      <div class="overflow-hidden md:border md:border-l-0 md:dark:border-gray-600 rounded-r h-auto md:h-64 md:w-full p-2 flex flex-col 
-        justify-between leading-normal bg-gray-50 md:bg-white dark:bg-gray-900 md:dark:bg-gray-800">
-        <div class="overflow-hidden mb-4 h-auto md:h-48 px-4 md:px-0">
-          <a href="{{ post.get_absolute_url }}">
-          <div class="truncate text-black font-bold text-gray-600 dark:text-gray-200 text-xl mb-2">{{ post.title }}</div>
-          <div class="hidden md:block break-words text-sm text-gray-600 dark:text-gray-400">
-            <p>{{ post.body|markdown|truncatewords_html:50 }} </p>
-          </div>
-          <div class="block md:hidden break-words text-sm text-gray-600 dark:text-gray-400">
-            <p>{{ post.body|markdown|truncatewords_html:40 }} </p>
-          </div>
-        </a>
-        </div>
-        <div class="flex items-center justify-between leading-none mx-3">
-          <a href='{% url "blog:post_author" post.author %}'>
-            <div class="flex items-center ml-2">
-              <img class="overflow-hidden w-10 h-10 rounded p-1" src="{{ post.author.image.url }}" alt="{{ post.author }} image">
-              <div class="text-xs ml-2 text-left text-gray-600 dark:text-gray-400">
-                <p>{{ post.author }}</p>
-                <p>{{ post.publish|date:"d M, Y" }}</p>
-              </div>
-            </div>
-          </a> 
-          <div  class="text-sm text-left text-gray-600 dark:text-gray-400 px-8 py-2">
-            <p> {{ post.body|safe|read}} </p>
-        </div>
-        </div>
-      </div>
     </div>
-
-    {% empty %}
-    <h2 class="text-sm my-10 text-gray-600 dark:text-gray-400 text-center">We may need some more articles</h2>
-    {% endfor %}
-  </div>
-</div>

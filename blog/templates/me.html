@@ -1,40 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
-<div class="mt-24 mb-12 md:my-24 overflow-hidden flex items-center justify-center">
-<div class="w-full mx-4 md:w-1/2 md:mx-auto">
-    <div class="w-full shadow-2xl subpixel-antialiased rounded h-64 bg-black border-black mx-auto">
-      <div class="flex items-center h-6 rounded-t bg-gray-100 border-b border-gray-500 text-center text-black" id="headerTerminal">
-        <div class="flex ml-2 items-center text-center border-red-900 bg-red-500 shadow-inner rounded-full w-3 h-3" id="closebtn">
+    <div class="mt-24 mb-12 md:my-24 overflow-hidden flex items-center justify-center">
+        <div class="w-full mx-4 md:w-1/2 md:mx-auto">
+            <div class="w-full shadow-2xl subpixel-antialiased rounded h-64 bg-black border-black mx-auto">
+                <div class="flex items-center h-6 rounded-t bg-gray-100 border-b border-gray-500 text-center text-black" id="headerTerminal">
+                    <div class="flex ml-2 items-center text-center border-red-900 bg-red-500 shadow-inner rounded-full w-3 h-3" id="closebtn"></div>
+                    <div class="ml-2 border-yellow-900 bg-yellow-500 shadow-inner rounded-full w-3 h-3" id="minbtn"></div>
+                    <div class="ml-2 border-teal-900 bg-teal-500 shadow-inner rounded-full w-3 h-3" id="maxbtn"></div>
+                    <div class="mx-auto pr-16" id="terminaltitle">
+                        <p class="text-center text-sm">Terminal</p>
+                    </div>
+                </div>
+                <div class="pl-1 pt-1 h-auto md:m-2 text-white font-mono text-xs bg-black">
+                    <p class="pb-1">Last login:
+                        {{ me.time }}
+                        UTC</p>
+                    <p class="pb-1">You are using a
+                        {{ me.device }}
+                        ({{ me.device_name }})
+                        {% if me.touch %}
+                            which thankfully supports touch controls
+                        {% else %}
+                            which doesn't support touch controls
+                        {% endif %}
+                    </p>
+                    {% if me.bot %}
+                        <p class="pb-1">You have been identified as a bot</p>
+                    {% else %}
+                        <p class="pb-1">You have been identified as a human</p>
+                    {% endif %}
+                    <p class="pb-1">You are viewing this website on
+                        {{ me.browser }}
+                        {{ me.browser_version }}
+                        on
+                        {{ me.os }}</p>
+                    <p class="pb-1">Your IP is
+                        {{ me.ip }}</p>
+                </div>
+            </div>
         </div>
-        <div class="ml-2 border-yellow-900 bg-yellow-500 shadow-inner rounded-full w-3 h-3" id="minbtn">
-        </div>
-        <div class="ml-2 border-teal-900 bg-teal-500 shadow-inner rounded-full w-3 h-3" id="maxbtn">
-        </div>
-        <div class="mx-auto pr-16" id="terminaltitle">
-          <p class="text-center text-sm">Terminal</p>
-        </div>
-      </div>
-      <div class="pl-1 pt-1 h-auto md:m-2 text-white font-mono text-xs bg-black">
-        <p class="pb-1">Last login: {{ me.time }} UTC</p>
-        <p class="pb-1">You are using a {{ me.device }} ({{ me.device_name }})
-          {% if me.touch %}
-          which thankfully supports touch controls
-          {% else %}
-          which doesn't support touch controls
-          {% endif %}
-        </p>
-        {% if me.bot %}
-        <p class="pb-1">You have been identified as a bot</p>
-        {% else %}
-        <p class="pb-1">You have been identified as a human</p>
-        {% endif %}
-        <p class="pb-1">You are viewing this website on {{ me.browser }} {{ me.browser_version }} on {{ me.os }}</p>
-        <p class="pb-1">Your IP is {{ me.ip }}</p>
-      </div>
-    </div> 
-  </div>
-</div>
-
+    </div>
 {% endblock content %}

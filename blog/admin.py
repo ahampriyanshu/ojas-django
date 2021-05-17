@@ -112,7 +112,7 @@ class PostAdmin(admin.ModelAdmin, ExportToCsvMixin):
         return qs.filter(author=request.user.author)
 
     def view_on_site(self, obj):
-        return reverse('admin:preview', kwargs={'id': obj.pk})
+        return reverse('blog:preview', kwargs={'id': obj.pk})
 
 
 admin.site.register(Post, PostAdmin)

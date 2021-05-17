@@ -2,18 +2,24 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.contrib.auth import get_user_model
 from taggit.managers import TaggableManager
 from embed_video.fields import EmbedVideoField
 from ckeditor.fields import RichTextField
 
 
 class PublishedManager(models.Manager):
+    """
+    Manager class for published articles
+    """
+
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
 class Admin(models.Model):
+    """
+    Admin's Model
+    """
     title = models.CharField(
         help_text="title of the blog", max_length=15, blank=True, null=True)
     owner = models.CharField(
@@ -56,6 +62,9 @@ class Admin(models.Model):
 
 
 class Author(models.Model):
+    """
+    Author's Model
+    """
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
     image = models.ImageField(help_text="image preview in admin panel might look either condensed or pixelated, ignore that",
@@ -92,6 +101,9 @@ class Author(models.Model):
 
 
 class Viewer(models.Model):
+    """
+    Viewer's Model
+    """
     post = models.PositiveIntegerField(default=0)
     ip = models.CharField(max_length=16, default=None)
     session = models.CharField(max_length=50, default=None)
@@ -102,6 +114,9 @@ class Viewer(models.Model):
 
 
 class Post(models.Model):
+    """
+    Article's Model
+    """
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
@@ -138,6 +153,9 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Comment's Model
+    """
     post = models.ForeignKey(
         Post, related_name='comments', on_delete=models.CASCADE, editable=False)
     name = models.CharField(max_length=80)
@@ -154,6 +172,9 @@ class Comment(models.Model):
 
 
 class Subscriber(models.Model):
+    """
+    Subscriber's Model
+    """
     sub_id = models.AutoField(primary_key=True, null=False, blank=True)
     email = models.EmailField(null=False, blank=False,
                               max_length=200, unique=True)
