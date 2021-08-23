@@ -5,7 +5,7 @@
     <p class="mt-2 mb-4 text-gray-600 dark:text-gray-400 text-sm">
         {{ data.desc|safe }}
     </p>
-    <div class="my-4">
+    <div class="flex-row my-4">
         {% if data.email %}
             <a class=" h-8 w-8 rounded-full outline-none focus:outline-none" href='mailto:{{ data.email }}?subject = Greeting&body = Hi there' type="button">
                 <svg width="24" height="24" class="transition duration-700 ease-in-out fill-current cursor-pointer text-gray-700 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
